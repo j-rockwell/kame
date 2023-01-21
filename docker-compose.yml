@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  client:
+    container_name: client
+    build:
+      dockerfile: ./client/Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+  server:
+    container_name: server
+    build:
+      dockerfile: ./server/Dockerfile
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
