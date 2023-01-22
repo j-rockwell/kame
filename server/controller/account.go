@@ -11,6 +11,16 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 	}
 }
 
+// UpdateAccount will attempt to update an existing account in the
+// database provided with the credentials within the POST request.
+// If successful, an account update response will be returned in
+// an OK 200 response
+func (controller *DataController) UpdateAccount() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+	}
+}
+
 // GetEmailAvailability queries the database for a provided email and returns
 // a CONFLICT 409 response if there is an email in the database that matches or
 // an OK 200 if the email can be used to create a new account
