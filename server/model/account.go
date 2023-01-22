@@ -11,7 +11,15 @@ type Account struct {
 	LastName       string
 	EmailAddress   string
 	EmailConfirmed time.Time
+	Phone          string
 	Password       string
+	Permissions    []Permission
+	Preferences    AccountPreferences
+}
+
+type AccountPreferences struct {
+	EmailOptIn bool
+	TextOptIn  bool
 }
 
 type CreateAccount struct {
