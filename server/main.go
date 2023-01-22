@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"github.com/gin-contrib/cors"
@@ -21,4 +21,12 @@ func main() {
 
 	// apply routes
 	routing.ApplyHealthCheck(router)
+	routing.ApplyAccounts(router)
+	routing.ApplyAuth(router)
+	routing.ApplyRoles(router)
+
+	err := router.Run(":8080")
+	if err != nil {
+		panic("failed to start gin: " + err.Error())
+	}
 }
