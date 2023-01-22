@@ -22,9 +22,14 @@ type AccountPreferences struct {
 	TextOptIn  bool
 }
 
-type CreateAccount struct {
+type CreateAccountRequest struct {
 	FirstName    string
 	LastName     string
 	EmailAddress string
 	Password     string
+}
+
+type CreateAccountResponse struct {
+	ID          primitive.ObjectID
+	AccessToken string
 }
