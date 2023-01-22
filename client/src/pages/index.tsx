@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import {getStaticFooterContent} from "@/data/Footer";
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {HeroBanner} from "@/components/hero/HeroBanner";
-import {Footer} from "@/components/footer/Footer";
 
 export default function Home() {
   return (
@@ -17,7 +15,6 @@ export default function Home() {
       <main>
         <Navigator />
         <HeroBanner />
-        <Footer content={getStaticFooterContent()} />
       </main>
     </>
   )
