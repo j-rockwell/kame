@@ -1,4 +1,8 @@
 # GO IGNORE START
+# Server build artifacts
+/bin
+/server/bin
+
 # Binaries, plugins, libs
 *.dll
 *.dylib
