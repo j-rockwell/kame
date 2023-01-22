@@ -9,10 +9,10 @@ type Account struct {
 	ID             primitive.ObjectID
 	FirstName      string
 	LastName       string
-	EmailAddress   string
-	EmailConfirmed time.Time
 	Phone          string
 	Password       string
+	EmailAddress   string
+	EmailConfirmed time.Time
 	Permissions    []Permission
 	Preferences    AccountPreferences
 }
@@ -21,6 +21,8 @@ type AccountPreferences struct {
 	EmailOptIn bool
 	TextOptIn  bool
 }
+
+/// Request/Response types ///
 
 type CreateAccountRequest struct {
 	FirstName    string
