@@ -1,5 +1,8 @@
 import {FooterColumnContent} from "@/components/footer/Footer";
 
+/**
+ * Returns static footer content used for footer links
+ */
 export function getStaticFooterContent(): FooterColumnContent[] {
   return [
     {
