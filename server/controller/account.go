@@ -53,11 +53,13 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
+		pwd, err := auth.GetHash(params.Password)
+
 		account := model.Account{
 			EmailAddress: params.EmailAddress,
 			FirstName:    params.FirstName,
 			LastName:     params.LastName,
-			Password:     "",
+			Password:     pwd,
 		}
 
 		id, err := database.InsertDocument(mqp, account)
