@@ -4,8 +4,8 @@ services:
   client:
     container_name: client
     build:
-      dockerfile: ./client/Dockerfile
-      context: .
+      dockerfile: Dockerfile
+      context: ./client
     ports:
       - "3000:3000"
     depends_on:
@@ -13,13 +13,13 @@ services:
   server:
     container_name: server
     build:
-      dockerfile: ./server/Dockerfile
-      context: .
+      dockerfile: Dockerfile
+      context: ./server
     ports:
       - "8080:8080"
     depends_on:
       - mongodb
-  mongo:
+  mongodb:
     container_name: mongo
     image: mongo:latest
     ports:
