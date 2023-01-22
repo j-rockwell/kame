@@ -10,7 +10,7 @@ export const Navigator = ({}) => {
   }, [colorMode]);
 
   return (
-    <Center w={'100%'} bgColor={`background.${colorMode}`} py={4}>
+    <Center w={'100%'} bgColor={`background.${colorMode}`} pt={4} pb={3}>
       <Link
         href={'http://sushikame.com/'}
         position={'absolute'}
