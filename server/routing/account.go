@@ -5,6 +5,8 @@ import (
 	"server/controller"
 )
 
+// ApplyAccounts applies account endpoints to the
+// provided gin router
 func ApplyAccounts(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          nil,

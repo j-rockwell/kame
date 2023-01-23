@@ -5,6 +5,7 @@ import (
 	"server/controller"
 )
 
+// ApplyRoles apply role routes to the provided gin router
 func ApplyRoles(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          nil,
