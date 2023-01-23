@@ -35,6 +35,7 @@ type CreateAccountRequest struct {
 }
 
 type CreateAccountResponse struct {
-	ID          primitive.ObjectID `json:"id"`
-	AccessToken string             `json:"access_token"`
+	ID           primitive.ObjectID `json:"id"`
+	AccessToken  string             `json:"access_token"`
+	RefreshToken string             `json:"refresh_token"`
 }

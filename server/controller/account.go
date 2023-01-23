@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"server/auth"
 	"server/database"
@@ -88,9 +89,22 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
+		refreshToken, err := auth.GenerateToken(id, "test", 10) // TODO: Add pubkey from config file
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "unable to sign refresh token"})
+			return
+		}
+
+		// TODO: Set this to sushikame.com and/or booking.sushikame.com depending on release version
+		domain := "*.localhost"
+		ctx.SetSameSite(http.SameSiteStrictMode)
+		// TODO: Set max age from config file
+		ctx.SetCookie("refresh_token", refreshToken, 10, "/", domain, true, true)
+
 		res := model.CreateAccountResponse{
-			ID:          idHex,
-			AccessToken: accessToken,
+			ID:           idHex,
+			AccessToken:  accessToken,
+			RefreshToken: refreshToken,
 		}
 
 		ctx.JSON(http.StatusCreated, res)
@@ -111,7 +125,30 @@ func (controller *DataController) UpdateAccount() gin.HandlerFunc {
 // a CONFLICT 409 response if there is an email in the database that matches or
 // an OK 200 if the email can be used to create a new account
 func (controller *DataController) GetEmailAvailability() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
+	mqp := database.MongoQueryParams{
+		MongoClient:    controller.Mongo,
+		DatabaseName:   controller.DatabaseName,
+		CollectionName: controller.CollectionName,
+	}
 
+	return func(ctx *gin.Context) {
+		email := ctx.Param("email")
+		err := validate.Email(email)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		}
+
+		_, err = database.FindDocumentByKeyValue[string, model.Account](mqp, "email_address", email)
+		if err != nil {
+			if err == mongo.ErrNoDocuments {
+				ctx.Status(http.StatusOK)
+				return
+			}
+
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "failed to query account data and can not verify"})
+			return
+		}
+
+		ctx.Status(http.StatusConflict)
 	}
 }
