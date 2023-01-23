@@ -30,13 +30,13 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
-		err = validate.ValidateEmail(params.EmailAddress)
+		err = validate.Email(params.EmailAddress)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 			return
 		}
 
-		err = validate.ValidateName(params.FirstName)
+		err = validate.Name(params.FirstName)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error() + " (first name)"})
 			return

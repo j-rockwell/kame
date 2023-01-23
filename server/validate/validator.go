@@ -1,13 +1,16 @@
 package validate
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+)
 
-// ValidatePassword accepts a string and verifies the string is
+// Password accepts a string and verifies the string is
 // a valid password format
 //
 // If the provided string is invalid an error will be returned as
 // a response
-func ValidatePassword(password string) error {
+func Password(password string) error {
 	if len(password) < 8 {
 		return fmt.Errorf("password must be 8 characters or greater")
 	}
@@ -19,12 +22,14 @@ func ValidatePassword(password string) error {
 	return nil
 }
 
-// ValidateEmail accepts a string and verifies the string is
+// Email accepts a string and verifies the string is
 // a valid email format using regexp and string length comparisons
 //
 // If the provided string is invalid an error will be returned as
 // a response
-func ValidateEmail(email string) error {
+func Email(email string) error {
+	re := regexp.MustCompile(`!/(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))/`)
+
 	if len(email) <= 3 {
 		return fmt.Errorf("must be greater than 3 characters")
 	}
@@ -33,15 +38,19 @@ func ValidateEmail(email string) error {
 		return fmt.Errorf("must be 64 characters or less")
 	}
 
+	if !re.MatchString(email) {
+		return fmt.Errorf("invalid email format")
+	}
+
 	return nil
 }
 
-// ValidateName accepts a string and verifies the string is
+// Name accepts a string and verifies the string is
 // a valid name format using regexp and string length comparisons
 //
 // If the provided string is invalid an error will be returned as
 // a response
-func ValidateName(name string) error {
+func Name(name string) error {
 	if len(name) <= 0 {
 		return fmt.Errorf("must be at least 1 character")
 	}
