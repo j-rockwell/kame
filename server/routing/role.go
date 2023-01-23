@@ -6,9 +6,9 @@ import (
 )
 
 // ApplyRoles apply role routes to the provided gin router
-func ApplyRoles(router *gin.Engine) {
+func (r *RouteController) ApplyRoles(router *gin.Engine) {
 	ctrl := controller.DataController{
-		Mongo:          nil,
+		Mongo:          r.Mongo,
 		DatabaseName:   "prod",
 		CollectionName: "role",
 	}

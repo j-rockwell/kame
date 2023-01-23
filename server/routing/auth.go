@@ -7,9 +7,9 @@ import (
 
 // ApplyAuth applies auth endpoints to the provided
 // gin router
-func ApplyAuth(router *gin.Engine) {
+func (r *RouteController) ApplyAuth(router *gin.Engine) {
 	ctrl := controller.DataController{
-		Mongo:          nil,
+		Mongo:          r.Mongo,
 		DatabaseName:   "prod",
 		CollectionName: "account",
 	}

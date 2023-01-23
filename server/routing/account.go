@@ -7,9 +7,9 @@ import (
 
 // ApplyAccounts applies account endpoints to the
 // provided gin router
-func ApplyAccounts(router *gin.Engine) {
+func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 	ctrl := controller.DataController{
-		Mongo:          nil,
+		Mongo:          r.Mongo,
 		DatabaseName:   "prod",
 		CollectionName: "account",
 	}

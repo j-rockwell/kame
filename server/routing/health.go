@@ -7,9 +7,9 @@ import (
 
 // ApplyHealthCheck applies all health check routes to the
 // provided gin router.
-func ApplyHealthCheck(router *gin.Engine) {
+func (r *RouteController) ApplyHealthCheck(router *gin.Engine) {
 	ctrl := controller.DataController{
-		Mongo:          nil,
+		Mongo:          r.Mongo,
 		DatabaseName:   "",
 		CollectionName: "",
 	}
