@@ -8,6 +8,7 @@ import (
 	"server/database"
 	"server/model"
 	"server/validate"
+	"time"
 )
 
 // CreateAccount will attempt to create a new account with provided
@@ -54,12 +55,19 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 		}
 
 		pwd, err := auth.GetHash(params.Password)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "failed to generate hash"})
+			return
+		}
 
 		account := model.Account{
 			EmailAddress: params.EmailAddress,
 			FirstName:    params.FirstName,
 			LastName:     params.LastName,
 			Password:     pwd,
+			Phone:        params.Phone,
+			Preferences:  params.Preferences,
+			CreatedAt:    time.Now(),
 		}
 
 		id, err := database.InsertDocument(mqp, account)
@@ -74,7 +82,7 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
-		accessToken, err := auth.GenerateToken(id, "", 10)
+		accessToken, err := auth.GenerateToken(id, "test", 10) // TODO: Add pubkey from config file
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "unable to sign token"})
 			return

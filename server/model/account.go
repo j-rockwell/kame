@@ -6,15 +6,16 @@ import (
 )
 
 type Account struct {
-	ID             primitive.ObjectID `json:"id" bson:"_id"`
+	ID             primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	FirstName      string             `json:"first_name" bson:"first_name"`
 	LastName       string             `json:"last_name" bson:"last_name"`
 	Phone          string             `json:"phone" bson:"phone"`
 	Password       string             `json:"password" bson:"password"`
 	EmailAddress   string             `json:"email_address" bson:"email_address"`
 	EmailConfirmed time.Time          `json:"email_confirmed" bson:"email_confirmed"`
-	Permissions    []Permission       `json:"permissions" bson:"permissions"`
-	Preferences    AccountPreferences `json:"preferences" bson:"preferences"`
+	CreatedAt      time.Time          `json:"created_at" bson:"created_at"`
+	Permissions    []Permission       `json:"permissions,omitempty" bson:"permissions,omitempty"`
+	Preferences    AccountPreferences `json:"preferences,omitempty" bson:"preferences,omitempty"`
 }
 
 type AccountPreferences struct {
@@ -25,10 +26,12 @@ type AccountPreferences struct {
 /// Request/Response types ///
 
 type CreateAccountRequest struct {
-	FirstName    string `json:"first_name"`
-	LastName     string `json:"last_name"`
-	EmailAddress string `json:"email_address"`
-	Password     string `json:"password"`
+	FirstName    string             `json:"first_name"`
+	LastName     string             `json:"last_name"`
+	EmailAddress string             `json:"email_address"`
+	Phone        string             `json:"phone"`
+	Password     string             `json:"password"`
+	Preferences  AccountPreferences `json:"preferences,omitempty"`
 }
 
 type CreateAccountResponse struct {
