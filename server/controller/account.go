@@ -48,7 +48,7 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
-		err = validate.ValidatePassword(params.Password)
+		err = validate.Password(params.Password)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 			return
