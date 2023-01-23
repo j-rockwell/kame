@@ -42,7 +42,7 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
-		err = validate.ValidateName(params.LastName)
+		err = validate.Name(params.LastName)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error() + " (last name)"})
 			return
