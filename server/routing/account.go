@@ -16,7 +16,7 @@ func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 
 	public := router.Group("/account")
 	{
-		public.GET("/availability/email", ctrl.GetEmailAvailability())
+		public.GET("/availability/email/:email", ctrl.GetEmailAvailability())
 		public.POST("/", ctrl.CreateAccount())
 	}
 
