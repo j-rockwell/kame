@@ -11,7 +11,17 @@ Start all applications using <code>docker-compose up --build</code>
 If successful you will see the frontend running on <code>localhost:3000</code>, backend services on <code>localhost:8080</code> and mongo/redis on their default ports.  
 &nbsp;
 
-<h3>Project Contents</h3>
+<h3>Project Contents</h3>  
+<h4>.github/workflows</h4>
+When changes are pushed to the <code>main</code> branch, we run the following workflows:  
+<ul>
+  <li>CodeQL Analysis on both the Client and Server</li>
+  <li>Standard Go Build on the Server</li>
+  <li>Standard <code>npm run build</code> on the Client</li>
+  <li>Test Coverage for the Client</li>
+</ul>  
+These tests insure that we are not pushing a failing build to production servers. In the future, additional integration tests will be performed via Docker images.  
+  
 <h4>/client</h4>
 Next.js application that consumes data from the <code>/server</code>. Styling is powered by <a href="https://chakra-ui.com/">Chakra</a> and <a href="https://www.framer.com/motion/">Framer Motion</a>.  
   
