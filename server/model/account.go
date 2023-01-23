@@ -34,6 +34,16 @@ type CreateAccountRequest struct {
 	Preferences  AccountPreferences `json:"preferences,omitempty"`
 }
 
+type UpdateAccountRequest struct {
+	FirstName      string             `json:"first_name"`
+	LastName       string             `json:"last_name"`
+	EmailAddress   string             `json:"email_address"`
+	EmailConfirmed bool               `json:"email_confirmed"`
+	Phone          string             `json:"phone"`
+	Password       string             `json:"password"`
+	Preferences    AccountPreferences `json:"preferences"`
+}
+
 type CreateAccountResponse struct {
 	ID           primitive.ObjectID `json:"id"`
 	AccessToken  string             `json:"access_token"`
