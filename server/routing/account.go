@@ -3,6 +3,7 @@ package routing
 import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
+	"server/middleware"
 )
 
 // ApplyAccounts applies account endpoints to the
@@ -21,6 +22,7 @@ func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 	}
 
 	private := router.Group("/account")
+	private.Use(middleware.Authorize())
 	{
 		private.PUT("/", ctrl.UpdateAccount())
 	}

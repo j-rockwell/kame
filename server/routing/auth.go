@@ -3,6 +3,7 @@ package routing
 import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
+	"server/middleware"
 )
 
 // ApplyAuth applies auth endpoints to the provided
@@ -20,6 +21,7 @@ func (r *RouteController) ApplyAuth(router *gin.Engine) {
 	}
 
 	private := router.Group("/auth")
+	private.Use(middleware.Authorize())
 	{
 		private.POST("/refresh", ctrl.RefreshToken())
 		private.DELETE("/logout", ctrl.Invalidate())

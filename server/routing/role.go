@@ -3,6 +3,7 @@ package routing
 import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
+	"server/middleware"
 )
 
 // ApplyRoles apply role routes to the provided gin router
@@ -14,6 +15,7 @@ func (r *RouteController) ApplyRoles(router *gin.Engine) {
 	}
 
 	private := router.Group("/role")
+	private.Use(middleware.Authorize())
 	{
 		private.GET("/", ctrl.GetRoles())
 		private.GET("/:accountId", ctrl.GetRolesByAccount())
