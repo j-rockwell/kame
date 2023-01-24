@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+const ACCOUNT_COLL_NAME string = "account"
+
 type Account struct {
 	ID             primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	FirstName      string             `json:"first_name" bson:"first_name"`

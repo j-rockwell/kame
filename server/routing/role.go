@@ -4,14 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
 	"server/middleware"
+	"server/model"
 )
 
 // ApplyRoles apply role routes to the provided gin router
 func (r *RouteController) ApplyRoles(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          r.Mongo,
-		DatabaseName:   "prod",
-		CollectionName: "role",
+		DatabaseName:   r.DatabaseName,
+		CollectionName: model.ROLE_COLL_NAME,
 	}
 
 	private := router.Group("/role")

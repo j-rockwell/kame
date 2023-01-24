@@ -30,7 +30,8 @@ func main() {
 
 	// apply routes
 	routeController := routing.RouteController{
-		Mongo: mongoClient,
+		Mongo:        mongoClient,
+		DatabaseName: conf.Mongo.DatabaseName,
 	}
 
 	routeController.ApplyAccounts(router)

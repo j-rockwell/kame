@@ -5,6 +5,7 @@ origins = ["http://sushikame.com", "https://sushikame.com", "https://booking.sus
 
 [mongo]
 uri = "mongodb://mongodb:27017/?authSource=admin"
+database_name = "dev"
 
 [redis]
 address = "redis-cache:6379"

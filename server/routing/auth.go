@@ -11,8 +11,8 @@ import (
 func (r *RouteController) ApplyAuth(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          r.Mongo,
-		DatabaseName:   "prod",
-		CollectionName: "account",
+		DatabaseName:   r.DatabaseName,
+		CollectionName: "", // left nil since this route is coupled closely with accounts
 	}
 
 	public := router.Group("/auth")

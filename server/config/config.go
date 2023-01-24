@@ -32,7 +32,8 @@ type Redis struct {
 }
 
 type Mongo struct {
-	URI string `toml:"uri"`
+	URI          string `toml:"uri"`
+	DatabaseName string `toml:"database_name"`
 }
 
 // Prepare attempts to read a config file located in a www directory and falls back

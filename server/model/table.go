@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+const TABLE_COLL_NAME string = "tables"
+
 type Table struct {
 	ID          primitive.ObjectID `json:"id" bson:"_id"`
 	CreatedBy   primitive.ObjectID `json:"created_by" bson:"created_by"`

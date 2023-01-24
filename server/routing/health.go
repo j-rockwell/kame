@@ -10,8 +10,8 @@ import (
 func (r *RouteController) ApplyHealthCheck(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          r.Mongo,
-		DatabaseName:   "",
-		CollectionName: "",
+		DatabaseName:   r.DatabaseName,
+		CollectionName: "", // left nil, not needed here
 	}
 
 	router.GET("/status", ctrl.GetStatus())
