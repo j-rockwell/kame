@@ -26,6 +26,17 @@ services:
       - "27017:27017"
     volumes:
       - data:/data/db
+  redis:
+    container_name: redis-cache
+    image: redis:latest
+    restart: always
+    command: redis-server --save 20 1 --logLevel warning --requirepass dev
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-cache:/data
 
 volumes:
+  redis-cache:
+    driver: local
   data:
