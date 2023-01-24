@@ -1,0 +1,17 @@
+[gin]
+port = "8080"
+mode = "debug"
+origins = ["http://sushikame.com", "https://sushikame.com", "https://booking.sushikame.com"]
+
+[mongo]
+uri = "mongodb://mongodb:27017/?authSource=admin"
+
+[redis]
+address = "redis-cache:6379"
+password = "dev"
+
+[auth]
+access_token_pubkey = "devmode"
+access_token_ttl = 10
+refresh_token_pubkey = "devmode"
+refresh_token_ttl = 3600

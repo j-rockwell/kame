@@ -3,22 +3,25 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"server/config"
 	"server/database"
 	"server/routing"
+	"server/util"
 )
 
 func main() {
-	mongoClient, err := database.CreateMongoClient("mongodb://mongodb:27017/?authSource=admin")
+	util.PrintTerminalLogo()
+
+	conf := config.Prepare()
+	gin.SetMode(conf.Gin.Mode)
+
+	mongoClient, err := database.CreateMongoClient(conf.Mongo.URI)
 	if err != nil {
 		panic("failed to connect to mongo instance: " + err.Error())
 	}
 
 	corsConf := cors.DefaultConfig()
-	corsConf.AllowOrigins = []string{
-		"http://sushikame.com",
-		"https://sushikame.com",
-		"https://booking.sushikame.com",
-	}
+	corsConf.AllowOrigins = conf.Gin.Origins
 
 	router := gin.New()
 	router.Use(gin.Recovery())
@@ -35,7 +38,7 @@ func main() {
 	routeController.ApplyHealthCheck(router)
 	routeController.ApplyRoles(router)
 
-	err = router.Run(":8080")
+	err = router.Run(":" + conf.Gin.Port)
 	if err != nil {
 		panic("failed to start gin: " + err.Error())
 	}
