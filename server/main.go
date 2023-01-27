@@ -20,6 +20,11 @@ func main() {
 		panic("failed to connect to mongo instance: " + err.Error())
 	}
 
+	redisClient, err := database.CreateRedisClient(conf.Redis.Address, conf.Redis.Password, 1)
+	if err != nil {
+		panic("failed to connect to redis instance: " + err.Error())
+	}
+
 	corsConf := cors.DefaultConfig()
 	corsConf.AllowOrigins = conf.Gin.Origins
 
@@ -31,6 +36,7 @@ func main() {
 	// apply routes
 	routeController := routing.RouteController{
 		Mongo:        mongoClient,
+		Redis:        redisClient,
 		DatabaseName: conf.Mongo.DatabaseName,
 	}
 

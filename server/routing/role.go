@@ -11,6 +11,7 @@ import (
 func (r *RouteController) ApplyRoles(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          r.Mongo,
+		Redis:          r.Redis,
 		DatabaseName:   r.DatabaseName,
 		CollectionName: model.ROLE_COLL_NAME,
 	}

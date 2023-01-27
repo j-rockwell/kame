@@ -12,6 +12,7 @@ import (
 func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 	ctrl := controller.DataController{
 		Mongo:          r.Mongo,
+		Redis:          r.Redis,
 		DatabaseName:   r.DatabaseName,
 		CollectionName: model.ACCOUNT_COLL_NAME,
 	}

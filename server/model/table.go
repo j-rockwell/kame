@@ -8,7 +8,7 @@ import (
 const TABLE_COLL_NAME string = "tables"
 
 type Table struct {
-	ID          primitive.ObjectID `json:"id" bson:"_id"`
+	ID          primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	CreatedBy   primitive.ObjectID `json:"created_by" bson:"created_by"`
 	Attendee    primitive.ObjectID `json:"attendee" bson:"attendee"`
 	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
