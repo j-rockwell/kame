@@ -12,6 +12,8 @@ type DataController struct {
 	CollectionName string
 }
 
+// ErrorWrapper is a simple map decorator
+// for Gin error responses (see: GenerateErrorResponse)
 type ErrorWrapper map[string]any
 
 // GenerateErrorResponse will create a map with a string
