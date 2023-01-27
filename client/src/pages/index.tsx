@@ -3,8 +3,18 @@ import {Navigator} from "@/components/navigation/MainNavigation";
 import {HeroBanner} from "@/components/hero/HeroBanner";
 import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
 import {BookingContainer} from "@/components/booking-container/BookingContainer";
+import {useBooking} from "@/hooks/Booking";
 
 export default function Home() {
+  const {
+    groupSize,
+    group,
+    tableTime,
+    setGroupSize,
+    setGroup,
+    setTableTime
+  } = useBooking();
+
   return (
     <>
       <Head>
@@ -19,7 +29,10 @@ export default function Home() {
         <HeroBanner />
 
         <BookingContainer>
-          <GroupSizeSection />
+          <GroupSizeSection
+            size={groupSize}
+            setSize={setGroupSize}
+          />
         </BookingContainer>
       </main>
     </>

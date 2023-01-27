@@ -1,13 +1,17 @@
-import {Box, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
-import {AnimatePresence, motion} from "framer-motion";
-import {PHONE_NUMBER_RAW} from "@/util/Constants";
 import {useScreenWidth} from "@/hooks/Width";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo} from "react";
 import {GroupSizePicker} from "@/components/group-size-picker/GroupSizePicker";
 import {Step} from "@/components/step/Step";
+import {AnimatePresence, motion} from "framer-motion";
+import {PHONE_NUMBER_RAW} from "@/util/Constants";
+import {Box, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 
-export const GroupSizeSection = ({}) => {
-  const [size, setSize] = useState(1);
+interface IGroupSizeSectionProps {
+  size: number;
+  setSize: (v: number) => void;
+}
+
+export const GroupSizeSection = ({size, setSize}: IGroupSizeSectionProps) => {
   const width = useScreenWidth();
 
   const infoColor = useColorModeValue('info.light', 'info.dark');
@@ -37,7 +41,7 @@ export const GroupSizeSection = ({}) => {
       return;
     }
 
-    setSize(prevState => prevState + 1);
+    setSize(size + 1)
     console.debug('setSize (incr.)');
   }, [size, setSize]);
 
@@ -50,7 +54,7 @@ export const GroupSizeSection = ({}) => {
       return;
     }
 
-    setSize(prevState => prevState - 1);
+    setSize(size - 1);
     console.debug('setSize (decr.)');
   }, [size, setSize]);
 
