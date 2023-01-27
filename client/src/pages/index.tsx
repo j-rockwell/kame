@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {HeroBanner} from "@/components/hero/HeroBanner";
+import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
+import {BookingContainer} from "@/components/booking-container/BookingContainer";
 
 export default function Home() {
   return (
@@ -15,6 +17,10 @@ export default function Home() {
       <main>
         <Navigator />
         <HeroBanner />
+
+        <BookingContainer>
+          <GroupSizeSection />
+        </BookingContainer>
       </main>
     </>
   )
