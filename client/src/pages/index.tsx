@@ -4,6 +4,7 @@ import {HeroBanner} from "@/components/hero/HeroBanner";
 import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
 import {BookingContainer} from "@/components/booking-container/BookingContainer";
 import {useBooking} from "@/hooks/Booking";
+import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 
 export default function Home() {
   const {
@@ -33,6 +34,8 @@ export default function Home() {
             size={groupSize}
             setSize={setGroupSize}
           />
+
+          <TableDateSection time={tableTime} />
         </BookingContainer>
       </main>
     </>
