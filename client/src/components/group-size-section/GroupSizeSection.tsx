@@ -12,7 +12,7 @@ interface IGroupSizeSectionProps {
 }
 
 export const GroupSizeSection = ({size, setSize}: IGroupSizeSectionProps) => {
-  const width = useScreenWidth();
+  const WIDTH = useScreenWidth();
 
   const infoColor = useColorModeValue('info.light', 'info.dark');
   const warningColor = useColorModeValue('warning.light', 'warning.dark');
@@ -21,8 +21,8 @@ export const GroupSizeSection = ({size, setSize}: IGroupSizeSectionProps) => {
    * Returns true if this component is being viewed on a smaller screen
    */
   const isSmallDevice = useMemo(() => {
-    return width <= 768;
-  }, [width]);
+    return WIDTH <= 768;
+  }, [WIDTH]);
 
   /**
    * Returns true if the party size is considered 'large' and renders a warning
@@ -36,7 +36,7 @@ export const GroupSizeSection = ({size, setSize}: IGroupSizeSectionProps) => {
    * Handles incrementing the group size by 1
    */
   const onIncrement = useCallback(() => {
-    console.debug('onIncrement2');
+    console.debug('onIncrement');
     if (size >= 10) {
       return;
     }
