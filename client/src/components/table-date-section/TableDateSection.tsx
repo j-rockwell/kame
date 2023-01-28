@@ -31,7 +31,7 @@ export const TableDateSection = ({time}: ITableDateSection) => {
           center={isSmallDevice}
         />
 
-        <Calendar />
+        <Calendar time={time} />
       </Stack>
     </Box>
   );
