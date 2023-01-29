@@ -17,8 +17,8 @@ type MongoQueryParams struct {
 
 // CreateMongoClient takes a mongo connection uri as the only param
 // and attempts to establish a connection to the mongo database.
-func CreateMongoClient(uri string) (*mongo.Client, error) {
-	return mongo.Connect(context.Background(), options.Client().ApplyURI(uri))
+func CreateMongoClient(uri string, db string) (*mongo.Client, error) {
+	return mongo.Connect(context.Background(), options.Client().ApplyURI(uri+db+"?authSource=admin"))
 }
 
 // GetMongoContext gets boilerplate context/cancel impl
@@ -74,7 +74,7 @@ func FindDocumentByFilter[K any](
 	defer cancel()
 
 	var document K
-	err := collection.FindOne(ctx, filter).Decode(&document);
+	err := collection.FindOne(ctx, filter).Decode(&document)
 	return document, err
 }
 

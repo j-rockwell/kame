@@ -4,7 +4,7 @@ mode = "debug"
 origins = ["http://sushikame.com", "https://sushikame.com", "https://booking.sushikame.com"]
 
 [mongo]
-uri = "mongodb://mongodb:27017/?authSource=admin"
+uri = "mongodb://mongodb:27017/"
 database_name = "dev"
 
 [redis]

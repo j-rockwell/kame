@@ -15,7 +15,7 @@ func main() {
 	conf := config.Prepare()
 	gin.SetMode(conf.Gin.Mode)
 
-	mongoClient, err := database.CreateMongoClient(conf.Mongo.URI)
+	mongoClient, err := database.CreateMongoClient(conf.Mongo.URI, conf.Mongo.DatabaseName)
 	if err != nil {
 		panic("failed to connect to mongo instance: " + err.Error())
 	}
