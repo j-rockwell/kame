@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"net/http"
+	"server/config"
 	"strconv"
 )
 
@@ -24,6 +25,8 @@ func validate(encoded string, pubkey string) (*jwt.Token, error) {
 // attempt to authorize the token and attach an account ID to the request
 // context.
 func Authorize() gin.HandlerFunc {
+	conf := config.Prepare()
+
 	return func(ctx *gin.Context) {
 		const BearerSchema = "Bearer "
 
@@ -47,7 +50,7 @@ func Authorize() gin.HandlerFunc {
 			return
 		}
 
-		token, err := validate(tokenStr, "pubkey") // TODO: Add pubkey from config
+		token, err := validate(tokenStr, conf.Auth.AccessTokenPubkey)
 		if err != nil || !token.Valid {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "invalid token (validation)"})
 			return
