@@ -20,10 +20,11 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 	refreshTokenTTL := conf.Auth.RefreshTokenTTL
 	isReleaseVersion := conf.Gin.Mode == "release"
 
+	// account mqp only
 	mqp := database.MongoQueryParams{
 		MongoClient:    controller.Mongo,
 		DatabaseName:   controller.DatabaseName,
-		CollectionName: controller.CollectionName,
+		CollectionName: model.ACCOUNT_COLL_NAME,
 	}
 
 	rqp := database.RedisQueryParams{
