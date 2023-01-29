@@ -38,7 +38,7 @@ func Email(email string) error {
 		return fmt.Errorf("must be 64 characters or less")
 	}
 
-	if !re.MatchString(email) {
+	if re.MatchString(email) {
 		return fmt.Errorf("invalid email format")
 	}
 
