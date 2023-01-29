@@ -5,7 +5,7 @@ const theme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
       "html, body": {
-        background: mode('white', 'black')(props),
+        background: mode('white', '#0E0E10')(props),
       },
 
       "h1, h2, h3, h4, h5, h6, p": {
@@ -17,7 +17,7 @@ const theme = extendTheme({
   colors: {
     background: {
       light: 'white',
-      dark: 'black',
+      dark: '#0E0E10',
     },
     backgroundAccent: {
       light: '#F9F9F9',
@@ -30,6 +30,10 @@ const theme = extendTheme({
     text: {
       light: '#1a1a1a',
       dark: '#f2f2f2',
+    },
+    textMuted: {
+      light: '#AAAAAA',
+      dark: '#AAAAAA',
     },
     danger: {
       light: 'rgb(255, 59, 48)',

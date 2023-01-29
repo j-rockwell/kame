@@ -6,16 +6,8 @@ interface IBookingContainerProps {
 }
 
 export const BookingContainer = ({children}: IBookingContainerProps) => {
-  const bgColor = useColorModeValue('backgroundAccent.light', 'backgroundAccent.dark');
-
   return (
-    <Container
-      position={'relative'}
-      top={-8}
-      maxW={'container.xl'}
-      p={8}
-      borderRadius={12}
-      bgColor={bgColor}>
+    <Container maxW={'container.xl'} mt={'4rem'}>
       <VStack spacing={'8rem'}>
         {children}
       </VStack>
