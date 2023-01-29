@@ -7,9 +7,10 @@ import {Step} from "@/components/step/Step";
 
 interface ITableDateSection {
   time?: TableTime;
+  setTime: (t: TableTime) => void;
 }
 
-export const TableDateSection = ({time}: ITableDateSection) => {
+export const TableDateSection = ({time, setTime}: ITableDateSection) => {
   const WIDTH = useScreenWidth();
 
   /**
@@ -31,7 +32,7 @@ export const TableDateSection = ({time}: ITableDateSection) => {
           center={isSmallDevice}
         />
 
-        <Calendar time={time} />
+        <Calendar time={time} setTime={setTime} />
       </Stack>
     </Box>
   );

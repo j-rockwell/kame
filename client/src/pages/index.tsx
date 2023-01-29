@@ -35,7 +35,7 @@ export default function Home() {
             setSize={setGroupSize}
           />
 
-          <TableDateSection time={tableTime} />
+          <TableDateSection time={tableTime} setTime={setTableTime} />
         </BookingContainer>
       </main>
     </>

@@ -6,9 +6,13 @@ import {Box, SimpleGrid, Text} from "@chakra-ui/react";
 
 interface ICalendarProps {
   time?: TableTime;
+  setTime: (t: TableTime) => void;
 }
 
-export const Calendar = ({time}: ICalendarProps) => {
+export const Calendar = ({time, setTime}: ICalendarProps) => {
+  const [calendarData, setCalendarData] = useState<MonthEntry[]>([]);
+  const [selectedMonth, setSelectedMonth] = useState<number>(time?.month ?? new Date().getMonth())
+
   const WIDTH = useScreenWidth();
   const CURRENT_DATE = new Date();
   const START_MONTH: number = CURRENT_DATE.getMonth();
