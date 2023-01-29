@@ -40,18 +40,19 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 			return
 		}
 
-		account, err := database.FindDocumentByKeyValue[string, model.Account](mqp, "email", params.Email)
+		account, err := database.FindDocumentByKeyValue[string, model.Account](mqp, "email_address", params.Email)
 		if err != nil {
 			if err == mongo.ErrNoDocuments {
-				ctx.AbortWithStatus(http.StatusNotFound)
+				ctx.AbortWithStatusJSON(http.StatusNotFound, GenerateErrorResponse("account not found"))
 				return
 			}
 
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to query account"))
+			panic("failed to query account:\n" + err.Error())
 			return
 		}
 
-		if !auth.IsMatchedHash(params.Password, account.Password) {
+		if !auth.IsMatchedHash(account.Password, params.Password) {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, GenerateErrorResponse("password does not match"))
 			return
 		}
@@ -59,12 +60,14 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 		accessToken, err := auth.GenerateToken(account.ID.Hex(), accessTokenPubkey, int(accessTokenTTL))
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to generate access token"))
+			panic("failed to generate access token:\n" + err.Error())
 			return
 		}
 
 		refreshToken, err := auth.GenerateToken(account.ID.Hex(), refreshTokenPubkey, int(refreshTokenTTL))
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to generate refresh token"))
+			panic("failed to generate refresh token:\n" + err.Error())
 			return
 		}
 
@@ -76,6 +79,7 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 		_, err = database.SetCacheValue(rqp, refreshToken, account.ID.Hex(), int(refreshTokenTTL))
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to cache refresh token"))
+			panic("failed to cache refresh token:\n" + err.Error())
 			return
 		}
 
