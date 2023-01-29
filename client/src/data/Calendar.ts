@@ -1,3 +1,51 @@
+export function getCalendarData(
+  day: number,
+  month: number,
+  year: number,
+  amount: number
+): MonthEntry[] {
+  const date = new Date(year, month, day);
+  const months = getMonthsAsArray();
+
+  let currentMonthName = months[date.getMonth()];
+  let currentDays: number[] = [];
+  let result: MonthEntry[] = [];
+
+  for (let i = 0; i < amount; i++) {
+    date.setTime(date.getTime() + (86400*1000));
+
+    // we've rolled over to the next month
+    if (months[date.getMonth()] !== currentMonthName) {
+      result.push({
+        name: currentMonthName,
+        index: date.getMonth() - 1,
+        dates: currentDays,
+        year: date.getFullYear(),
+      });
+
+      currentDays = [];
+      currentDays.push(date.getDate());
+      currentMonthName = months[date.getMonth()];
+      continue;
+    }
+
+    currentDays.push(date.getDate());
+  }
+
+  // edge case catch-all for the last day
+  if (!result.find(v => v.name === currentMonthName)) {
+    result.push({
+      name: currentMonthName,
+      index: date.getMonth(),
+      dates: currentDays,
+      year: date.getFullYear(),
+    });
+  }
+
+  return result;
+}
+
+
 /**
  * Returns the week from the current day index (used for calendar day name display)
  * @param current Current dayIndex (from js Date obj)
@@ -74,6 +122,13 @@ export function getMonths(month: number, amount: number): string[] {
 export function getCurrentMonth(month: number): string {
   const months = getMonthsAsArray();
   return months[month];
+}
+
+export type MonthEntry = {
+  name: string;
+  index: number;
+  dates: number[];
+  year: number;
 }
 
 /**
