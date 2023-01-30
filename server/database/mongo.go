@@ -60,6 +60,10 @@ func FindDocumentByKeyValue[K any, V any](
 
 	var document V
 	err := collection.FindOne(ctx, bson.M{k: v}).Decode(&document)
+	if err != nil {
+		return nil, err
+	}
+
 	return document, err
 }
 
@@ -75,6 +79,10 @@ func FindDocumentByFilter[K any](
 
 	var document K
 	err := collection.FindOne(ctx, filter).Decode(&document)
+	if err != nil {
+		return nil, err
+	}
+
 	return document, err
 }
 
@@ -91,9 +99,8 @@ func FindManyDocumentsByKeyValue[K any, V any](
 
 	var documents []V
 	cursor, err := collection.Find(ctx, bson.M{k: v})
-
 	if err != nil {
-		return documents, err
+		return nil, err
 	}
 
 	err = cursor.All(ctx, &documents)
@@ -113,9 +120,8 @@ func FindManyDocumentsByFilterWithOpts[K any](
 
 	var documents []K
 	cursor, err := collection.Find(ctx, filter)
-
 	if err != nil {
-		return documents, err
+		return nil, err
 	}
 
 	err = cursor.All(ctx, &documents)
