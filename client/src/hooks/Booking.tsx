@@ -8,8 +8,12 @@ import {TableGroup, TableTime} from "@/models/Table";
 export function useBooking() {
   const DATE = new Date();
   const [groupSize, setGroupSize] = useState(1);
-  const [tableTime, setTableTime] = useState<TableTime>({month: DATE.getMonth(), day: DATE.getDate(), year: DATE.getFullYear()});
   const [group, setGroup] = useState<TableGroup | undefined>(undefined);
+  const [tableTime, setTableTime] = useState<TableTime>({
+    month: DATE.getMonth(),
+    day: DATE.getDate(),
+    year: DATE.getFullYear()
+  });
 
   return {
     groupSize,
