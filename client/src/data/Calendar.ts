@@ -1,3 +1,10 @@
+/**
+ * Collects and returns calendar data for the specified date and amount of days
+ * @param day Day of the month
+ * @param month Month of the year (monthIndex)
+ * @param year Full Year (from date js obj)
+ * @param amount Amount of days to collect
+ */
 export function getCalendarData(
   day: number,
   month: number,
@@ -51,6 +58,7 @@ export function getCalendarData(
  * @param current Current dayIndex (from js Date obj)
  */
 export function getDayNamesFromCurrentDay(current: number): Day[] {
+  console.debug(`getDayNamesFromCurrentDay(${current})`);
   const days = getDaysAsArray();
   let result: Day[] = [];
   let currentIndex = current;
@@ -115,15 +123,6 @@ export function getMonths(month: number, amount: number): string[] {
   return result;
 }
 
-/**
- * Returns the string value for the month number provided
- * @param month Month number (derived from date object)
- */
-export function getCurrentMonth(month: number): string {
-  const months = getMonthsAsArray();
-  return months[month];
-}
-
 export type MonthEntry = {
   name: string;
   index: number;
@@ -167,7 +166,7 @@ export function getDaysAsArray(): Day[] {
 }
 
 // not used externally (nor should we ever), used for iterative purposes
-enum Month {
+export enum Month {
   JANUARY = "january",
   FEBRUARY = "february",
   MARCH = "march",
@@ -183,7 +182,7 @@ enum Month {
 }
 
 // not used externally (nor should we ever), used for iterative purposes
-enum Day {
+export enum Day {
   SUNDAY = "sunday",
   MONDAY = "monday",
   TUESDAY = "tuesday",
