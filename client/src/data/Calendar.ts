@@ -23,12 +23,14 @@ export function getCalendarData(
 
     // we've rolled over to the next month
     if (months[date.getMonth()] !== currentMonthName) {
-      result.push({
-        name: currentMonthName,
-        index: date.getMonth() - 1,
-        dates: currentDays,
-        year: date.getFullYear(),
-      });
+      if (currentDays.length > 1) {
+        result.push({
+          name: currentMonthName,
+          index: date.getMonth() - 1,
+          dates: currentDays,
+          year: date.getFullYear(),
+        });
+      }
 
       currentDays = [];
       currentDays.push(date.getDate());
@@ -70,32 +72,6 @@ export function getDayNamesFromCurrentDay(current: number): Day[] {
 
     result.push(days[currentIndex]);
     currentIndex += 1;
-  }
-
-  return result;
-}
-
-/**
- * Returns n (amount) of days starting at the provided date values
- * @param day Day of the month (0-31)
- * @param month Month of the year (0-11)
- * @param year Full year (e.g 2023)
- * @param amount Amount of days to collect
- */
-export function getDays(
-  day: number,
-  month: number,
-  year: number,
-  amount: number
-): number[] {
-  let d = new Date(year, month, day);
-  let result: number[] = [];
-
-  result.push(d.getDate());
-
-  for (let i = 0; i < (amount - 1); i++) {
-    d.setDate(d.getDate() + 1);
-    result.push(d.getDate());
   }
 
   return result;
