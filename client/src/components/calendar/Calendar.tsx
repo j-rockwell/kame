@@ -5,7 +5,6 @@ import {TableTime} from "@/models/Table";
 import {Box, SimpleGrid, Text} from "@chakra-ui/react";
 
 interface ICalendarProps {
-  time?: TableTime;
   setTime: (t: TableTime) => void;
 }
 

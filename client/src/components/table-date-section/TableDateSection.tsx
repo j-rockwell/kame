@@ -1,16 +1,15 @@
 import {useMemo} from "react";
 import {useScreenWidth} from "@/hooks/Width";
-import {TableTime} from "@/models/Table";
 import {Calendar} from "@/components/calendar/Calendar";
-import {Box, Stack} from "@chakra-ui/react";
 import {Step} from "@/components/step/Step";
+import {TableTime} from "@/models/Table";
+import {Box, Stack} from "@chakra-ui/react";
 
 interface ITableDateSection {
-  time?: TableTime;
   setTime: (t: TableTime) => void;
 }
 
-export const TableDateSection = ({time, setTime}: ITableDateSection) => {
+export const TableDateSection = ({setTime}: ITableDateSection) => {
   const WIDTH = useScreenWidth();
 
   /**
@@ -32,7 +31,7 @@ export const TableDateSection = ({time, setTime}: ITableDateSection) => {
           center={isSmallDevice}
         />
 
-        <Calendar time={time} setTime={setTime} />
+        <Calendar setTime={setTime} />
       </Stack>
     </Box>
   );
