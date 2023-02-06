@@ -1,5 +1,5 @@
 import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
-import {HStack, IconButton, Square, Text, useColorModeValue} from "@chakra-ui/react";
+import {Center, HStack, IconButton, Square, Text, useColorModeValue} from "@chakra-ui/react";
 
 interface IGroupSizePickerProps {
   value: number;
@@ -12,10 +12,9 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
   const buttonPressedBgColor = useColorModeValue('backgroundAccent.light', 'backgroundAccent.dark');
   const bgHighlightColor = useColorModeValue('backgroundHighlight.light', 'backgroundHighlight.dark');
 
-  const BUTTON_SIZE = '4rem';
   const buttonStyling = {
-    w: BUTTON_SIZE,
-    h: BUTTON_SIZE,
+    w: '33%',
+    h: '4rem',
     p: 0,
     m: 0,
     bgColor: buttonBgColor,
@@ -28,7 +27,7 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
   }
 
   return (
-    <HStack spacing={0}>
+    <HStack spacing={0} w={'100%'}>
       <IconButton
         aria-label={'decrease group size'}
         borderLeftRadius={12}
@@ -38,9 +37,9 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
         {...buttonStyling}
       />
 
-      <Square size={BUTTON_SIZE} bgColor={bgHighlightColor}>
+      <Center width={'33%'} h={'4rem'} bgColor={bgHighlightColor}>
         <Text fontWeight={'semibold'} fontSize={'xl'}>{value}</Text>
-      </Square>
+      </Center>
 
       <IconButton
         aria-label={'increase group size'}
