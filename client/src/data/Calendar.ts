@@ -77,27 +77,6 @@ export function getDaysUntilStartOfWeek(current: number): number {
   return hops;
 }
 
-/**
- * Returns the week from the current day index (used for calendar day name display)
- * @param current Current dayIndex (from js Date obj)
- */
-export function getDayNamesFromCurrentDay(current: number): Day[] {
-  const days = getDaysAsArray();
-  let result: Day[] = [];
-  let currentIndex = current;
-
-  for (let i = 0; i < 7; i++) {
-    if (currentIndex > 6) {
-      currentIndex = 0;
-    }
-
-    result.push(days[currentIndex]);
-    currentIndex += 1;
-  }
-
-  return result;
-}
-
 export type MonthEntry = {
   name: string;
   index: number;
