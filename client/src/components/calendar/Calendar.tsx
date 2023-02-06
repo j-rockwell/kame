@@ -8,13 +8,14 @@ import {
   MonthEntry
 } from "@/data/Calendar";
 
-import {Box, Center, Select, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Center, Select, Square, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 
 interface ICalendarProps {
   setTime: (t: TableTime) => void;
 }
 
 export const Calendar = ({setTime}: ICalendarProps) => {
+  const SQUARE_SIZE = 16;
   const CURRENT_DATE = new Date();
   const START_MONTH: number = CURRENT_DATE.getMonth();
   const START_DAY: number = CURRENT_DATE.getDate();
@@ -132,7 +133,7 @@ export const Calendar = ({setTime}: ICalendarProps) => {
   }, [getData]);
 
   return (
-    <Box>
+    <Box w={'100%'}>
       <Center>
         <Select w={'14rem'} onChange={e => handleMonthChange(e.target.value)}>
           {calendarData.map(month => (
@@ -143,32 +144,34 @@ export const Calendar = ({setTime}: ICalendarProps) => {
 
       <SimpleGrid columns={7} spacing={2} mt={4}>
         {getDaysAsArray().map(name => (
-          <Box key={name} w={16} h={8}>
+          <Box key={name} w={SQUARE_SIZE}>
             <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
           </Box>
         ))}
       </SimpleGrid>
 
-      <SimpleGrid columns={7} spacing={2}>
+      <SimpleGrid columns={7} spacing={2} mt={2}>
         {Array.from({length: getWeekStartGap()}).map((e, i) => (
-          <Box key={i} w={16} h={8} bgColor={'red.500'} />
+          <Box key={i} w={SQUARE_SIZE} h={SQUARE_SIZE} />
         ))}
 
         {calendarData.map(month => month.dates.map(date => (
-          <Box
+          <Square
             key={date}
-            w={16}
-            h={8}
+            size={SQUARE_SIZE}
             onClick={() => handleTimeChange(date, month.index, month.year)}
             cursor={isSelectedMonth(month.index) ? 'pointer' : 'auto'}
-            bgColor={isSelectedDay(month.index, date) ? 'blue.500' : 'none'}>
+            bgColor={isSelectedDay(month.index, date) ? 'blue.500' : 'none'}
+            borderRadius={12}
+            borderWidth={2}
+            borderStyle={'dotted'}>
             <Text
               textAlign={'center'}
               color={isSelectedMonth(month.index) ? selectedTextColor : deselectedTextColor}
             >
               {date}
             </Text>
-          </Box>
+          </Square>
         )))}
       </SimpleGrid>
     </Box>
