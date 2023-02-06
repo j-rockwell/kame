@@ -54,13 +54,34 @@ export function getCalendarData(
   return result;
 }
 
+/**
+ * Returns the current number of days until Sunday
+ *
+ * Example: Tuesday = 5 (5 days from Tuesday to Sunday)
+ *
+ * @param current Current day of the week (monthIndex)
+ */
+export function getDaysUntilStartOfWeek(current: number): number {
+  if (current === 0) {
+    return current;
+  }
+
+  let index = current;
+  let hops = 0;
+
+  while (index !== 7) {
+    index += 1;
+    hops += 1;
+  }
+
+  return hops;
+}
 
 /**
  * Returns the week from the current day index (used for calendar day name display)
  * @param current Current dayIndex (from js Date obj)
  */
 export function getDayNamesFromCurrentDay(current: number): Day[] {
-  console.debug(`getDayNamesFromCurrentDay(${current})`);
   const days = getDaysAsArray();
   let result: Day[] = [];
   let currentIndex = current;
@@ -72,28 +93,6 @@ export function getDayNamesFromCurrentDay(current: number): Day[] {
 
     result.push(days[currentIndex]);
     currentIndex += 1;
-  }
-
-  return result;
-}
-
-/**
- * Returns n (amount) month names starting at the provided monthIndex
- * @param month monthIndex (from js Date obj)
- * @param amount Amount of months to collect
- */
-export function getMonths(month: number, amount: number): string[] {
-  const months = getMonthsAsArray();
-  let result: string[] = [];
-  let index = month;
-
-  for (let i = 0; i < amount; i++) {
-    if (index > 11) {
-      index = 0;
-    }
-
-    result.push(months[index]);
-    index += 1;
   }
 
   return result;

@@ -1,6 +1,13 @@
 import {useCallback, useEffect, useState} from "react";
-import {getCalendarData, getDayNamesFromCurrentDay, MonthEntry} from "@/data/Calendar";
 import {TableTime} from "@/models/Table";
+
+import {
+  getCalendarData,
+  getDaysAsArray,
+  getDaysUntilStartOfWeek,
+  MonthEntry
+} from "@/data/Calendar";
+
 import {Box, Center, Select, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 
 interface ICalendarProps {
@@ -47,6 +54,21 @@ export const Calendar = ({setTime}: ICalendarProps) => {
   const getFormattedMonthName = useCallback((month: string) => {
     return month.substring(0, 1).toUpperCase() + month.toLowerCase().substring(1);
   }, []);
+
+  /**
+   * Returns the first day of the first month
+   */
+  const getWeekStartGap = useCallback(() => {
+    if (!calendarData || calendarData.length === 0) {
+      return 0;
+    }
+
+    const first = calendarData[0].dates[0];
+    const result = getDaysUntilStartOfWeek(first);
+    console.debug(`dayIndex: ${first}`);
+    console.debug(`result: ${result}`);
+    return result;
+  }, [calendarData]);
 
   /**
    * Returns calendar data for the given time values
@@ -120,7 +142,7 @@ export const Calendar = ({setTime}: ICalendarProps) => {
       </Center>
 
       <SimpleGrid columns={7} spacing={2} mt={4}>
-        {getDayNamesFromCurrentDay(START_DAY).map(name => (
+        {getDaysAsArray().map(name => (
           <Box key={name} w={16} h={8}>
             <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
           </Box>
@@ -128,6 +150,10 @@ export const Calendar = ({setTime}: ICalendarProps) => {
       </SimpleGrid>
 
       <SimpleGrid columns={7} spacing={2}>
+        {Array.from({length: getWeekStartGap()}).map((e, i) => (
+          <Box key={i} w={16} h={8} bgColor={'red.500'} />
+        ))}
+
         {calendarData.map(month => month.dates.map(date => (
           <Box
             key={date}
