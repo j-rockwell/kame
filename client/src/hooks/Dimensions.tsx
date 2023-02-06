@@ -1,17 +1,21 @@
 import {useEffect, useState} from "react";
 
+export interface IScalable {
+  isSmallDevice: boolean;
+}
+
 /**
  * Hook that subscribes to window resize events and updates internal
- * state accordingly. Subscribing to this hook will trigger a re-render
- * when the screen size changes and values depending upon the width field
- * observe.
+ * state accordingly.
  */
-export function useScreenWidth() {
+export function useDimensions() {
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     function handleWindowResize() {
       setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
     }
 
     window.addEventListener('resize', handleWindowResize);
@@ -20,5 +24,5 @@ export function useScreenWidth() {
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
 
-  return width;
+  return {width, height};
 }
