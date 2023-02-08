@@ -22,7 +22,8 @@ export const ReservationSummary = ({groupSize, groupDate, groupTime, isSmallDevi
       w={'100%'}
       sx={{
         position: '-webkit-sticky',
-        position: 'sticky', /* Safari, will still compile */
+        // @ts-ignore - safari fix
+        position: 'sticky',
         top: '0'
       }}>
       <Image
