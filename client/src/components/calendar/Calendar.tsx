@@ -4,7 +4,7 @@ import {TableTime} from "@/models/Table";
 import {
   getCalendarData,
   getDaysAsArray,
-  getDaysUntilStartOfWeek,
+  getDaysUntilWeekStart,
   MonthEntry
 } from "@/data/Calendar";
 
@@ -64,11 +64,12 @@ export const Calendar = ({setTime}: ICalendarProps) => {
       return 0;
     }
 
-    const first = calendarData[0].dates[0];
-    const result = getDaysUntilStartOfWeek(first);
-    console.debug(`dayIndex: ${first}`);
-    console.debug(`result: ${result}`);
-    return result;
+    const month = calendarData[0];
+    if (!month || month.dates.length === 0) {
+      return 0;
+    }
+
+    return getDaysUntilWeekStart(month.dates[0], month.index, month.year);
   }, [calendarData]);
 
   /**

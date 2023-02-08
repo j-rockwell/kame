@@ -55,22 +55,21 @@ export function getCalendarData(
 }
 
 /**
- * Returns the current number of days until Sunday
+ * Returns amount of days from current date the following monday occurs
  *
- * Example: Tuesday = 5 (5 days from Tuesday to Sunday)
- *
- * @param current Current day of the week (monthIndex)
+ * @param day Day of the month
+ * @param month Month index (from js date obj)
+ * @param year Full year
  */
-export function getDaysUntilStartOfWeek(current: number): number {
-  if (current === 0) {
-    return current;
+export function getDaysUntilWeekStart(day: number, month: number, year: number): number {
+  const date = new Date(year, month, day);
+  if (date.getDay() === 0) {
+    return 0;
   }
 
-  let index = current;
-  let hops = 0;
-
-  while (index < 7) {
-    index += 1;
+  let hops = 1;
+  while (date.getDay() !== 0) {
+    date.setDate(date.getDate() + 1);
     hops += 1;
   }
 
