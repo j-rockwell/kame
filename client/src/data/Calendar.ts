@@ -69,7 +69,7 @@ export function getDaysUntilStartOfWeek(current: number): number {
   let index = current;
   let hops = 0;
 
-  while (index !== 7) {
+  while (index < 7) {
     index += 1;
     hops += 1;
   }
