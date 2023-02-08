@@ -2,7 +2,7 @@ import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import TextAlign = Property.TextAlign;
 import {Property} from "csstype";
-import {Box, Heading, Image, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Heading, Image, Text} from "@chakra-ui/react";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
