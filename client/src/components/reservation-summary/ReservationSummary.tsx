@@ -10,7 +10,12 @@ interface IReservationSummaryProps extends IScalable {
   groupTime?: TableGroup;
 }
 
-export const ReservationSummary = ({groupSize, groupDate, groupTime, isSmallDevice}: IReservationSummaryProps) => {
+export const ReservationSummary = ({
+  groupSize,
+  groupDate,
+  groupTime,
+  isSmallDevice
+}: IReservationSummaryProps) => {
   const IMAGE_HEIGHT_REM = 32;
 
   const textStyling = {
