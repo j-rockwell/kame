@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import {TableTime} from "@/models/Table";
+import {IScalable} from "@/hooks/Dimensions";
 
 import {
   getCalendarData,
@@ -10,20 +11,20 @@ import {
 
 import {Box, Center, Select, Square, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 
-interface ICalendarProps {
+interface ICalendarProps extends IScalable {
   setTime: (t: TableTime) => void;
 }
 
-export const Calendar = ({setTime}: ICalendarProps) => {
-  const SQUARE_SIZE = 16;
+export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
+  const SQUARE_SIZE = isSmallDevice ? 8 : 16;
   const CURRENT_DATE = new Date();
   const START_MONTH: number = CURRENT_DATE.getMonth();
   const START_DAY: number = CURRENT_DATE.getDate();
   const START_YEAR: number = CURRENT_DATE.getFullYear();
   const [calendarData, setCalendarData] = useState<MonthEntry[]>([]);
-  const [selectedDay, setSelectedDay] = useState<number>(START_DAY);
-  const [selectedMonth, setSelectedMonth] = useState<number>(START_MONTH);
-  const [selectedYear, setSelectedYear] = useState<number>(START_YEAR);
+  const [selectedDay, setSelectedDay] = useState(START_DAY);
+  const [selectedMonth, setSelectedMonth] = useState(START_MONTH);
+  const [selectedYear, setSelectedYear] = useState(START_YEAR);
 
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
   const deselectedTextColor = useColorModeValue('textMuted.light', 'textMuted.dark');
@@ -46,8 +47,8 @@ export const Calendar = ({setTime}: ICalendarProps) => {
    * Returns a formatted name for the provided day of the week
    */
   const getFormattedDayName = useCallback((day: string) => {
-    return day.substring(0, 1).toUpperCase() + day.toLowerCase().substring(1, 3);
-  }, []);
+    return day.substring(0, 1).toUpperCase() + day.toLowerCase().substring(1, isSmallDevice ? 1 : 3);
+  }, [isSmallDevice]);
 
   /**
    * Returns a formatted month name
@@ -143,7 +144,7 @@ export const Calendar = ({setTime}: ICalendarProps) => {
         </Select>
       </Center>
 
-      <SimpleGrid columns={7} spacing={2} mt={4}>
+      <SimpleGrid columns={7} spacingY={2} mt={4}>
         {getDaysAsArray().map(name => (
           <Box key={name} w={SQUARE_SIZE}>
             <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
@@ -151,7 +152,7 @@ export const Calendar = ({setTime}: ICalendarProps) => {
         ))}
       </SimpleGrid>
 
-      <SimpleGrid columns={7} spacing={2} mt={2}>
+      <SimpleGrid columns={7} spacingY={2} mt={2}>
         {Array.from({length: getWeekStartGap()}).map((e, i) => (
           <Box key={i} w={SQUARE_SIZE} h={SQUARE_SIZE} />
         ))}

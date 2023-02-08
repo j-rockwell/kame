@@ -4,9 +4,11 @@ import {BookingContainer} from "@/components/booking-container/BookingContainer"
 import {useBooking} from "@/hooks/Booking";
 import {BookingContainerHeading} from "@/components/booking-container-heading/BookingContainerHeading";
 import {useDimensions} from "@/hooks/Dimensions";
-import {useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
+import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
+import {ReserveButton} from "@/components/reserve-button/ReserveButton";
 import {MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {VStack} from "@chakra-ui/react";
 
@@ -26,6 +28,10 @@ export default function Home() {
     return width <= MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
+  const onSubmit = useCallback(() => {
+    console.debug(`groupSize: ${groupSize}, group: ${group}, tableTime: ${tableTime.day} ${tableTime.month} ${tableTime.year}`);
+  }, [group, groupSize, tableTime]);
+
   return (
     <>
       <Head>
@@ -37,7 +43,12 @@ export default function Home() {
 
       <main>
         <Navigator />
-        <BookingContainer isSmallDevice={isSmallDevice} screenHeight={height}>
+        <BookingContainer
+          isSmallDevice={isSmallDevice}
+          screenHeight={height}
+          groupSize={groupSize}
+          groupTime={group}
+          groupDate={tableTime}>
           <BookingContainerHeading isSmallDevice={isSmallDevice}>
             Get ready for your experience at Kame.
           </BookingContainerHeading>
@@ -50,6 +61,14 @@ export default function Home() {
             />
 
             <TableDateSection setTime={setTableTime} isSmallDevice={isSmallDevice} />
+            <GroupTimeSection group={group} setGroup={setGroup} isSmallDevice={isSmallDevice} />
+
+            <ReserveButton
+              onClick={onSubmit}
+              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}
+            >
+              Next
+            </ReserveButton>
           </VStack>
         </BookingContainer>
       </main>

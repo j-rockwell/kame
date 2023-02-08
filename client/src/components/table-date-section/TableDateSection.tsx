@@ -14,7 +14,7 @@ export const TableDateSection = ({setTime, isSmallDevice}: ITableDateSection) =>
         Date
       </Heading>
 
-      <Calendar setTime={setTime} />
+      <Calendar setTime={setTime} isSmallDevice={isSmallDevice} />
     </Box>
   );
 }

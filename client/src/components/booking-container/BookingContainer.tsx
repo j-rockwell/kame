@@ -1,22 +1,34 @@
 import {Box, Stack} from "@chakra-ui/react";
 import {ReactNode} from "react";
-import {HeroBanner} from "@/components/hero/HeroBanner";
+import {IScalable} from "@/hooks/Dimensions";
 import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
+import {TableGroup, TableTime} from "@/models/Table";
 
-interface IBookingContainerProps {
-  isSmallDevice: boolean;
+interface IBookingContainerProps extends IScalable {
   screenHeight: number;
+  groupSize?: number;
+  groupDate?: TableTime;
+  groupTime?: TableGroup;
   children: ReactNode | JSX.Element | ReactNode[] | JSX.Element[];
 }
 
-export const BookingContainer = ({isSmallDevice, screenHeight, children}: IBookingContainerProps) => {
+export const BookingContainer = ({
+  isSmallDevice,
+  screenHeight,
+  groupSize,
+  groupDate,
+  groupTime,
+  children
+}: IBookingContainerProps) => {
   return (
     <Stack direction={isSmallDevice ? 'column-reverse' : 'row'} spacing={0}>
-      <Box
-        w={isSmallDevice ? '100%' : '50%'}
-        minH={screenHeight}>
-        <HeroBanner />
-        <ReservationSummary />
+      <Box w={isSmallDevice ? '100%' : '50%'} minH={screenHeight}>
+        <ReservationSummary
+          groupSize={groupSize}
+          groupDate={groupDate}
+          groupTime={groupTime}
+          isSmallDevice={isSmallDevice}
+        />
       </Box>
 
       <Box
