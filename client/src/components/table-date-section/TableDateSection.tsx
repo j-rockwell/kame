@@ -1,38 +1,20 @@
-import {useMemo} from "react";
-import {useScreenWidth} from "@/hooks/Width";
 import {Calendar} from "@/components/calendar/Calendar";
-import {Step} from "@/components/step/Step";
+import {IScalable} from "@/hooks/Dimensions";
 import {TableTime} from "@/models/Table";
-import {Box, Stack} from "@chakra-ui/react";
+import {Box, Heading} from "@chakra-ui/react";
 
-interface ITableDateSection {
+interface ITableDateSection extends IScalable {
   setTime: (t: TableTime) => void;
 }
 
-export const TableDateSection = ({setTime}: ITableDateSection) => {
-  const WIDTH = useScreenWidth();
-
-  /**
-   * Returns true if this component is being viewed on a smaller screen
-   */
-  const isSmallDevice = useMemo(() => {
-    return WIDTH <= 768;
-  }, [WIDTH]);
-
+export const TableDateSection = ({setTime, isSmallDevice}: ITableDateSection) => {
   return (
     <Box w={'100%'}>
-      <Stack
-        spacing={isSmallDevice ? '2rem' : '4rem'}
-        direction={isSmallDevice ? 'column' : 'row'}
-        alignItems={isSmallDevice ? 'center' : 'left'}>
-        <Step
-          title={'Date'}
-          value={2}
-          center={isSmallDevice}
-        />
+      <Heading textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>
+        Date
+      </Heading>
 
-        <Calendar setTime={setTime} />
-      </Stack>
+      <Calendar setTime={setTime} />
     </Box>
   );
 }
