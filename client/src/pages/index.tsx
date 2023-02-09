@@ -9,8 +9,9 @@ import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
+import {AiOutlineDown} from "react-icons/all";
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
-import {VStack} from "@chakra-ui/react";
+import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
 
 export default function Home() {
   const {
@@ -22,6 +23,7 @@ export default function Home() {
     setTableTime
   } = useBooking();
 
+  const {colorMode} = useColorMode();
   const {width, height} = useDimensions();
 
   const isSmallDevice = useMemo(() => {
@@ -72,6 +74,15 @@ export default function Home() {
               disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next
             </ReserveButton>
+
+            {isSmallDevice && (
+              <Link href={'#summary'} fontWeight={'bold'} _hover={{textDecoration: 'none'}}>
+                <VStack>
+                  <Text>Reservation Summary</Text>
+                  <Icon as={AiOutlineDown} color={`text.${colorMode}`} />
+                </VStack>
+              </Link>
+            )}
           </VStack>
         </BookingContainer>
       </main>

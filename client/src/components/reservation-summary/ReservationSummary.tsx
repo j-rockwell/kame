@@ -24,6 +24,7 @@ export const ReservationSummary = ({
 
   return (
     <Box
+      id={'summary'}
       w={'100%'}
       sx={{
         position: '-webkit-sticky',
