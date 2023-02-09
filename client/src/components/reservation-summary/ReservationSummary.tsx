@@ -2,7 +2,7 @@ import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import TextAlign = Property.TextAlign;
 import {Property} from "csstype";
-import {Box, Heading, Image, Text} from "@chakra-ui/react";
+import {Box, Heading, Image, Text, useColorModeValue} from "@chakra-ui/react";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
@@ -17,7 +17,7 @@ export const ReservationSummary = ({
   isSmallDevice
 }: IReservationSummaryProps) => {
   const IMAGE_HEIGHT_REM = 32;
-
+  const textMuted = useColorModeValue('textMuted.light', 'textMuted.dark');
   const textStyling = {
     textAlign: (isSmallDevice ? 'center' : 'left') as TextAlign,
   }
@@ -57,19 +57,23 @@ export const ReservationSummary = ({
 
           {groupSize && (
             <Text {...textStyling}>
-              {groupSize} {groupSize > 1 ? 'guests' : 'guest'} will be attending
+              <b>{groupSize} {groupSize > 1 ? 'guests' : 'guest'}</b> will be attending
             </Text>
           )}
 
           {groupDate && (
-            <Text {...textStyling}>Reservation is on {groupDate.month + 1}/{groupDate.day}/{groupDate.year}</Text>
+            <Text {...textStyling}>
+              Reservation is on <b>{groupDate.month + 1}/{groupDate.day}/{groupDate.year}</b>
+            </Text>
           )}
 
           {groupTime && (
-            <Text {...textStyling}>Guests should arrive by {groupTime === 'A' ? '6:30pm (PST)' : '8:30pm (PST)'}</Text>
+            <Text {...textStyling}>
+              Guests should arrive by <b>{groupTime === 'A' ? '6:30pm (PST)' : '8:30pm (PST)'}</b>
+            </Text>
           )}
 
-          <Text fontSize={'1rem'} mt={'2rem'} {...textStyling}>
+          <Text fontSize={'1rem'} mt={'2rem'} color={textMuted} {...textStyling}>
             If you need to reschedule or cancel, please do so 72 hours before the reservation time to avoid any cancellation fees.
           </Text>
         </Box>
