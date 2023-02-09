@@ -59,7 +59,7 @@ export const ReservationSummary = ({
           )}
 
           {groupDate && (
-            <Text {...textStyling}>Reservation is on {groupDate.month}/{groupDate.day}/{groupDate.year}</Text>
+            <Text {...textStyling}>Reservation is on {groupDate.month + 1}/{groupDate.day}/{groupDate.year}</Text>
           )}
 
           {groupTime && (
