@@ -8,6 +8,8 @@ interface IReservationContextProviderProps {
 
 export function ReservationContextProvider({children}: IReservationContextProviderProps) {
   const DATE = new Date();
+  DATE.setDate(DATE.getDate() + 1); // roll date over one day so same-day reservations cant be made
+
   const [groupSize, setGroupSize] = useState(1);
   const [groupTime, setGroupTime] = useState<TableGroup | undefined>(undefined);
   const [groupDate, setGroupDate] = useState<TableTime>({
