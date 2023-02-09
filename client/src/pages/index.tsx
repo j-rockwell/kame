@@ -1,10 +1,10 @@
+import {useMemo} from "react";
 import Head from 'next/head'
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {BookingContainer} from "@/components/booking-container/BookingContainer";
-import {useBooking} from "@/hooks/Booking";
+import {useReservationContext} from "@/context/ReservationContext";
 import {BookingContainerHeading} from "@/components/booking-container-heading/BookingContainerHeading";
 import {useDimensions} from "@/hooks/Dimensions";
-import {useCallback, useMemo} from "react";
 import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
@@ -14,29 +14,30 @@ import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constant
 import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
 
 export default function Home() {
-  const {
-    groupSize,
-    group,
-    tableTime,
-    setGroupSize,
-    setGroup,
-    setTableTime
-  } = useBooking();
-
   const {colorMode} = useColorMode();
   const {width, height} = useDimensions();
+  const {
+    groupSize,
+    groupDate,
+    groupTime,
+    setGroupSize,
+    setGroupTime,
+    setGroupDate
+  } = useReservationContext();
 
+  /**
+   * Returns true if the current view width is considered 'mobile'
+   */
   const isSmallDevice = useMemo(() => {
     return width <= MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
+  /**
+   * Returns true if the current view is likely rendered on a tablet or vertical monitor
+   */
   const isMediumDevice = useMemo(() => {
     return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
-
-  const onSubmit = useCallback(() => {
-    console.debug(`groupSize: ${groupSize}, group: ${group}, tableTime: ${tableTime.day} ${tableTime.month} ${tableTime.year}`);
-  }, [group, groupSize, tableTime]);
 
   return (
     <>
@@ -53,8 +54,8 @@ export default function Home() {
           isSmallDevice={isSmallDevice}
           screenHeight={height}
           groupSize={groupSize}
-          groupTime={group}
-          groupDate={tableTime}>
+          groupTime={groupTime}
+          groupDate={groupDate}>
           <BookingContainerHeading isSmallDevice={isSmallDevice}>
             Get ready for your experience at Kame.
           </BookingContainerHeading>
@@ -66,12 +67,10 @@ export default function Home() {
               setSize={setGroupSize}
             />
 
-            <TableDateSection setTime={setTableTime} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
-            <GroupTimeSection group={group} setGroup={setGroup} isSmallDevice={isSmallDevice} />
+            <TableDateSection setTime={setGroupDate} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
+            <GroupTimeSection group={groupTime} setGroup={setGroupTime} isSmallDevice={isSmallDevice} />
 
-            <ReserveButton
-              onClick={onSubmit}
-              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
+            <ReserveButton disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next
             </ReserveButton>
 
