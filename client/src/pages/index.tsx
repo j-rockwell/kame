@@ -9,7 +9,7 @@ import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
-import {AiOutlineDown} from "react-icons/all";
+import {AiOutlineDown} from "react-icons/ai";
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
 
