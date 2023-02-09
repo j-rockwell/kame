@@ -7,14 +7,14 @@ interface ITableDateSection extends IScalable {
   setTime: (t: TableTime) => void;
 }
 
-export const TableDateSection = ({setTime, isSmallDevice}: ITableDateSection) => {
+export const TableDateSection = ({setTime, isMediumDevice, isSmallDevice}: ITableDateSection) => {
   return (
     <Box w={'100%'}>
       <Heading textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>
         Date
       </Heading>
 
-      <Calendar setTime={setTime} isSmallDevice={isSmallDevice} />
+      <Calendar setTime={setTime} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
     </Box>
   );
 }

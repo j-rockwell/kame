@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {TableTime} from "@/models/Table";
 import {IScalable} from "@/hooks/Dimensions";
 
@@ -9,14 +9,24 @@ import {
   MonthEntry
 } from "@/data/Calendar";
 
-import {Box, Center, Select, Square, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Select,
+  Square,
+  SimpleGrid,
+  Text,
+  useColorModeValue,
+  useDimensions
+} from "@chakra-ui/react";
 
 interface ICalendarProps extends IScalable {
   setTime: (t: TableTime) => void;
 }
 
-export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
-  const SQUARE_SIZE = isSmallDevice ? 8 : 16;
+export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProps) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const dimensions = useDimensions(ref, true);
   const CURRENT_DATE = new Date();
   const START_MONTH: number = CURRENT_DATE.getMonth();
   const START_DAY: number = CURRENT_DATE.getDate();
@@ -28,6 +38,19 @@ export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
 
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
   const deselectedTextColor = useColorModeValue('textMuted.light', 'textMuted.dark');
+
+  /**
+   * Calculates the size each calendar entry needs to be
+   */
+  const getSquareSize = useCallback(() => {
+    if (!dimensions) {
+      console.debug('returned fallback 4rem...');
+      return '4rem'; // fallback
+    }
+
+    const result = Math.floor(dimensions.borderBox.width / 7 - (2 * 7));
+    return result + 'px';
+  }, [dimensions]);
 
   /**
    * Returns true if the provided month number matches the selected month
@@ -47,8 +70,8 @@ export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
    * Returns a formatted name for the provided day of the week
    */
   const getFormattedDayName = useCallback((day: string) => {
-    return day.substring(0, 1).toUpperCase() + day.toLowerCase().substring(1, isSmallDevice ? 1 : 3);
-  }, [isSmallDevice]);
+    return day.substring(0, 1).toUpperCase() + day.toLowerCase().substring(1, (isMediumDevice || isSmallDevice) ? 1 : 3);
+  }, [isSmallDevice, isMediumDevice]);
 
   /**
    * Returns a formatted month name
@@ -132,10 +155,14 @@ export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
    */
   useEffect(() => {
     setCalendarData(getData());
+
+    if (ref.current) {
+
+    }
   }, [getData]);
 
   return (
-    <Box w={'100%'}>
+    <Box ref={ref} w={'100%'}>
       <Center>
         <Select w={'14rem'} onChange={e => handleMonthChange(e.target.value)}>
           {calendarData.map(month => (
@@ -146,7 +173,7 @@ export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
 
       <SimpleGrid columns={7} spacingY={2} mt={4}>
         {getDaysAsArray().map(name => (
-          <Box key={name} w={SQUARE_SIZE}>
+          <Box key={name} w={getSquareSize()}>
             <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
           </Box>
         ))}
@@ -154,13 +181,13 @@ export const Calendar = ({setTime, isSmallDevice}: ICalendarProps) => {
 
       <SimpleGrid columns={7} spacingY={2} mt={2}>
         {Array.from({length: getWeekStartGap()}).map((e, i) => (
-          <Box key={i} w={SQUARE_SIZE} h={SQUARE_SIZE} />
+          <Box key={i} w={getSquareSize()} h={getSquareSize()} />
         ))}
 
         {calendarData.map(month => month.dates.map(date => (
           <Square
             key={date}
-            size={SQUARE_SIZE}
+            size={getSquareSize()}
             onClick={() => handleTimeChange(date, month.index, month.year)}
             cursor={isSelectedMonth(month.index) ? 'pointer' : 'auto'}
             bgColor={isSelectedDay(month.index, date) ? 'blue.500' : 'none'}

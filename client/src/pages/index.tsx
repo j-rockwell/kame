@@ -9,7 +9,7 @@ import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
-import {MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {VStack} from "@chakra-ui/react";
 
 export default function Home() {
@@ -26,6 +26,10 @@ export default function Home() {
 
   const isSmallDevice = useMemo(() => {
     return width <= MOBILE_WIDTH_BREAKPOINT;
+  }, [width]);
+
+  const isMediumDevice = useMemo(() => {
+    return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
   const onSubmit = useCallback(() => {
@@ -60,13 +64,12 @@ export default function Home() {
               setSize={setGroupSize}
             />
 
-            <TableDateSection setTime={setTableTime} isSmallDevice={isSmallDevice} />
+            <TableDateSection setTime={setTableTime} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
             <GroupTimeSection group={group} setGroup={setGroup} isSmallDevice={isSmallDevice} />
 
             <ReserveButton
               onClick={onSubmit}
-              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}
-            >
+              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next
             </ReserveButton>
           </VStack>

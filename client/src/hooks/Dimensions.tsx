@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 
 export interface IScalable {
   isSmallDevice: boolean;
+  isMediumDevice?: boolean;
+  isLargeDevice?: boolean;
 }
 
 /**
