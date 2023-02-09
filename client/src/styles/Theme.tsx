@@ -6,6 +6,7 @@ const theme = extendTheme({
     global: (props: StyleFunctionProps) => ({
       "html, body": {
         background: mode('white', '#0E0E10')(props),
+        scrollBehavior: 'smooth',
       },
 
       "h1, h2, h3, h4, h5, h6, p": {
