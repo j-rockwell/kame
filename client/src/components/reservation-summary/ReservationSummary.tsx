@@ -55,7 +55,9 @@ export const ReservationSummary = ({
           </Heading>
 
           {groupSize && (
-            <Text {...textStyling}>{groupSize} guests will be attending</Text>
+            <Text {...textStyling}>
+              {groupSize} {groupSize > 1 ? 'guests' : 'guest'} will be attending
+            </Text>
           )}
 
           {groupDate && (
