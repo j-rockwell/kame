@@ -94,6 +94,22 @@ func FindManyDocumentsByKeyValue[K any, V any](
 	return documents, err
 }
 
+// FindManyDocumentsByFilter queries multiple documents matching the provided
+// filter with additional Mongo find options within the bounds of the Mongo Query Params
+func FindManyDocumentsByFilter[K any](
+	params MongoQueryParams,
+	filter interface{},
+) ([]K, error) {
+	ctx, cancel := GetMongoContext()
+	collection := params.MongoClient.Database(params.DatabaseName).Collection(params.CollectionName)
+	defer cancel()
+
+	var documents []K
+	cursor, err := collection.Find(ctx, filter)
+	err = cursor.All(ctx, &documents)
+	return documents, err
+}
+
 // FindManyDocumentsByFilterWithOpts queries multiple documents matching the provided
 // filter with additional Mongo find options within the bounds of the Mongo Query Params
 func FindManyDocumentsByFilterWithOpts[K any](
@@ -106,7 +122,7 @@ func FindManyDocumentsByFilterWithOpts[K any](
 	defer cancel()
 
 	var documents []K
-	cursor, err := collection.Find(ctx, filter)
+	cursor, err := collection.Find(ctx, filter, opts)
 	err = cursor.All(ctx, &documents)
 	return documents, err
 }
