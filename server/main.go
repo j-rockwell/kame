@@ -44,6 +44,7 @@ func main() {
 	routeController.ApplyAuth(router)
 	routeController.ApplyHealthCheck(router)
 	routeController.ApplyRoles(router)
+	routeController.ApplyTable(router)
 
 	err = router.Run(":" + conf.Gin.Port)
 	if err != nil {
