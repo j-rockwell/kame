@@ -26,6 +26,10 @@ const (
 	B TableGroup = "B"
 )
 
+type GetTablesOnDateResponse struct {
+	Available []TableGroup `json:"available,omitempty"`
+}
+
 type CreateTableRequest struct {
 	CreatedBy   primitive.ObjectID `json:"created_by" bson:"created_by"`
 	Attendee    primitive.ObjectID `json:"attendee" bson:"attendee"`

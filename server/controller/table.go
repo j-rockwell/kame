@@ -2,12 +2,14 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"reflect"
 	"server/database"
 	"server/model"
+	"strconv"
 	"time"
 )
 
@@ -22,8 +24,85 @@ func (controller *DataController) GetTables() gin.HandlerFunc {
 // GetTablesOnDate will query and return all tables reserved
 // within the provided day
 func (controller *DataController) GetTablesOnDate() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
+	mqp := database.MongoQueryParams{
+		MongoClient:    controller.Mongo,
+		DatabaseName:   controller.DatabaseName,
+		CollectionName: controller.CollectionName,
+	}
 
+	return func(ctx *gin.Context) {
+		dayStr, dayPresent := ctx.GetQuery("day")
+		monthStr, monthPresent := ctx.GetQuery("month")
+		yearStr, yearPresent := ctx.GetQuery("year")
+
+		if !dayPresent || !monthPresent || !yearPresent {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("day, month and year must be present to perform query"))
+			return
+		}
+
+		day, err := strconv.Atoi(dayStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("day invalid number"))
+			return
+		}
+
+		month, err := strconv.Atoi(monthStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("month invalid number"))
+			return
+		}
+
+		year, err := strconv.Atoi(yearStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("year invalid number"))
+			return
+		}
+
+		filter := bson.M{}
+		filter["table_time.day"] = day
+		filter["table_time.month"] = month
+		filter["table_time.year"] = year
+
+		result, err := database.FindManyDocumentsByFilter[model.Table](mqp, filter)
+		if err != nil && err != mongo.ErrNoDocuments {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to perform query"))
+			panic("failed to perform query on tables:\n" + err.Error())
+			return
+		}
+
+		var available []model.TableGroup
+
+		if err == mongo.ErrNoDocuments {
+			available = append(available, model.A, model.B)
+		} else {
+			// flags for if table group a or b is found in the returned documents
+			// we can have this be a little unoptimized since there should only ever be 2 docs max
+			a := false
+			b := false
+			for _, doc := range result {
+				if doc.Group == model.A {
+					a = true
+				}
+
+				if doc.Group == model.B {
+					b = true
+				}
+			}
+
+			if !a {
+				available = append(available, model.A)
+			}
+
+			if !b {
+				available = append(available, model.B)
+			}
+		}
+
+		res := model.GetTablesOnDateResponse{
+			Available: available,
+		}
+
+		ctx.JSON(http.StatusOK, res)
 	}
 }
 
