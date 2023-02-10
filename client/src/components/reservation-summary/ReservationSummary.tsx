@@ -18,7 +18,6 @@ export const ReservationSummary = ({
 }: IReservationSummaryProps) => {
   const IMAGE_HEIGHT_REM = 32;
   const textColor = useColorModeValue('text.light', 'text.dark');
-  const textMuted = useColorModeValue('textMuted.light', 'textMuted.dark');
   const textStyling = {
     textAlign: (isSmallDevice ? 'center' : 'left') as TextAlign,
     color: textColor,
