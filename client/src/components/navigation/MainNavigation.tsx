@@ -1,13 +1,18 @@
-import {useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import {AiOutlineLeft} from "react-icons/ai";
-import {Center, HStack, Icon, Image, Link, Text, useColorMode} from '@chakra-ui/react';
+import {BsFillSunFill, BsFillMoonFill} from "react-icons/bs";
+import {Center, HStack, Icon, Image, Link, Switch, Text, useColorMode} from '@chakra-ui/react';
 
 export const Navigator = ({}) => {
-  const {colorMode} = useColorMode();
+  const {colorMode, setColorMode} = useColorMode();
 
   const logoImageUrl = useMemo(() => {
     return `./logo-sideways-${colorMode}.png`;
   }, [colorMode]);
+
+  const toggleColorMode = useCallback(() => {
+    setColorMode(colorMode === 'light' ? 'dark' : 'light');
+  }, [colorMode, setColorMode]);
 
   return (
     <Center w={'100%'} bgColor={`background.${colorMode}`} pt={4} pb={3}>
@@ -23,8 +28,22 @@ export const Navigator = ({}) => {
       </Link>
 
       <Link href={'http://sushikame.com/'}>
-        <Image src={logoImageUrl} w={'12rem'} />
+        <Image src={logoImageUrl} w={'10rem'} />
       </Link>
+
+      <HStack position={'absolute'} top={6} right={4}>
+        <Icon as={BsFillSunFill} color={`text.${colorMode}`} />
+
+        <Switch
+          id={'colormode'}
+          size={'md'}
+          colorScheme={'gray'}
+          isChecked={colorMode === 'dark'}
+          onChange={toggleColorMode}
+        />
+
+        <Icon as={BsFillMoonFill} color={`text.${colorMode}`} />
+      </HStack>
     </Center>
   )
 }

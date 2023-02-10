@@ -25,7 +25,7 @@ export const BookingContainerHeading = ({isSmallDevice, children}: IBookingConta
         {children}
       </Heading>
 
-      <Text textAlign={isSmallDevice ? 'center' : 'left'} mt={SPACING}>
+      <Text textAlign={isSmallDevice ? 'center' : 'left'} mt={SPACING} color={textColor}>
         The dining experience at Omakase Room by Kame is built around a relationship of trust and spontaneity between Chef and each diner. Chef’s curated omakase offerings change often, highlighting a diversity of ingredients, preparations, and the range of textures.
       </Text>
     </Box>

@@ -36,10 +36,14 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
   const [selectedMonth, setSelectedMonth] = useState(START_MONTH);
   const [selectedYear, setSelectedYear] = useState(START_YEAR);
 
+  const selectedDateColor = useColorModeValue('info.light', 'info.dark');
+  const selectedDateTextColor = 'white';
+  const textColor = useColorModeValue('text.light', 'text.dark');
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
   const deselectedTextColor = useColorModeValue('textMuted.light', 'textMuted.dark');
 
   /**
+   *
    * Calculates the size each calendar entry needs to be
    */
   const getSquareSize = useCallback(() => {
@@ -127,6 +131,10 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
    * Handles changing the global state for the selected table time
    */
   const handleTimeChange = useCallback((day: number, month: number, year: number) => {
+    if (month !== selectedMonth) {
+      return;
+    }
+
     if (
       selectedDay === day
       && selectedMonth === selectedMonth
@@ -149,6 +157,22 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
 
     setTime({day: day, month: month, year: year});
   }, [selectedDay, selectedYear, selectedMonth, setTime]);
+
+  /**
+   * Helper function for easily getting date text color since there are more
+   * than 2 scenarios which will determine the text color
+   */
+  const getDateTextColor = useCallback((day: number, monthIndex: number) => {
+    if (isSelectedMonth(monthIndex)) {
+      if (selectedDay === day) {
+        return selectedDateTextColor;
+      }
+
+      return selectedTextColor;
+    }
+
+    return deselectedTextColor;
+  }, [deselectedTextColor, isSelectedMonth, selectedDay, selectedTextColor]);
 
   /**
    * Initial data loading
@@ -174,7 +198,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
       <SimpleGrid columns={7} spacingY={2} mt={4}>
         {getDaysAsArray().map(name => (
           <Box key={name} w={getSquareSize()}>
-            <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
+            <Text color={textColor} textAlign={'center'}>{getFormattedDayName(name)}</Text>
           </Box>
         ))}
       </SimpleGrid>
@@ -190,14 +214,11 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
             size={getSquareSize()}
             onClick={() => handleTimeChange(date, month.index, month.year)}
             cursor={isSelectedMonth(month.index) ? 'pointer' : 'auto'}
-            bgColor={isSelectedDay(month.index, date) ? 'blue.500' : 'none'}
+            bgColor={isSelectedDay(month.index, date) ? selectedDateColor : 'none'}
             borderRadius={12}
-            borderWidth={2}
+            borderWidth={isSelectedDay(month.index, date) ? 0 : 2}
             borderStyle={'dotted'}>
-            <Text
-              textAlign={'center'}
-              color={isSelectedMonth(month.index) ? selectedTextColor : deselectedTextColor}
-            >
+            <Text textAlign={'center'} color={getDateTextColor(date, month.index)}>
               {date}
             </Text>
           </Square>

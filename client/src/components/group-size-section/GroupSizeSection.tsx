@@ -11,6 +11,7 @@ interface IGroupSizeSectionProps {
 export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSectionProps) => {
   const infoColor = useColorModeValue('info.light', 'info.dark');
   const warningColor = useColorModeValue('warning.light', 'warning.dark');
+  const textColor = useColorModeValue('text.light', 'text.dark');
 
   /**
    * Returns true if the party size is considered 'large' and renders a warning
@@ -48,7 +49,7 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
 
   return (
     <Box w={'100%'}>
-      <Heading textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>Group Size</Heading>
+      <Heading color={textColor} textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>Group Size</Heading>
       <GroupSizePicker value={size} onIncrement={onIncrement} onDecrement={onDecrement} />
     </Box>
   );

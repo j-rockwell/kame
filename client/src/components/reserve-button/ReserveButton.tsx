@@ -20,6 +20,7 @@ export const ReserveButton = ({disclaimer, children}: IReserveButtonProps) => {
           fontSize={'xl'}
           fontWeight={'bold'}
           _hover={{textDecoration: 'none'}}
+          color={'white'}
           bgColor={bgColor}
           borderRadius={12}>
           {children}

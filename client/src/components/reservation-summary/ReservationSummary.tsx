@@ -17,9 +17,11 @@ export const ReservationSummary = ({
   isSmallDevice
 }: IReservationSummaryProps) => {
   const IMAGE_HEIGHT_REM = 32;
+  const textColor = useColorModeValue('text.light', 'text.dark');
   const textMuted = useColorModeValue('textMuted.light', 'textMuted.dark');
   const textStyling = {
     textAlign: (isSmallDevice ? 'center' : 'left') as TextAlign,
+    color: textColor,
   }
 
   return (
@@ -73,7 +75,7 @@ export const ReservationSummary = ({
             </Text>
           )}
 
-          <Text fontSize={'1rem'} mt={'2rem'} color={textMuted} {...textStyling}>
+          <Text fontSize={'1rem'} mt={'2rem'} {...textStyling}>
             If you need to reschedule or cancel, please do so 72 hours before the reservation time to avoid any cancellation fees.
           </Text>
         </Box>
