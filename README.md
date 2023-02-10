@@ -34,7 +34,7 @@ Composes all docker instances needed to run the application locally. In producti
 
 <h3>Disclaimer</h3>
 This project is not for public/commercial-use outside of Sushi Kame. This application has been sanitized and made public as a portfolio item with the contract holders approval. For business/freelance inqueries you can <a href="mailto:john@llewkcor.com">send me an email</a>.
-&nbps;  
+&nbsp;
   
 <h3>Copyright</h3>
 Copyright 2023 John Rockwell
