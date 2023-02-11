@@ -12,7 +12,7 @@ export const ReserveButton = ({disclaimer, children}: IReserveButtonProps) => {
 
   return (
     <Box w={'100%'}>
-      <NextLink href={'/create-reservation'} passHref>
+      <NextLink href={'/reserve'} passHref>
         <Link
           as={'button'}
           w={'100%'}
