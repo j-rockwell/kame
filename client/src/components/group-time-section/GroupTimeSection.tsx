@@ -13,7 +13,14 @@ export const GroupTimeSection = ({group, setGroup, isSmallDevice}: IGroupTimeSec
 
   return (
     <Box w={'100%'}>
-      <Heading color={textColor} textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>Time</Heading>
+      <Heading
+        color={textColor}
+        textAlign={isSmallDevice ? 'center' : 'left'}
+        size={'lg'}
+        mb={8}>
+        What time would you like to begin?
+      </Heading>
+
       <GroupTimePicker group={group} setGroup={setGroup} center={isSmallDevice} />
     </Box>
   )

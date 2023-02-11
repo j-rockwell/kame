@@ -12,8 +12,12 @@ export const TableDateSection = ({setTime, isMediumDevice, isSmallDevice}: ITabl
 
   return (
     <Box w={'100%'}>
-      <Heading color={textColor} textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>
-        Date
+      <Heading
+        color={textColor}
+        textAlign={isSmallDevice ? 'center' : 'left'}
+        size={'lg'}
+        mb={8}>
+        When will you be joining us?
       </Heading>
 
       <Calendar setTime={setTime} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />

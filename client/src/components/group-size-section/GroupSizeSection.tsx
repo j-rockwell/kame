@@ -49,7 +49,14 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
 
   return (
     <Box w={'100%'}>
-      <Heading color={textColor} textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>Group Size</Heading>
+      <Heading
+        color={textColor}
+        textAlign={isSmallDevice ? 'center' : 'left'}
+        size={'lg'}
+        mb={8}>
+        How many guests will be attending?
+      </Heading>
+
       <GroupSizePicker value={size} onIncrement={onIncrement} onDecrement={onDecrement} />
     </Box>
   );
