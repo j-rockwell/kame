@@ -1,6 +1,8 @@
 /**
- * Accepts an array of single item records and generates a query string
- * @param values Array of Record<string,string>
+ * Accepts a map of string k,v and builds a query string that can be read
+ * by the backend to perform dynamic requests.
+ *
+ * @param values Map<string,string>
  */
 export function createQueryParams(values: Map<string, string>): string {
   let result = '?';
