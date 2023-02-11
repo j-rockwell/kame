@@ -1,7 +1,7 @@
 [gin]
 port = "8080"
 mode = "debug"
-origins = ["http://sushikame.com", "https://sushikame.com", "https://booking.sushikame.com"]
+origins = ["http://sushikame.com", "https://sushikame.com", "https://booking.sushikame.com", "http://localhost", "http://localhost:3000"]
 
 [mongo]
 uri = "mongodb://mongodb:27017/"
