@@ -29,9 +29,7 @@ export const GroupTimePicker = ({group, setGroup, center}: IGroupTimePicker) => 
   }, [group, setGroup]);
 
   return (
-    <Stack
-      w={'100%'}
-      direction={center ? 'column' : 'row'}>
+    <Stack w={'100%'} direction={center ? 'column' : 'row'}>
       <GroupTimeEntry
         title={'Group A'}
         subtitle={'6:30pm - 8:00pm'}

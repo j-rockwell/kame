@@ -8,12 +8,9 @@ interface ITableDateSection extends IScalable {
 }
 
 export const TableDateSection = ({setTime, isMediumDevice, isSmallDevice}: ITableDateSection) => {
-  const textColor = useColorModeValue('text.light', 'text.dark');
-
   return (
     <Box w={'100%'}>
       <Heading
-        color={textColor}
         textAlign={isSmallDevice ? 'center' : 'left'}
         size={'lg'}
         mb={8}>

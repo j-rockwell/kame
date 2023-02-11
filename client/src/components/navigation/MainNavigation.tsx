@@ -9,7 +9,6 @@ interface INavigatorProps {
 
 export const Navigator = ({showBackButton}: INavigatorProps) => {
   const {colorMode, setColorMode} = useColorMode();
-  const textColor = useColorModeValue('text.light', 'text.dark');
 
   const logoImageUrl = useMemo(() => {
     return `./logo-sideways-${colorMode}.png`;
@@ -28,8 +27,8 @@ export const Navigator = ({showBackButton}: INavigatorProps) => {
           left={4}
           top={6}>
           <HStack>
-            <Icon as={AiOutlineLeft} color={textColor} />
-            <Text color={textColor}>Back</Text>
+            <Icon as={AiOutlineLeft} />
+            <Text>Back</Text>
           </HStack>
         </Link>
       )}

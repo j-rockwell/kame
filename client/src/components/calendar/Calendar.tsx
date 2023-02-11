@@ -38,7 +38,6 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
 
   const selectedDateColor = useColorModeValue('info.light', 'info.dark');
   const selectedDateTextColor = 'white';
-  const textColor = useColorModeValue('text.light', 'text.dark');
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
   const deselectedTextColor = useColorModeValue('textMuted.light', 'textMuted.dark');
 
@@ -198,7 +197,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
       <SimpleGrid columns={7} spacingY={2} mt={4}>
         {getDaysAsArray().map(name => (
           <Box key={name} w={getSquareSize()}>
-            <Text color={textColor} textAlign={'center'}>{getFormattedDayName(name)}</Text>
+            <Text textAlign={'center'}>{getFormattedDayName(name)}</Text>
           </Box>
         ))}
       </SimpleGrid>

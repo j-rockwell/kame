@@ -11,7 +11,6 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
   const buttonBgColor = useColorModeValue('gray.50', 'gray.800');
   const buttonPressedBgColor = useColorModeValue('white', 'gray.900');
   const bgHighlightColor = useColorModeValue('gray.50', 'gray.800');
-  const textColor = useColorModeValue('text.light', 'text.dark');
 
   const buttonStyling = {
     w: '33%',
@@ -39,7 +38,7 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
       />
 
       <Center width={'33%'} h={'4rem'} bgColor={bgHighlightColor}>
-        <Text color={textColor} fontWeight={'semibold'} fontSize={'xl'}>{value}</Text>
+        <Text fontWeight={'semibold'} fontSize={'xl'}>{value}</Text>
       </Center>
 
       <IconButton

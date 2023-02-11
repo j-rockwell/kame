@@ -9,12 +9,9 @@ interface IGroupTimeSectionProps extends IScalable {
 }
 
 export const GroupTimeSection = ({group, setGroup, isSmallDevice}: IGroupTimeSectionProps) => {
-  const textColor = useColorModeValue('text.light', 'text.dark');
-
   return (
     <Box w={'100%'}>
       <Heading
-        color={textColor}
         textAlign={isSmallDevice ? 'center' : 'left'}
         size={'lg'}
         mb={8}>

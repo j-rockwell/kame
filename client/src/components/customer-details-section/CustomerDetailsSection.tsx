@@ -8,7 +8,13 @@ interface ICustomerDetailsSection extends IScalable {}
 export const CustomerDetailsSection = ({isSmallDevice}: ICustomerDetailsSection) => {
   return (
     <Box w={'100%'}>
-      <Heading textAlign={isSmallDevice ? 'center' : 'left'} size={'md'} mb={8}>Customer Details</Heading>
+      <Heading
+        textAlign={isSmallDevice ? 'center' : 'left'}
+        size={'md'}
+        mb={8}>
+        Customer Details
+      </Heading>
+
       <CustomerDetailsLogin isSmallDevice={isSmallDevice} />
       <CustomerDetailsNewInput isSmallDevice={isSmallDevice} />
     </Box>
