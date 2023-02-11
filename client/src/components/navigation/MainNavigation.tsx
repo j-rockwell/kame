@@ -1,10 +1,15 @@
 import {useCallback, useMemo} from "react";
 import {AiOutlineLeft} from "react-icons/ai";
 import {BsFillSunFill, BsFillMoonFill} from "react-icons/bs";
-import {Center, HStack, Icon, Image, Link, Switch, Text, useColorMode} from '@chakra-ui/react';
+import {Center, HStack, Icon, Image, Link, Switch, Text, useColorMode, useColorModeValue} from '@chakra-ui/react';
 
-export const Navigator = ({}) => {
+interface INavigatorProps {
+  showBackButton?: boolean;
+}
+
+export const Navigator = ({showBackButton}: INavigatorProps) => {
   const {colorMode, setColorMode} = useColorMode();
+  const textColor = useColorModeValue('text.light', 'text.dark');
 
   const logoImageUrl = useMemo(() => {
     return `./logo-sideways-${colorMode}.png`;
@@ -16,16 +21,18 @@ export const Navigator = ({}) => {
 
   return (
     <Center w={'100%'} bgColor={`background.${colorMode}`} pt={4} pb={3}>
-      <Link
-        href={'http://sushikame.com/'}
-        position={'absolute'}
-        left={4}
-        top={6}>
-        <HStack>
-          <Icon as={AiOutlineLeft} color={`text.${colorMode}`} />
-          <Text>Back</Text>
-        </HStack>
-      </Link>
+      {showBackButton && (
+        <Link
+          href={'http://sushikame.com/'}
+          position={'absolute'}
+          left={4}
+          top={6}>
+          <HStack>
+            <Icon as={AiOutlineLeft} color={textColor} />
+            <Text color={textColor}>Back</Text>
+          </HStack>
+        </Link>
+      )}
 
       <Link href={'http://sushikame.com/'}>
         <Image src={logoImageUrl} w={'10rem'} />

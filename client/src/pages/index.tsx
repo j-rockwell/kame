@@ -49,7 +49,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Navigator />
+        <Navigator showBackButton={true} />
         <BookingContainer
           isSmallDevice={isSmallDevice}
           screenHeight={height}
@@ -77,7 +77,7 @@ export default function Home() {
             {isSmallDevice && (
               <Link href={'#summary'} fontWeight={'bold'} _hover={{textDecoration: 'none'}}>
                 <VStack>
-                  <Text>Reservation Summary</Text>
+                  <Text color={`text.${colorMode}`}>Reservation Summary</Text>
                   <Icon as={AiOutlineDown} color={`text.${colorMode}`} />
                 </VStack>
               </Link>
