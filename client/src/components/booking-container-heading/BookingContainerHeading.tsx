@@ -8,6 +8,7 @@ interface IBookingContainerHeadingProps {
 export const BookingContainerHeading = ({isSmallDevice, children}: IBookingContainerHeadingProps) => {
   const SPACING = 8;
   const textColor = useColorModeValue('text.light', 'text.dark');
+  const borderColor = useColorModeValue('textMuted.light', 'textMuted.dark');
 
   return (
     <Box
@@ -15,8 +16,7 @@ export const BookingContainerHeading = ({isSmallDevice, children}: IBookingConta
       pb={SPACING}
       mb={SPACING}
       borderBottomWidth={1}
-      borderColor={'white'}
-    >
+      borderColor={borderColor}>
       <Heading
         color={textColor}
         textAlign={isSmallDevice ? 'center' : 'left'}
