@@ -1,5 +1,5 @@
 import {GroupTimePicker} from "@/components/group-time-picker/GroupTimePicker";
-import {Box, Heading, useColorModeValue} from "@chakra-ui/react";
+import {Box, Heading} from "@chakra-ui/react";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup} from "@/models/Table";
 
@@ -18,7 +18,7 @@ export const GroupTimeSection = ({group, setGroup, isSmallDevice}: IGroupTimeSec
         What time would you like to begin?
       </Heading>
 
-      <GroupTimePicker group={group} setGroup={setGroup} center={isSmallDevice} />
+      <GroupTimePicker isSmallDevice={isSmallDevice} group={group} setGroup={setGroup} />
     </Box>
   )
 }

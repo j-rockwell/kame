@@ -4,21 +4,26 @@ import {TableGroup, TableTime} from "@/models/Table";
 const DATE = new Date();
 
 interface IReservationContext {
-  loading: boolean;
+  isLoadingReservations: boolean;
+  loadingReservationError?: string;
   groupSize: number;
   groupDate: TableTime;
   groupTime?: TableGroup;
-  setLoading: (b: boolean) => void;         // loading state bool
-  setGroupSize: (n: number) => void;        // int
-  setGroupDate: (tt: TableTime) => void;    // Calendar date (month,day,year)
-  setGroupTime: (tg?: TableGroup) => void;  // A or B
+  availability: TableGroup[];
+  setLoadingReservations: (b: boolean) => void; // loading state bool
+  setLoadingReservationError: (err?: string) => void;      // loading error message
+  setGroupSize: (n: number) => void;            // int
+  setGroupDate: (tt: TableTime) => void;        // Calendar date (month,day,year)
+  setGroupTime: (tg?: TableGroup) => void;      // A or B
+  setAvailability: (tga: TableGroup[]) => void; // A or B
 }
 
 /**
  * Creates a new React context and initializes default values
  */
 export const ReservationContext = createContext<IReservationContext>({
-  loading: false,
+  isLoadingReservations: false,
+  loadingReservationError: undefined,
   groupSize: 1,
   groupTime: undefined,
   groupDate: {
@@ -26,10 +31,13 @@ export const ReservationContext = createContext<IReservationContext>({
     day: DATE.getDate(),
     year: DATE.getFullYear()
   },
-  setLoading: () => {},
+  availability: [],
+  setLoadingReservations: () => {},
+  setLoadingReservationError: () => {},
   setGroupSize: () => {},
   setGroupDate: () => {},
   setGroupTime: () => {},
+  setAvailability: () => {},
 });
 
 export const useReservationContext = () => useContext(ReservationContext);

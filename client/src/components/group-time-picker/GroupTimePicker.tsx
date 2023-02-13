@@ -1,15 +1,20 @@
 import {useCallback} from "react";
 import {GroupTimeEntry} from "@/components/group-time-picker/GroupTimeEntry";
 import {TableGroup} from "@/models/Table";
-import {Stack} from "@chakra-ui/react";
+import {Spinner, Square, Stack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import {useReservationContext} from "@/context/ReservationContext";
+import {IScalable} from "@/hooks/Dimensions";
 
-interface IGroupTimePicker {
-  center: boolean;
+interface IGroupTimePicker extends IScalable {
   group?: TableGroup;
   setGroup: (g: TableGroup) => void;
 }
 
-export const GroupTimePicker = ({group, setGroup, center}: IGroupTimePicker) => {
+export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePicker) => {
+  const {isLoadingReservations, loadingReservationError} = useReservationContext();
+
+  const errorTextColor = useColorModeValue('danger.light', 'danger.dark');
+
   /**
    * Returns true if the provided group is actively selected
    */
@@ -28,13 +33,36 @@ export const GroupTimePicker = ({group, setGroup, center}: IGroupTimePicker) => 
     setGroup(g);
   }, [group, setGroup]);
 
+  if (loadingReservationError) {
+    return (
+      <VStack>
+        <Text color={errorTextColor} textAlign={isSmallDevice ? 'center' : 'left'}>
+          {loadingReservationError}
+        </Text>
+
+        <Text color={errorTextColor} textAlign={isSmallDevice ? 'center' : 'left'}>
+          Please refresh the page or select a new date on the calendar to try again.
+        </Text>
+      </VStack>
+    );
+  }
+
+  if (isLoadingReservations) {
+    return (
+      <Square size={'100%'}>
+        <Spinner />
+        <Text>Fetching available reservations...</Text>
+      </Square>
+    );
+  }
+
   return (
-    <Stack w={'100%'} direction={center ? 'column' : 'row'}>
+    <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
       <GroupTimeEntry
         title={'Group A'}
         subtitle={'6:30pm - 8:00pm'}
         isSelected={isGroupSelected('A')}
-        isMobile={center}
+        isMobile={isSmallDevice}
         onClick={() => handleGroupChange('A')}
       />
 
@@ -42,7 +70,7 @@ export const GroupTimePicker = ({group, setGroup, center}: IGroupTimePicker) => 
         title={'Group B'}
         subtitle={'8:30pm - 10:00pm'}
         isSelected={isGroupSelected('B')}
-        isMobile={center}
+        isMobile={isSmallDevice}
         onClick={() => handleGroupChange('B')}
       />
     </Stack>
