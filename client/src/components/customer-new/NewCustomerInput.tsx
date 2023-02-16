@@ -18,6 +18,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+const INITIAL_DATA: InputData = {value: '', error: undefined};
+
 interface INewCustomerInputProps extends IScalable {
   onCreateNewAccount: (d: NewAccountData) => void;
 }
@@ -38,7 +40,6 @@ type InputField =
   'confirm_password';
 
 export const NewCustomerInput = ({onCreateNewAccount, isSmallDevice}: INewCustomerInputProps) => {
-  const INITIAL_DATA: InputData = {value: '', error: undefined};
   const [firstName, setFirstName] = useState<InputData>(INITIAL_DATA);
   const [lastName, setLastName] = useState<InputData>(INITIAL_DATA);
   const [email, setEmail] = useState<InputData>(INITIAL_DATA);
