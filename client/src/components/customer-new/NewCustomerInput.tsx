@@ -21,6 +21,7 @@ import {
 const INITIAL_DATA: InputData = {value: '', error: undefined};
 
 interface INewCustomerInputProps extends IScalable {
+  loading: boolean;
   onCreateNewAccount: (d: NewAccountData) => void;
 }
 
@@ -39,7 +40,7 @@ type InputField =
   'password'      |
   'confirm_password';
 
-export const NewCustomerInput = ({onCreateNewAccount, isSmallDevice}: INewCustomerInputProps) => {
+export const NewCustomerInput = ({loading, onCreateNewAccount, isSmallDevice}: INewCustomerInputProps) => {
   const [firstName, setFirstName] = useState<InputData>(INITIAL_DATA);
   const [lastName, setLastName] = useState<InputData>(INITIAL_DATA);
   const [email, setEmail] = useState<InputData>(INITIAL_DATA);
@@ -308,7 +309,8 @@ export const NewCustomerInput = ({onCreateNewAccount, isSmallDevice}: INewCustom
           alignSelf={'flex-start'}
           onClick={() => handleValidateAndSubmit()}
           borderRadius={12}
-          bgColor={buttonBgColor}>
+          bgColor={buttonBgColor}
+          isLoading={loading}>
           Create Account
         </Button>
       </VStack>
