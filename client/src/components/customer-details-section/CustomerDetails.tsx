@@ -59,7 +59,7 @@ export const CustomerDetails = ({
           w={'100%'}
           h={height * 0.75}
           objectFit={'cover'}
-          pt={'2rem'}
+          pt={isSmallDevice ? 0 : '2rem'}
         />
 
         <VStack w={'100%'} spacing={'8rem'} pt={isSmallDevice ? 0 : '2rem'}>
