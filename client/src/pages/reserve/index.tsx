@@ -56,7 +56,7 @@ export default function Reserve() {
       </Head>
 
       <main>
-        <Navigator />
+        <Navigator backButton={{text: 'Back', href: '/'}} />
         <CustomerDetails
           isLoading={isLoading}
           onLoginAttempt={onLoginAttempt}

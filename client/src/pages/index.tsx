@@ -49,7 +49,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Navigator showBackButton={true} />
+        <Navigator backButton={{text: 'sushikame.com', href: 'sushikame.com'}} />
         <BookingContainer
           isSmallDevice={isSmallDevice}
           screenHeight={height}
