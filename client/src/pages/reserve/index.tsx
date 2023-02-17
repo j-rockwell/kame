@@ -1,15 +1,15 @@
+import {useCallback, useMemo, useState} from "react";
 import Head from "next/head";
 import {Navigator} from "@/components/navigation/MainNavigation";
-import {NewCustomerInput} from "@/components/customer-new/NewCustomerInput";
 import {useDimensions} from "@/hooks/Dimensions";
-import {useCallback, useMemo, useState} from "react";
-import {MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
-import {NewAccountData} from "@/models/Account";
 import {createAccount} from "@/requests/Account";
+import {CustomerDetails} from "@/components/customer-details-section/CustomerDetails";
+import {LoginAccountData, NewAccountData} from "@/models/Account";
+import {MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 
 export default function Reserve() {
   const {width} = useDimensions();
-  const [isCreatingAccount, setCreatingAccount] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   /**
    * Returns true if this page is being rendered on a mobile device
@@ -22,7 +22,7 @@ export default function Reserve() {
    * Handles making a request to the server to create a new account
    */
   const onCreateNewAccount = useCallback((d: NewAccountData) => {
-    setCreatingAccount(true);
+    setLoading(true);
 
     createAccount({
       first_name: d.firstName,
@@ -36,8 +36,14 @@ export default function Reserve() {
     }).catch(err => {
       console.error(err);
     }).finally(() => {
-      setCreatingAccount(false);
+      setLoading(false);
     });
+  }, []);
+
+  const onLoginAttempt = useCallback((d: LoginAccountData) => {
+    setLoading(true);
+
+    // TODO: impl login logic
   }, []);
 
   return (
@@ -51,11 +57,11 @@ export default function Reserve() {
 
       <main>
         <Navigator />
-
-        <NewCustomerInput
+        <CustomerDetails
+          isLoading={isLoading}
+          onLoginAttempt={onLoginAttempt}
           onCreateNewAccount={onCreateNewAccount}
           isSmallDevice={isSmallDevice}
-          loading={isCreatingAccount}
         />
       </main>
     </>
