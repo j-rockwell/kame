@@ -25,21 +25,21 @@ export const Navigator = ({backButton}: INavigatorProps) => {
   return (
     <Center w={'100%'} bgColor={`background.${colorMode}`} pt={4} pb={3}>
       {backButton && (
-        <NextLink href={backButton.href} passHref>
-          <Link
-            position={'absolute'}
-            left={4}
-            top={6}>
-            <HStack>
-              <Icon as={AiOutlineLeft} />
-              <Text>{backButton.text}</Text>
-            </HStack>
-          </Link>
-        </NextLink>
+        <Link
+          as={NextLink}
+          href={backButton.href}
+          position={'absolute'}
+          left={4}
+          top={6}>
+          <HStack>
+            <Icon as={AiOutlineLeft} />
+            <Text>{backButton.text}</Text>
+          </HStack>
+        </Link>
       )}
 
       <Link href={'http://sushikame.com/'}>
-        <Image src={logoImageUrl} w={'10rem'} />
+        <Image src={logoImageUrl} alt={'kame logo'} w={'10rem'} />
       </Link>
 
       <HStack position={'absolute'} top={6} right={4}>
