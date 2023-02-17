@@ -28,8 +28,19 @@ export const CustomerDetails = ({
     return height > width || isSmallDevice;
   }, [height, isSmallDevice, width]);
 
+  /**
+   * Subscribes to scroll events and triggers opacity changes
+   */
   useEffect(() => {
     function handleScroll() {
+      if (shouldForceFullOpacity()) {
+        if (!isNewCustomerFieldsActive) {
+          setNewCustomerFieldsActive(true);
+        }
+
+        return;
+      }
+
       if (window.scrollY > 10 && !isNewCustomerFieldsActive) {
         setNewCustomerFieldsActive(true);
         return;
