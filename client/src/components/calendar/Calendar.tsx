@@ -48,7 +48,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
   const getSquareSize = useCallback(() => {
     if (!dimensions) {
       console.debug('returned fallback 4rem...');
-      return '4rem'; // fallback
+      return '2rem'; // fallback
     }
 
     const result = Math.floor(dimensions.borderBox.width / 7 - (2 * 7));
