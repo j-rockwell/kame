@@ -2,8 +2,8 @@ import {useCallback, useState} from "react";
 import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 import {IScalable} from "@/hooks/Dimensions";
 import {NewAccountData} from "@/models/Account";
+import {motion} from "framer-motion";
 import {
-  Box,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -21,6 +21,7 @@ import {
 const INITIAL_DATA: InputData = {value: '', error: undefined};
 
 interface INewCustomerInputProps extends IScalable {
+  active: boolean;
   loading: boolean;
   onCreateNewAccount: (d: NewAccountData) => void;
 }
@@ -40,7 +41,12 @@ type InputField =
   'password'      |
   'confirm_password';
 
-export const NewCustomerInput = ({loading, onCreateNewAccount, isSmallDevice}: INewCustomerInputProps) => {
+export const NewCustomerInput = ({
+  active,
+  loading,
+  onCreateNewAccount,
+  isSmallDevice
+}: INewCustomerInputProps) => {
   const [firstName, setFirstName] = useState<InputData>(INITIAL_DATA);
   const [lastName, setLastName] = useState<InputData>(INITIAL_DATA);
   const [email, setEmail] = useState<InputData>(INITIAL_DATA);
@@ -51,6 +57,7 @@ export const NewCustomerInput = ({loading, onCreateNewAccount, isSmallDevice}: I
   const [confirmPassword, setConfirmPassword] = useState<InputData>(INITIAL_DATA);
   const [showPassword, setShowPassword] = useState(false);
 
+  const textColor = useColorModeValue('text.light', 'text.dark');
   const buttonBgColor = useColorModeValue('info.light', 'info.dark');
 
   const inputStyling = {
@@ -192,8 +199,14 @@ export const NewCustomerInput = ({loading, onCreateNewAccount, isSmallDevice}: I
   }, [confirmPassword.error, email.error, firstName.error, lastName.error, password.error, phoneLeft.error, phoneMiddle.error, phoneRight.error]);
 
   return (
-    <Box w={'100%'} maxW={'48rem'} px={isSmallDevice ? '2rem' : 0}>
-      <Heading size={'md'}>New Customer</Heading>
+    <motion.div
+      animate={{opacity: active ? 1 : 0.25}}
+      style={{
+        width: '100%',
+        maxWidth: '48rem',
+      }}
+    >
+      <Heading size={'md'} color={textColor}>New Customer</Heading>
 
       <VStack spacing={'2rem'} mt={'2rem'}>
         <FormControl isInvalid={firstName.error !== undefined && firstName.error?.length > 0}>
@@ -314,6 +327,6 @@ export const NewCustomerInput = ({loading, onCreateNewAccount, isSmallDevice}: I
           Create Account
         </Button>
       </VStack>
-    </Box>
+    </motion.div>
   );
 }
