@@ -90,7 +90,7 @@ export const NewCustomerInput = ({
     }
 
     return result.join(', ');
-  }, [phoneLeft.error, phoneMiddle.error, phoneRight.error]);
+  }, [phoneLeft, phoneMiddle, phoneRight]);
 
   /**
    * Validates inputs, setting error states if caught
@@ -242,7 +242,11 @@ export const NewCustomerInput = ({
           {email.error && <FormErrorMessage>{email.error}</FormErrorMessage>}
         </FormControl>
 
-        <FormControl>
+        <FormControl isInvalid={
+          phoneLeft.error !== undefined ||
+          phoneMiddle.error !== undefined ||
+          phoneRight.error !== undefined
+        }>
           <FormLabel>Phone</FormLabel>
 
           <HStack>
@@ -274,7 +278,7 @@ export const NewCustomerInput = ({
             </FormControl>
           </HStack>
 
-          {(phoneLeft.error || phoneMiddle.error || phoneRight.error) && (
+          {(phoneLeft.error !== undefined || phoneMiddle.error !== undefined || phoneRight.error !== undefined) && (
             <FormErrorMessage>{getMergedPhoneErrors()}</FormErrorMessage>
           )}
         </FormControl>
