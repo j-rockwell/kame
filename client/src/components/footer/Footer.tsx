@@ -72,6 +72,8 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
                     as={elem.icon}
                     color={textColor}
                     size={'sm'}
+                    bg={'none'}
+                    _hover={{bg: 'none'}}
                   />
                 </Link>
               ))}
