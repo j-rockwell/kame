@@ -10,6 +10,7 @@ import {TableDateSection} from "@/components/table-date-section/TableDateSection
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
 import {AiOutlineDown} from "react-icons/ai";
+import {Footer} from "@/components/footer/Footer";
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
 
@@ -51,6 +52,7 @@ export default function Home() {
       <main>
         <Navigator backButton={{text: 'sushikame.com', href: 'sushikame.com'}} />
         <BookingContainer
+          isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
           screenHeight={height}
           groupSize={groupSize}
@@ -85,6 +87,10 @@ export default function Home() {
           </VStack>
         </BookingContainer>
       </main>
+
+      <footer>
+        <Footer isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
+      </footer>
     </>
   )
 }

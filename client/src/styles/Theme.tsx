@@ -16,6 +16,9 @@ const theme = extendTheme({
   },
 
   colors: {
+    brand: {
+      red: '#f04052',
+    },
     background: {
       light: 'white',
       dark: '#0E0E10',

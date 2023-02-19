@@ -5,7 +5,8 @@ import {useDimensions} from "@/hooks/Dimensions";
 import {createAccount} from "@/requests/Account";
 import {CustomerDetails} from "@/components/customer-details-section/CustomerDetails";
 import {LoginAccountData, NewAccountData} from "@/models/Account";
-import {MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import {Footer} from "@/components/footer/Footer";
 
 export default function Reserve() {
   const {width} = useDimensions();
@@ -16,6 +17,13 @@ export default function Reserve() {
    */
   const isSmallDevice = useMemo(() => {
     return width <= MOBILE_WIDTH_BREAKPOINT;
+  }, [width]);
+
+  /**
+   * Returns true if this page is being rendered on a mobile device
+   */
+  const isMediumDevice = useMemo(() => {
+    return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
   /**
@@ -64,6 +72,10 @@ export default function Reserve() {
           isSmallDevice={isSmallDevice}
         />
       </main>
+
+      <footer>
+        <Footer isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
+      </footer>
     </>
   )
 }
