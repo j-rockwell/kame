@@ -14,6 +14,7 @@ interface IBookingContainerProps extends IScalable {
 
 export const BookingContainer = ({
   isSmallDevice,
+  isMediumDevice,
   screenHeight,
   groupSize,
   groupDate,
@@ -22,11 +23,12 @@ export const BookingContainer = ({
 }: IBookingContainerProps) => {
   return (
     <Stack direction={isSmallDevice ? 'column-reverse' : 'row'} spacing={0}>
-      <Box w={isSmallDevice ? '100%' : '50%'} minH={screenHeight}>
+      <Box w={isSmallDevice ? '100%' : '50%'}>
         <ReservationSummary
           groupSize={groupSize}
           groupDate={groupDate}
           groupTime={groupTime}
+          isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
         />
       </Box>
