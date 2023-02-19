@@ -2,7 +2,7 @@ import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import TextAlign = Property.TextAlign;
 import {Property} from "csstype";
-import {Box, Heading, Image, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Heading, Image, Text} from "@chakra-ui/react";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
@@ -14,6 +14,7 @@ export const ReservationSummary = ({
   groupSize,
   groupDate,
   groupTime,
+  isMediumDevice,
   isSmallDevice
 }: IReservationSummaryProps) => {
   const IMAGE_HEIGHT_REM = 32;
@@ -22,16 +23,18 @@ export const ReservationSummary = ({
     textAlign: (isSmallDevice ? 'center' : 'left') as TextAlign,
   }
 
+  const boxStyling = {
+    position: (isSmallDevice || isMediumDevice) ? 'relative' : '-webkit-sticky',
+    // @ts-ignore - safari fix
+    position: (isSmallDevice || isMediumDevice) ? 'relative' : 'sticky',
+    top: '0',
+  }
+
   return (
     <Box
       id={'summary'}
       w={'100%'}
-      sx={{
-        position: '-webkit-sticky',
-        // @ts-ignore - safari fix
-        position: 'sticky',
-        top: '0'
-      }}>
+      sx={boxStyling}>
       <Image
         src={'./hero-1.webp'}
         w={'100%'}
