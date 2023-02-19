@@ -25,6 +25,9 @@ These tests insure that we are not pushing a failing build to production servers
 <h4>/client</h4>
 Next.js application that consumes data from the <code>/server</code>. Styling is powered by <a href="https://chakra-ui.com/">Chakra</a> and <a href="https://www.framer.com/motion/">Framer Motion</a>.  
   
+<h4>/admin</h4>
+Next.js application that grants administrative capabilities from the <code>/server</code>. When running in <code>debug</code> mode an admin account will be generated with the login: <b>admin:admin</b>.  
+  
 <h4>/server</h4>
 Gin-gonic monorepo which powers all backend services. Main backing database is handled by <a href="https://www.mongodb.com/">MongoDB</a> and quick cache r/w uses <a href="https://redis.io/">Redis</a>  
   
