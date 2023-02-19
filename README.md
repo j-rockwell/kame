@@ -8,7 +8,7 @@ Clone the repository using <code>git clone git@github.com:j-rockwell/kame.git</c
 
 Start all applications using <code>docker-compose up --build</code>  
 
-If successful you will see the frontend running on <code>localhost:3000</code>, backend services on <code>localhost:8080</code> and mongo/redis on their default ports.  
+If successful you will see the frontend running on <code>localhost:3000</code>, admin running on <code>localhost:3001</code>, backend services on <code>localhost:8080</code> and mongo/redis on their default ports.  
 &nbsp;
 
 <h3>Project Contents</h3>  
