@@ -10,7 +10,7 @@ const theme = extendTheme({
       },
 
       "h1, h2, h3, h4, h5, h6, p, a": {
-        color: mode('#f2f2f2', '#1a1a1a'),
+        color: mode('#1a1a1a', '#f2f2f2')(props),
       }
     }),
   },
