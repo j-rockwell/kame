@@ -80,8 +80,8 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
             </HStack>
           </VStack>
 
-          {getFooterData(colorMode).map((entry, index) => (
-            <Box key={entry.title} w={'100%'}>
+          {getFooterData(colorMode).map(entry => (
+            <VStack key={entry.title} w={'100%'} alignItems={isSmallDevice ? 'center' : 'flex-start'}>
               <Heading
                 size={'sm'}
                 textAlign={isSmallDevice ? 'center' : 'left'}
@@ -97,9 +97,14 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
               )}
 
               {entry.items.map(item => (
-                <Text key={item.name} textAlign={isSmallDevice ? 'center' : 'left'} color={textColor}>{item.name}</Text>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  color={textColor}>
+                  {item.name}
+                </Link>
               ))}
-            </Box>
+            </VStack>
           ))}
         </SimpleGrid>
       </Container>
