@@ -17,7 +17,6 @@ import {
   SimpleGrid,
   Text,
   useColorModeValue,
-  useDimensions
 } from "@chakra-ui/react";
 
 interface ICalendarProps extends IScalable {
@@ -26,7 +25,6 @@ interface ICalendarProps extends IScalable {
 
 export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const dimensions = useDimensions(ref, true);
   const CURRENT_DATE = new Date();
   const START_MONTH: number = CURRENT_DATE.getMonth();
   const START_DAY: number = CURRENT_DATE.getDate();
@@ -35,6 +33,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
   const [selectedDay, setSelectedDay] = useState(START_DAY);
   const [selectedMonth, setSelectedMonth] = useState(START_MONTH);
   const [selectedYear, setSelectedYear] = useState(START_YEAR);
+  const [squareSize, setSquareSize] = useState('2rem');
 
   const selectedDateColor = useColorModeValue('info.light', 'info.dark');
   const selectedDateTextColor = 'white';
@@ -46,14 +45,13 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
    * Calculates the size each calendar entry needs to be
    */
   const getSquareSize = useCallback(() => {
-    if (!dimensions) {
-      console.debug('returned fallback 4rem...');
-      return '2rem'; // fallback
+    if (!ref || !ref.current) {
+      return '2rem';
     }
 
-    const result = Math.floor(dimensions.borderBox.width / 7 - (2 * 7));
-    return result + 'px';
-  }, [dimensions]);
+    const result = Math.floor(ref.current?.getBoundingClientRect().width / 7 - (2 * 7));
+    return `${result}px`;
+  }, [ref]);
 
   /**
    * Returns true if the provided month number matches the selected month
@@ -178,11 +176,13 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
    */
   useEffect(() => {
     setCalendarData(getData());
-
-    if (ref.current) {
-
-    }
   }, [getData]);
+
+  useEffect(() => {
+    if (ref && ref.current) {
+      setSquareSize(getSquareSize());
+    }
+  }, [ref.current, getSquareSize]);
 
   return (
     <Box ref={ref} w={'100%'}>
@@ -210,7 +210,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
         {calendarData.map(month => month.dates.map(date => (
           <Square
             key={date}
-            size={getSquareSize()}
+            size={squareSize}
             onClick={() => handleTimeChange(date, month.index, month.year)}
             cursor={isSelectedMonth(month.index) ? 'pointer' : 'auto'}
             bgColor={isSelectedDay(month.index, date) ? selectedDateColor : 'none'}
