@@ -17,37 +17,29 @@ export const ReservationSummary = ({
   isMediumDevice,
   isSmallDevice
 }: IReservationSummaryProps) => {
-  const IMAGE_HEIGHT_REM = 32;
-
   const textStyling = {
     textAlign: (isSmallDevice ? 'center' : 'left') as TextAlign,
-  }
-
-  const boxStyling = {
-    position: (isSmallDevice || isMediumDevice) ? 'relative' : '-webkit-sticky',
-    // @ts-ignore - safari fix
-    position: (isSmallDevice || isMediumDevice) ? 'relative' : 'sticky',
-    top: '0',
   }
 
   return (
     <Box
       id={'summary'}
       w={'100%'}
-      sx={boxStyling}>
+      zIndex={1}
+      // @ts-ignore - safari sticky fix
+      style={{position: '-webkit-sticky', position: 'sticky', top: 0}}>
       <Image
         src={'./hero-1.webp'}
         w={'100%'}
-        h={`${IMAGE_HEIGHT_REM}rem`}
+        h={`32rem`}
         objectFit={'cover'}
         objectPosition={'left'}
       />
 
       {(groupSize || groupDate || groupTime) && (
         <Box
-          position={'absolute'}
           w={'100%'}
-          top={`${IMAGE_HEIGHT_REM + 2}rem`}
+          mt={'2rem'}
           px={isSmallDevice ? 8 : 36}
           left={0}>
           <Heading

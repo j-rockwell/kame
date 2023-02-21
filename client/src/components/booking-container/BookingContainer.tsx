@@ -1,8 +1,8 @@
-import {Box, Stack} from "@chakra-ui/react";
+import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
 import {ReactNode} from "react";
 import {IScalable} from "@/hooks/Dimensions";
-import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
 import {TableGroup, TableTime} from "@/models/Table";
+import {Box, Stack} from "@chakra-ui/react";
 
 interface IBookingContainerProps extends IScalable {
   screenHeight: number;
@@ -23,7 +23,7 @@ export const BookingContainer = ({
 }: IBookingContainerProps) => {
   return (
     <Stack direction={isSmallDevice ? 'column-reverse' : 'row'} spacing={0}>
-      <Box w={isSmallDevice ? '100%' : '50%'}>
+      <Box pos={'relative'} position={'static'} w={isSmallDevice ? '100%' : '50%'}>
         <ReservationSummary
           groupSize={groupSize}
           groupDate={groupDate}
