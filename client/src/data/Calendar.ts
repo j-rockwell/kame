@@ -67,13 +67,13 @@ export function getDaysUntilWeekStart(day: number, month: number, year: number):
     return 0;
   }
 
-  let hops = 1;
+  let hops = 0;
   while (date.getDay() !== 0) {
     date.setDate(date.getDate() + 1);
     hops += 1;
   }
 
-  return hops;
+  return 7 - hops;
 }
 
 export type MonthEntry = {
