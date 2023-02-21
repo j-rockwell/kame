@@ -178,11 +178,28 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
     setCalendarData(getData());
   }, [getData]);
 
+  /**
+   * Handles the initial setting of square size
+   */
   useEffect(() => {
     if (ref && ref.current) {
       setSquareSize(getSquareSize());
     }
-  }, [ref.current, getSquareSize]);
+  }, [getSquareSize]);
+
+  /**
+   * Handles resizing the calendar squares on window resize events
+   */
+  useEffect(() => {
+    function handleWindowResize() {
+      setSquareSize(getSquareSize());
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+    handleWindowResize();
+
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
 
   return (
     <Box ref={ref} w={'100%'}>
