@@ -185,7 +185,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
     if (ref && ref.current) {
       setSquareSize(getSquareSize());
     }
-  }, [getSquareSize]);
+  }, [ref.current, getSquareSize]);
 
   /**
    * Handles resizing the calendar squares on window resize events
@@ -199,7 +199,7 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
     handleWindowResize();
 
     return () => window.removeEventListener('resize', handleWindowResize);
-  }, []);
+  }, [ref.current, getSquareSize]);
 
   return (
     <Box ref={ref} w={'100%'}>
