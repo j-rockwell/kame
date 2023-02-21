@@ -46,6 +46,7 @@ export const ReservationSummary = ({
             size={'xl'}
             fontWeight={'normal'}
             mb={8}
+            whiteSpace={'pre'}
             {...textStyling}>
             Reservation Summary
           </Heading>
