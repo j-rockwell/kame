@@ -56,7 +56,7 @@ export const CustomerDetails = ({
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isNewCustomerFieldsActive]);
+  }, [isNewCustomerFieldsActive, shouldForceFullOpacity]);
 
   return (
     <Container maxW={'container.xl'}>
