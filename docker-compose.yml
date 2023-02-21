@@ -10,6 +10,15 @@ services:
       - "3000:3000"
     depends_on:
       - server
+  admin:
+    container_name: admin
+    build:
+      dockerfile: Dockerfile
+      context: ./admin
+    ports:
+      - "3001:3001"
+    depends_on:
+      - server
   server:
     container_name: server
     build:
