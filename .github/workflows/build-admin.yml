@@ -1,0 +1,28 @@
+name: Build Admin Panel
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      with:
+        path: "admin/node_modules"
+        key: node-modules-${{ hashFiles('admin/package.json') }}
+    - run: npm ci
+      working-directory: admin
+    - run: npm run build --if-present
+      working-directory: admin
+    - run: npm test
+      working-directory: admin
