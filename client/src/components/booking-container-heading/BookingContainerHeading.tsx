@@ -19,7 +19,7 @@ export const BookingContainerHeading = ({isSmallDevice, children}: IBookingConta
       <Heading
         textAlign={isSmallDevice ? 'center' : 'left'}
         size={'2xl'}
-        fontWeight={'normal'}>
+        fontWeight={'semibold'}>
         {children}
       </Heading>
 

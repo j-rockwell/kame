@@ -1,9 +1,11 @@
-import {Box, Container, Image, Stack, VStack} from "@chakra-ui/react";
-import {IScalable, useDimensions} from "@/hooks/Dimensions";
 import {NewCustomerInput} from "@/components/customer-new/NewCustomerInput";
-import {LoginAccountData, NewAccountData} from "@/models/Account";
 import {CustomerLoginInput} from "@/components/customer-login/CustomerLoginInput";
 import {useCallback, useEffect, useState} from "react";
+import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
+import {useReservationContext} from "@/context/ReservationContext";
+import {IScalable, useDimensions} from "@/hooks/Dimensions";
+import {LoginAccountData, NewAccountData} from "@/models/Account";
+import {Container, Image, Stack, VStack} from "@chakra-ui/react";
 
 interface ICustomerDetailsProps extends IScalable {
   isLoading: boolean;
@@ -17,6 +19,7 @@ export const CustomerDetails = ({
   onLoginAttempt,
   isSmallDevice
 }: ICustomerDetailsProps) => {
+  const {groupSize, groupDate, groupTime} = useReservationContext();
   const {width, height} = useDimensions();
   const [isNewCustomerFieldsActive, setNewCustomerFieldsActive] = useState(false);
 
@@ -63,15 +66,24 @@ export const CustomerDetails = ({
       <Stack
         w={'100%'}
         direction={isSmallDevice ? 'column' : 'row'}
-        spacing={isSmallDevice ? '2rem' : '8rem'}
-      >
-        <Image
-          src={'./hero-2.webp'}
-          w={'100%'}
-          h={height * 0.75}
-          objectFit={'cover'}
-          pt={isSmallDevice ? 0 : '2rem'}
-        />
+        spacing={isSmallDevice ? '2rem' : '8rem'}>
+        <VStack>
+          <Image
+            src={'./hero-2.webp'}
+            w={'100%'}
+            h={height * 0.75}
+            mb={'1rem'}
+            objectFit={'cover'}
+            pt={isSmallDevice ? 0 : '2rem'}
+          />
+
+          <ReservationSummaryDescription
+            isSmallDevice={isSmallDevice}
+            groupSize={groupSize}
+            groupDate={groupDate}
+            groupTime={groupTime}
+          />
+        </VStack>
 
         <VStack w={'100%'} spacing={'8rem'} pt={isSmallDevice ? 0 : '2rem'}>
           <CustomerLoginInput
