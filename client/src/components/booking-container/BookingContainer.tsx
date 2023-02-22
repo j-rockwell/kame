@@ -1,5 +1,5 @@
 import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
-import {ReactNode} from "react";
+import {ReactNode, useCallback} from "react";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import {Box, Stack} from "@chakra-ui/react";
@@ -36,7 +36,7 @@ export const BookingContainer = ({
       <Box
         w={isSmallDevice ? '100%' : '50%'}
         minH={screenHeight}
-        px={isSmallDevice ? 16 : 36}
+        px={(isSmallDevice || isMediumDevice) ? 4 : 36}
         py={16}>
         {children}
       </Box>
