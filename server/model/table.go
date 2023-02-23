@@ -14,6 +14,7 @@ type Table struct {
 	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
 	Group       TableGroup         `json:"group" bson:"group"`
 	GroupSize   uint8              `json:"group_size" bson:"group_size"`
+	Menu        TableMenu          `json:"menu" bson:"menu"`
 	Time        TableTime          `json:"table_time" bson:"table_time"`
 	Transaction Transaction        `json:"transaction" bson:"transaction"`
 	Blackout    bool               `json:"blackout" bson:"blackout"`
@@ -26,6 +27,13 @@ const (
 	B TableGroup = "B"
 )
 
+type TableMenu string
+
+const (
+	PREMIUM   TableMenu = "PREMIUM"
+	SIGNATURE TableMenu = "SIGNATURE"
+)
+
 type GetTablesOnDateResponse struct {
 	Available []TableGroup `json:"available,omitempty"`
 }
@@ -36,6 +44,7 @@ type CreateTableRequest struct {
 	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
 	Group       TableGroup         `json:"group" bson:"group"`
 	GroupSize   uint8              `json:"group_size" bson:"group_size"`
+	Menu        TableMenu          `json:"menu" bson:"menu"`
 	Time        TableTime          `json:"table_time" bson:"table_time"`
 	Transaction Transaction        `json:"transaction" bson:"transaction"`
 	Blackout    bool               `json:"blackout,omitempty" bson:"blackout,omitempty"`
@@ -46,6 +55,7 @@ type RescheduleTableRequest struct {
 	Group     TableGroup         `json:"group" bson:"group"`
 	GroupSize uint8              `json:"group_size" bson:"group_size"`
 	Time      TableTime          `json:"table_time" bson:"table_time"`
+	Menu      TableMenu          `json:"menu" bson:"menu"`
 }
 
 type CreateTableResponse struct {
