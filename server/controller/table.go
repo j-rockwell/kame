@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -103,6 +104,59 @@ func (controller *DataController) GetTablesOnDate() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, res)
+	}
+}
+
+// GetMenusOnDate queries available menus on a specific date/time
+func (controller *DataController) GetMenusOnDate() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		dayStr, dayPresent := ctx.GetQuery("day")
+		monthStr, monthPresent := ctx.GetQuery("month")
+		yearStr, yearPresent := ctx.GetQuery("year")
+		groupStr, groupPresent := ctx.GetQuery("group")
+
+		if !dayPresent || !monthPresent || !yearPresent || !groupPresent {
+			ctx.AbortWithStatusJSON(
+				http.StatusBadRequest,
+				GenerateErrorResponse("day, month, year and group must be present in query params"))
+
+			return
+		}
+
+		day, err := strconv.Atoi(dayStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("day invalid number"))
+			return
+		}
+
+		month, err := strconv.Atoi(monthStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("month invalid number"))
+			return
+		}
+
+		year, err := strconv.Atoi(yearStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("year invalid number"))
+			return
+		}
+
+		var group model.TableGroup
+		if groupStr == "A" {
+			group = model.A
+		} else if groupStr == "B" {
+			group = model.B
+		} else {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("group value must be 'A' or 'B'"))
+			return
+		}
+
+		// TODO:
+		// 	- check for blackout days
+		// 	- check for menu blackouts
+		// 	- return available menus
+		// 	- remove debug logging, only here to allow passing build
+		fmt.Println("day: " + string(rune(day)) + ", month: " + string(rune(month)) + ", year: " + string(rune(year)) + ", group: " + string(group))
 	}
 }
 

@@ -17,7 +17,10 @@ func (r *RouteController) ApplyTable(router *gin.Engine) {
 	public := router.Group("/table")
 	{
 		// api.sushikame.com/table/availability?day=4?month=1?year=2023
-		public.GET("/availability", ctrl.GetTablesOnDate())
+		public.GET("/availability/time", ctrl.GetTablesOnDate())
+
+		// api.sushikame.com/table/availability?day=4?month=1?year=2023?group=A
+		public.GET("/availability/menu", ctrl.GetMenusOnDate())
 	}
 
 	private := router.Group("/table")
