@@ -60,7 +60,7 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
     <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
       <GroupTimeEntry
         title={'Group A'}
-        subtitle={'6:30pm - 8:00pm'}
+        subtitle={'6:00pm - 8:00pm'}
         isSelected={isGroupSelected('A')}
         isMobile={isSmallDevice}
         onClick={() => handleGroupChange('A')}
@@ -68,7 +68,7 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
 
       <GroupTimeEntry
         title={'Group B'}
-        subtitle={'8:30pm - 10:00pm'}
+        subtitle={'8:30pm - 10:30pm'}
         isSelected={isGroupSelected('B')}
         isMobile={isSmallDevice}
         onClick={() => handleGroupChange('B')}
