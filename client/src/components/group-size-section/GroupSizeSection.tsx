@@ -18,7 +18,7 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
    * that the user should call the restaurant before making the reservation
    */
   const isLargeParty = useMemo(() => {
-    return size >= 10;
+    return size >= 6;
   }, [size]);
 
   /**
@@ -26,7 +26,7 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
    */
   const onIncrement = useCallback(() => {
     console.debug('onIncrement');
-    if (size >= 10) {
+    if (size >= 6) {
       return;
     }
 
