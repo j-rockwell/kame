@@ -1,5 +1,5 @@
 import {createContext, useContext} from "react";
-import {TableGroup, TableTime} from "@/models/Table";
+import {TableGroup, TableMenu, TableTime} from "@/models/Table";
 
 const DATE = new Date();
 
@@ -9,13 +9,17 @@ interface IReservationContext {
   groupSize: number;
   groupDate: TableTime;
   groupTime?: TableGroup;
-  availability: TableGroup[];
-  setLoadingReservations: (b: boolean) => void; // loading state bool
-  setLoadingReservationError: (err?: string) => void;      // loading error message
-  setGroupSize: (n: number) => void;            // int
-  setGroupDate: (tt: TableTime) => void;        // Calendar date (month,day,year)
-  setGroupTime: (tg?: TableGroup) => void;      // A or B
-  setAvailability: (tga: TableGroup[]) => void; // A or B
+  groupMenu?: TableMenu;
+  timeAvailability: TableGroup[];
+  menuAvailability: TableMenu[];
+  setLoadingReservations: (b: boolean) => void;         // loading state bool
+  setLoadingReservationError: (err?: string) => void;   // loading error message
+  setGroupSize: (n: number) => void;                    // int
+  setGroupDate: (tt: TableTime) => void;                // Calendar date (month,day,year)
+  setGroupTime: (tg?: TableGroup) => void;              // A or B
+  setGroupMenu: (tm?: TableMenu) => void;               // SIGNATURE or PREMIUM
+  setTimeAvailability: (tga: TableGroup[]) => void;     // A or B
+  setMenuAvailability: (tma: TableMenu[]) => void;      // SIGNATURE or PREMIUM
 }
 
 /**
@@ -26,18 +30,22 @@ export const ReservationContext = createContext<IReservationContext>({
   loadingReservationError: undefined,
   groupSize: 1,
   groupTime: undefined,
+  groupMenu: undefined,
   groupDate: {
     month: DATE.getMonth(),
     day: DATE.getDate(),
     year: DATE.getFullYear()
   },
-  availability: [],
+  timeAvailability: [],
+  menuAvailability: [],
   setLoadingReservations: () => {},
   setLoadingReservationError: () => {},
   setGroupSize: () => {},
   setGroupDate: () => {},
   setGroupTime: () => {},
-  setAvailability: () => {},
+  setGroupMenu: () => {},
+  setTimeAvailability: () => {},
+  setMenuAvailability: () => {},
 });
 
 export const useReservationContext = () => useContext(ReservationContext);

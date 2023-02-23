@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
+import {getTableMenuAvailability, getTableTimeAvailability} from "@/requests/Table";
 import {ReservationContext} from "@/context/ReservationContext";
-import {TableGroup, TableTime} from "@/models/Table";
-import {getTableAvailability} from "@/requests/Table";
+import {TableGroup, TableMenu, TableTime} from "@/models/Table";
 
 interface IReservationContextProviderProps {
   children: any;
@@ -15,7 +15,9 @@ export function ReservationContextProvider({children}: IReservationContextProvid
   const [error, setError] = useState<string | undefined>(undefined);
   const [groupSize, setGroupSize] = useState(1);
   const [groupTime, setGroupTime] = useState<TableGroup | undefined>(undefined);
-  const [availability, setAvailability] = useState<TableGroup[]>([]);
+  const [groupMenu, setGroupMenu] = useState<TableMenu | undefined>(undefined);
+  const [timeAvailability, setTimeAvailability] = useState<TableGroup[]>([]);
+  const [menuAvailability, setMenuAvailability] = useState<TableMenu[]>([]);
 
   const [groupDate, setGroupDate] = useState<TableTime>({
     month: DATE.getMonth(),
@@ -30,15 +32,36 @@ export function ReservationContextProvider({children}: IReservationContextProvid
     setLoading(true);
     setError(undefined);
 
-    getTableAvailability({...groupDate}).then(data => {
-      setAvailability(data.availability);
+    getTableTimeAvailability({...groupDate}).then(data => {
+      setTimeAvailability(data.availability);
     }).catch(err => {
-      setAvailability([]);
+      setTimeAvailability([]);
       setError(err.toString());
     }).finally(() => {
       setLoading(false);
     })
   }, [groupDate]);
+
+  /**
+   * Handles menu query when table group field is updated
+   */
+  useEffect(() => {
+    setError(undefined);
+    if (!groupTime || !groupDate) {
+      return;
+    }
+
+    setLoading(true);
+
+    getTableMenuAvailability(({group: groupTime, ...groupDate})).then(data => {
+      setMenuAvailability(data.availability);
+    }).catch(err => {
+      setMenuAvailability([]);
+      setError(err.toString());
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, [groupDate, groupTime]);
 
   return (
     <ReservationContext.Provider value={{
@@ -47,13 +70,17 @@ export function ReservationContextProvider({children}: IReservationContextProvid
       groupSize: groupSize,
       groupTime: groupTime,
       groupDate: groupDate,
-      availability: availability,
+      groupMenu: groupMenu,
+      timeAvailability: timeAvailability,
+      menuAvailability: menuAvailability,
       setLoadingReservations: setLoading,
       setLoadingReservationError: setError,
       setGroupSize: setGroupSize,
       setGroupTime: setGroupTime,
       setGroupDate: setGroupDate,
-      setAvailability: setAvailability,
+      setGroupMenu: setGroupMenu,
+      setTimeAvailability: setTimeAvailability,
+      setMenuAvailability: setMenuAvailability,
     }}>
       {children}
     </ReservationContext.Provider>
