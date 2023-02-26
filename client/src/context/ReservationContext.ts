@@ -1,5 +1,6 @@
 import {createContext, useContext} from "react";
-import {TableGroup, TableMenu, TableTime} from "@/models/Table";
+import {TableGroup, TableTime} from "@/models/Table";
+import {Menu, MenuSanitized} from "@/models/Menu";
 
 const DATE = new Date();
 
@@ -9,17 +10,17 @@ interface IReservationContext {
   groupSize: number;
   groupDate: TableTime;
   groupTime?: TableGroup;
-  groupMenu?: TableMenu;
+  groupMenu?: MenuSanitized;
   timeAvailability: TableGroup[];
-  menuAvailability: TableMenu[];
+  menuAvailability: MenuSanitized[];
   setLoadingReservations: (b: boolean) => void;         // loading state bool
   setLoadingReservationError: (err?: string) => void;   // loading error message
   setGroupSize: (n: number) => void;                    // int
   setGroupDate: (tt: TableTime) => void;                // Calendar date (month,day,year)
   setGroupTime: (tg?: TableGroup) => void;              // A or B
-  setGroupMenu: (tm?: TableMenu) => void;               // SIGNATURE or PREMIUM
+  setGroupMenu: (m?: MenuSanitized) => void;            // Menu Object
   setTimeAvailability: (tga: TableGroup[]) => void;     // A or B
-  setMenuAvailability: (tma: TableMenu[]) => void;      // SIGNATURE or PREMIUM
+  setMenuAvailability: (ms: MenuSanitized[]) => void;   // Menu Object
 }
 
 /**

@@ -23,6 +23,7 @@ export default function Home() {
     groupDate,
     groupTime,
     groupMenu,
+    menuAvailability,
     setGroupSize,
     setGroupTime,
     setGroupDate,
@@ -72,9 +73,24 @@ export default function Home() {
               setSize={setGroupSize}
             />
 
-            <TableDateSection setTime={setGroupDate} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
-            <GroupTimeSection group={groupTime} setGroup={setGroupTime} isSmallDevice={isSmallDevice} />
-            <MenuSection menu={groupMenu} setMenu={setGroupMenu} isSmallDevice={isSmallDevice} />
+            <TableDateSection
+              setTime={setGroupDate}
+              isMediumDevice={isMediumDevice}
+              isSmallDevice={isSmallDevice}
+            />
+
+            <GroupTimeSection
+              group={groupTime}
+              setGroup={setGroupTime}
+              isSmallDevice={isSmallDevice}
+            />
+
+            <MenuSection
+              availability={menuAvailability}
+              menu={groupMenu}
+              setMenu={setGroupMenu}
+              isSmallDevice={isSmallDevice}
+            />
 
             <ReserveButton disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next

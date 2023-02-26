@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
-import {getTableMenuAvailability, getTableTimeAvailability} from "@/requests/Table";
+import {getTableTimeAvailability} from "@/requests/Table";
+import {getMenuAvailability} from "@/requests/Menu";
 import {ReservationContext} from "@/context/ReservationContext";
-import {TableGroup, TableMenu, TableTime} from "@/models/Table";
+import {MenuSanitized} from "@/models/Menu";
+import {TableGroup, TableTime} from "@/models/Table";
 
 interface IReservationContextProviderProps {
   children: any;
@@ -15,9 +17,9 @@ export function ReservationContextProvider({children}: IReservationContextProvid
   const [error, setError] = useState<string | undefined>(undefined);
   const [groupSize, setGroupSize] = useState(1);
   const [groupTime, setGroupTime] = useState<TableGroup | undefined>(undefined);
-  const [groupMenu, setGroupMenu] = useState<TableMenu | undefined>(undefined);
+  const [groupMenu, setGroupMenu] = useState<MenuSanitized | undefined>(undefined);
   const [timeAvailability, setTimeAvailability] = useState<TableGroup[]>([]);
-  const [menuAvailability, setMenuAvailability] = useState<TableMenu[]>([]);
+  const [menuAvailability, setMenuAvailability] = useState<MenuSanitized[]>([]);
 
   const [groupDate, setGroupDate] = useState<TableTime>({
     month: DATE.getMonth(),
@@ -53,8 +55,8 @@ export function ReservationContextProvider({children}: IReservationContextProvid
 
     setLoading(true);
 
-    getTableMenuAvailability(({group: groupTime, ...groupDate})).then(data => {
-      setMenuAvailability(data.availability);
+    getMenuAvailability(({group: groupTime, ...groupDate})).then(data => {
+      setMenuAvailability(data);
     }).catch(err => {
       setMenuAvailability([]);
       setError(err.toString());

@@ -1,4 +1,4 @@
-import {TableGroup, TableMenu} from "@/models/Table";
+import {TableGroup} from "@/models/Table";
 
 export type GetTableTimeAvailabilityRequest = {
   day: number;
@@ -8,15 +8,4 @@ export type GetTableTimeAvailabilityRequest = {
 
 export type GetTableTimeAvailabilityResponse = {
   availability: TableGroup[];
-}
-
-export type GetTableMenuAvailabilityRequest = {
-  day: number;
-  month: number;
-  year: number;
-  group: TableGroup;
-}
-
-export type GetTableMenuAvailabilityResponse = {
-  availability: TableMenu[];
 }

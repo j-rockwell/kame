@@ -1,33 +1,39 @@
 import {useCallback} from "react";
 import {useReservationContext} from "@/context/ReservationContext";
-import {IScalable} from "@/hooks/Dimensions";
-import {TableMenu} from "@/models/Table";
-import {Box, Stack, useColorModeValue} from "@chakra-ui/react";
 import {MenuEntry} from "@/components/menu-picker/MenuPickerEntry";
+import {IScalable} from "@/hooks/Dimensions";
+import {MenuSanitized} from "@/models/Menu";
+import {Stack, useColorModeValue} from "@chakra-ui/react";
 
 interface IMenuPickerProps extends IScalable {
-  menu?: TableMenu;
-  setMenu: (m: TableMenu) => void;
+  availability?: MenuSanitized[];
+  menu?: MenuSanitized;
+  setMenu: (m: MenuSanitized) => void;
 }
 
-export const MenuPicker = ({menu, setMenu, isSmallDevice}: IMenuPickerProps) => {
+export const MenuPicker = ({availability, menu, setMenu, isSmallDevice}: IMenuPickerProps) => {
   const {isLoadingReservations, loadingReservationError} = useReservationContext();
 
   const errorTextColor = useColorModeValue('danger.light', 'danger.dark');
 
-  const isMenuSelected = useCallback((m: TableMenu) => {
-    return menu === m;
-  }, []);
+  const isMenuSelected = useCallback((m: MenuSanitized) => {
+    if (!menu) {
+      return false;
+    }
 
-  const handleMenuChange = useCallback((m: TableMenu) => {
-    if (menu === m) {
+    return menu.id === m.id;
+  }, [menu]);
+
+  const handleMenuChange = useCallback((m: MenuSanitized) => {
+    if (menu && menu.id === m.id) {
       return;
     }
 
     setMenu(m);
   }, [menu, setMenu]);
 
-  if (loadingReservationError) {
+  // TODO: Remove when shifting over to using state
+  /* if (loadingReservationError) {
     return (
       <Box w={'100%'} />
     );
@@ -37,23 +43,19 @@ export const MenuPicker = ({menu, setMenu, isSmallDevice}: IMenuPickerProps) => 
     return (
       <Box w={'100%'} />
     );
-  }
+  } */
 
   return (
     <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
-      <MenuEntry
-        title={'Signature'}
-        isSelected={isMenuSelected('SIGNATURE')}
-        onClick={() => handleMenuChange('SIGNATURE')}
-        isSmallDevice={isSmallDevice}
-      />
-
-      <MenuEntry
-        title={'Premium'}
-        isSelected={isMenuSelected('PREMIUM')}
-        onClick={() => handleMenuChange('PREMIUM')}
-        isSmallDevice={isSmallDevice}
-      />
+      {availability && availability.map(menu => (
+        <MenuEntry
+          key={menu.id}
+          title={menu.name}
+          subtitle={`$${menu.price}`}
+          isSelected={isMenuSelected(menu)}
+          onClick={() => handleMenuChange(menu)}
+          isSmallDevice={isSmallDevice} />
+      ))}
     </Stack>
   )
 }

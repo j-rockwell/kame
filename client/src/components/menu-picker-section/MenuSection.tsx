@@ -1,14 +1,15 @@
 import {IScalable} from "@/hooks/Dimensions";
-import {TableMenu} from "@/models/Table";
+import {MenuSanitized} from "@/models/Menu";
 import {Box, Heading} from "@chakra-ui/react";
 import {MenuPicker} from "@/components/menu-picker/MenuPicker";
 
 interface IMenuSectionProps extends IScalable {
-  menu?: TableMenu;
-  setMenu: (m: TableMenu) => void;
+  availability?: MenuSanitized[];
+  menu?: MenuSanitized;
+  setMenu: (m: MenuSanitized) => void;
 }
 
-export const MenuSection = ({menu, setMenu, isSmallDevice}: IMenuSectionProps) => {
+export const MenuSection = ({availability, menu, setMenu, isSmallDevice}: IMenuSectionProps) => {
   return (
     <Box w={'100%'}>
       <Heading
@@ -18,7 +19,12 @@ export const MenuSection = ({menu, setMenu, isSmallDevice}: IMenuSectionProps) =
         Which menu would you like to have prepared?
       </Heading>
 
-      <MenuPicker menu={menu} setMenu={setMenu} isSmallDevice={isSmallDevice} />
+      <MenuPicker
+        availability={availability}
+        menu={menu}
+        setMenu={setMenu}
+        isSmallDevice={isSmallDevice}
+      />
     </Box>
   )
 }
