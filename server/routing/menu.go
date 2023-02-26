@@ -3,6 +3,7 @@ package routing
 import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
+	"server/middleware"
 	"server/model"
 )
 
@@ -21,6 +22,7 @@ func (r *RouteController) ApplyMenu(router *gin.Engine) {
 	}
 
 	private := router.Group("/menu")
+	private.Use(middleware.Authorize())
 	{
 		private.POST("/", ctrl.CreateMenu())
 		private.PUT("/", ctrl.UpdateMenu())
