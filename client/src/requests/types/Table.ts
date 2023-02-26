@@ -1,11 +1,11 @@
 import {TableGroup} from "@/models/Table";
 
-export type GetTableAvailabilityRequest = {
+export type GetTableTimeAvailabilityRequest = {
   day: number;
   month: number;
   year: number;
 }
 
-export type GetTableAvailabilityResponse = {
+export type GetTableTimeAvailabilityResponse = {
   availability: TableGroup[];
 }

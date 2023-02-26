@@ -25,6 +25,11 @@ func main() {
 		panic("failed to connect to redis instance: " + err.Error())
 	}
 
+	// populate test database
+	if conf.Gin.Mode == gin.DebugMode {
+		util.PopulateData(mongoClient, conf.Mongo.DatabaseName)
+	}
+
 	corsConf := cors.DefaultConfig()
 	corsConf.AllowCredentials = true
 	corsConf.AddAllowHeaders("Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization")
@@ -54,6 +59,7 @@ func main() {
 	routeController.ApplyHealthCheck(router)
 	routeController.ApplyRoles(router)
 	routeController.ApplyTable(router)
+	routeController.ApplyMenu(router)
 
 	err = router.Run(":" + conf.Gin.Port)
 	if err != nil {

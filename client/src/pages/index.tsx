@@ -8,6 +8,7 @@ import {useDimensions} from "@/hooks/Dimensions";
 import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
 import {TableDateSection} from "@/components/table-date-section/TableDateSection";
 import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
+import {MenuSection} from "@/components/menu-picker-section/MenuSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
 import {AiOutlineDown} from "react-icons/ai";
 import {Footer} from "@/components/footer/Footer";
@@ -21,9 +22,12 @@ export default function Home() {
     groupSize,
     groupDate,
     groupTime,
+    groupMenu,
+    menuAvailability,
     setGroupSize,
     setGroupTime,
-    setGroupDate
+    setGroupDate,
+    setGroupMenu,
   } = useReservationContext();
 
   /**
@@ -69,8 +73,24 @@ export default function Home() {
               setSize={setGroupSize}
             />
 
-            <TableDateSection setTime={setGroupDate} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
-            <GroupTimeSection group={groupTime} setGroup={setGroupTime} isSmallDevice={isSmallDevice} />
+            <TableDateSection
+              setTime={setGroupDate}
+              isMediumDevice={isMediumDevice}
+              isSmallDevice={isSmallDevice}
+            />
+
+            <GroupTimeSection
+              group={groupTime}
+              setGroup={setGroupTime}
+              isSmallDevice={isSmallDevice}
+            />
+
+            <MenuSection
+              availability={menuAvailability}
+              menu={groupMenu}
+              setMenu={setGroupMenu}
+              isSmallDevice={isSmallDevice}
+            />
 
             <ReserveButton disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next
