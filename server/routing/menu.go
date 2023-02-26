@@ -24,6 +24,7 @@ func (r *RouteController) ApplyMenu(router *gin.Engine) {
 	private := router.Group("/menu")
 	private.Use(middleware.Authorize())
 	{
+		private.GET("/", ctrl.GetMenus())
 		private.POST("/", ctrl.CreateMenu())
 		private.PUT("/", ctrl.UpdateMenu())
 		private.DELETE("/", ctrl.DeleteMenu())
