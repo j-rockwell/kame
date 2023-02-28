@@ -2,17 +2,20 @@ import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
 import {Box, Image} from "@chakra-ui/react";
+import {MenuSanitized} from "@/models/Menu";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
   groupDate?: TableTime;
   groupTime?: TableGroup;
+  groupMenu?: MenuSanitized;
 }
 
 export const ReservationSummary = ({
   groupSize,
   groupDate,
   groupTime,
+  groupMenu,
   isSmallDevice
 }: IReservationSummaryProps) => {
   return (
@@ -36,6 +39,7 @@ export const ReservationSummary = ({
         groupDate={groupDate}
         groupTime={groupTime}
         groupSize={groupSize}
+        groupMenu={groupMenu}
       />
     </Box>
   );

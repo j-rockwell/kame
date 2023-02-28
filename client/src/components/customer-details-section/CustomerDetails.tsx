@@ -19,7 +19,7 @@ export const CustomerDetails = ({
   onLoginAttempt,
   isSmallDevice
 }: ICustomerDetailsProps) => {
-  const {groupSize, groupDate, groupTime} = useReservationContext();
+  const {groupSize, groupDate, groupTime, groupMenu} = useReservationContext();
   const {width, height} = useDimensions();
   const [isNewCustomerFieldsActive, setNewCustomerFieldsActive] = useState(false);
 
@@ -82,6 +82,7 @@ export const CustomerDetails = ({
             groupSize={groupSize}
             groupDate={groupDate}
             groupTime={groupTime}
+            groupMenu={groupMenu}
           />
         </VStack>
 
