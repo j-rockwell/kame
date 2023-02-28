@@ -1,6 +1,7 @@
 import {Property} from "csstype";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
+import {MenuSanitized} from "@/models/Menu";
 import TextAlign = Property.TextAlign;
 import {Box, Heading, Text, HeadingProps, TextProps, BoxProps, Center} from "@chakra-ui/react";
 
@@ -8,12 +9,14 @@ interface IReservationSummaryDescriptionProps extends IScalable {
   groupSize?: number;
   groupDate?: TableTime;
   groupTime?: TableGroup;
+  groupMenu?: MenuSanitized;
 }
 
 export const ReservationSummaryDescription = ({
   groupSize,
   groupDate,
   groupTime,
+  groupMenu,
   isSmallDevice
 }: IReservationSummaryDescriptionProps) => {
   const headingStyling: HeadingProps = {
@@ -68,6 +71,12 @@ export const ReservationSummaryDescription = ({
       {groupTime && (
         <Text {...textStyling}>
           Guests should arrive by <b>{groupTime === 'A' ? '6:30pm (PST)' : '8:30pm (PST)'}</b>
+        </Text>
+      )}
+
+      {groupMenu && (
+        <Text {...textStyling}>
+          You will be experiencing the <b>{groupMenu.name}</b> menu (${groupMenu.price})
         </Text>
       )}
 

@@ -1,7 +1,8 @@
-import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
-import {ReactNode, useCallback} from "react";
+import {ReactNode} from "react";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
+import {MenuSanitized} from "@/models/Menu";
+import {ReservationSummary} from "@/components/reservation-summary/ReservationSummary";
 import {Box, Stack} from "@chakra-ui/react";
 
 interface IBookingContainerProps extends IScalable {
@@ -9,6 +10,7 @@ interface IBookingContainerProps extends IScalable {
   groupSize?: number;
   groupDate?: TableTime;
   groupTime?: TableGroup;
+  groupMenu?: MenuSanitized;
   children: ReactNode | JSX.Element | ReactNode[] | JSX.Element[];
 }
 
@@ -19,6 +21,7 @@ export const BookingContainer = ({
   groupSize,
   groupDate,
   groupTime,
+  groupMenu,
   children
 }: IBookingContainerProps) => {
   return (
@@ -33,6 +36,7 @@ export const BookingContainer = ({
           groupSize={groupSize}
           groupDate={groupDate}
           groupTime={groupTime}
+          groupMenu={groupMenu}
           isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
         />

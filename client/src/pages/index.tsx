@@ -61,7 +61,8 @@ export default function Home() {
           screenHeight={height}
           groupSize={groupSize}
           groupTime={groupTime}
-          groupDate={groupDate}>
+          groupDate={groupDate}
+          groupMenu={groupMenu}>
           <BookingContainerHeading isSmallDevice={isSmallDevice}>
             Get ready for your experience at Kame.
           </BookingContainerHeading>
