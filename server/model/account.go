@@ -8,16 +8,17 @@ import (
 const ACCOUNT_COLL_NAME string = "account"
 
 type Account struct {
-	ID             primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
-	FirstName      string             `json:"first_name" bson:"first_name"`
-	LastName       string             `json:"last_name" bson:"last_name"`
-	Phone          string             `json:"phone" bson:"phone"`
-	Password       string             `json:"password" bson:"password"`
-	EmailAddress   string             `json:"email_address" bson:"email_address"`
-	EmailConfirmed time.Time          `json:"email_confirmed" bson:"email_confirmed"`
-	CreatedAt      time.Time          `json:"created_at" bson:"created_at"`
-	Permissions    []Permission       `json:"permissions,omitempty" bson:"permissions,omitempty"`
-	Preferences    AccountPreferences `json:"preferences,omitempty" bson:"preferences,omitempty"`
+	ID             primitive.ObjectID   `json:"id,omitempty" bson:"_id,omitempty"`
+	FirstName      string               `json:"first_name" bson:"first_name"`
+	LastName       string               `json:"last_name" bson:"last_name"`
+	Phone          string               `json:"phone" bson:"phone"`
+	Password       string               `json:"password" bson:"password"`
+	EmailAddress   string               `json:"email_address" bson:"email_address"`
+	EmailConfirmed time.Time            `json:"email_confirmed" bson:"email_confirmed"`
+	CreatedAt      time.Time            `json:"created_at" bson:"created_at"`
+	Permissions    []Permission         `json:"permissions,omitempty" bson:"permissions,omitempty"`
+	Roles          []primitive.ObjectID `json:"roles,omitempty" bson:"roles,omitempty"`
+	Preferences    AccountPreferences   `json:"preferences,omitempty" bson:"preferences,omitempty"`
 }
 
 type AccountPreferences struct {
@@ -37,13 +38,15 @@ type CreateAccountRequest struct {
 }
 
 type UpdateAccountRequest struct {
-	FirstName      string             `json:"first_name"`
-	LastName       string             `json:"last_name"`
-	EmailAddress   string             `json:"email_address"`
-	EmailConfirmed bool               `json:"email_confirmed"`
-	Phone          string             `json:"phone"`
-	Password       string             `json:"password"`
-	Preferences    AccountPreferences `json:"preferences"`
+	FirstName      string               `json:"first_name"`
+	LastName       string               `json:"last_name"`
+	EmailAddress   string               `json:"email_address"`
+	EmailConfirmed bool                 `json:"email_confirmed"`
+	Phone          string               `json:"phone"`
+	Password       string               `json:"password"`
+	Preferences    AccountPreferences   `json:"preferences"`
+	Permissions    []Permission         `json:"permissions"`
+	Roles          []primitive.ObjectID `json:"roles"`
 }
 
 type CreateAccountResponse struct {
