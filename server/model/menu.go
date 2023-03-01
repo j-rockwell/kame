@@ -5,16 +5,6 @@ import (
 	"time"
 )
 
-/*
-	Example Menu Obj:
-		- ID: docid
-		- Name: Premium Menu
-		- Price: 150.50
-		- Created By: docid (user)
-		- Created At: timestamp
-		- Last Updated: timestamp
-*/
-
 const MENU_COLL_NAME string = "menus"
 const MENU_BLACKOUT_COLL_NAME string = "menus_blackout"
 

@@ -3,6 +3,7 @@ package routing
 import (
 	"github.com/gin-gonic/gin"
 	"server/controller"
+	"server/middleware"
 	"server/model"
 )
 
@@ -14,6 +15,11 @@ func (r *RouteController) ApplyTable(router *gin.Engine) {
 		CollectionName: model.TABLE_COLL_NAME,
 	}
 
+	permHandler := middleware.PermissionHandler{
+		MongoClient:  r.Mongo,
+		DatabaseName: r.DatabaseName,
+	}
+
 	public := router.Group("/table")
 	{
 		// api.sushikame.com/table/availability?day=4?month=1?year=2023
@@ -23,5 +29,12 @@ func (r *RouteController) ApplyTable(router *gin.Engine) {
 	private := router.Group("/table")
 	{
 		private.POST("/", ctrl.CreateTable())
+	}
+
+	admin := router.Group("/table")
+	admin.Use(middleware.Authorize())
+	admin.Use(permHandler.AttachPermissions())
+	{
+		// ...
 	}
 }

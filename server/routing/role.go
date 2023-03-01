@@ -16,8 +16,14 @@ func (r *RouteController) ApplyRoles(router *gin.Engine) {
 		CollectionName: model.ROLE_COLL_NAME,
 	}
 
+	permHandler := middleware.PermissionHandler{
+		MongoClient:  r.Mongo,
+		DatabaseName: r.DatabaseName,
+	}
+
 	private := router.Group("/role")
 	private.Use(middleware.Authorize())
+	private.Use(permHandler.AttachPermissions())
 	{
 		private.GET("/", ctrl.GetRoles())
 		private.GET("/:accountId", ctrl.GetRolesByAccount())

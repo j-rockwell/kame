@@ -17,6 +17,11 @@ func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 		CollectionName: model.ACCOUNT_COLL_NAME,
 	}
 
+	permHandler := middleware.PermissionHandler{
+		MongoClient:  r.Mongo,
+		DatabaseName: r.DatabaseName,
+	}
+
 	public := router.Group("/account")
 	{
 		public.GET("/availability/email/:email", ctrl.GetEmailAvailability())
@@ -25,6 +30,7 @@ func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 
 	private := router.Group("/account")
 	private.Use(middleware.Authorize())
+	private.Use(permHandler.AttachPermissions())
 	{
 		private.PUT("/", ctrl.UpdateAccount())
 	}

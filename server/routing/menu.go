@@ -16,6 +16,11 @@ func (r *RouteController) ApplyMenu(router *gin.Engine) {
 		CollectionName: model.MENU_COLL_NAME,
 	}
 
+	permHandler := middleware.PermissionHandler{
+		MongoClient:  r.Mongo,
+		DatabaseName: r.DatabaseName,
+	}
+
 	public := router.Group("/menu")
 	{
 		public.GET("/availability", ctrl.GetAvailableMenus())
@@ -23,6 +28,7 @@ func (r *RouteController) ApplyMenu(router *gin.Engine) {
 
 	private := router.Group("/menu")
 	private.Use(middleware.Authorize())
+	private.Use(permHandler.AttachPermissions())
 	{
 		private.GET("/", ctrl.GetMenus())
 		private.POST("/", ctrl.CreateMenu())
