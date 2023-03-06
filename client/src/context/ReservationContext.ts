@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 import {TableGroup, TableTime} from "@/models/Table";
-import {Menu, MenuSanitized} from "@/models/Menu";
+import {MenuSanitized} from "@/models/Menu";
 
 const DATE = new Date();
 
