@@ -2,8 +2,20 @@ package validate
 
 import (
 	"fmt"
+	"github.com/golang-jwt/jwt/v4"
 	"regexp"
 )
+
+// Token parses an encoded string and compares it against
+// the provided public key then returns the computed result
+func Token(encoded string, pubkey string) (*jwt.Token, error) {
+	return jwt.Parse(encoded, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("invalid token %v", token.Header["alg"])
+		}
+		return []byte(pubkey), nil
+	})
+}
 
 // Password accepts a string and verifies the string is
 // a valid password format

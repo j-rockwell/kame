@@ -1,25 +1,13 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"server/config"
+	"server/validate"
 	"strconv"
 )
-
-// validate parses an encoded string and compares it against
-// the provided public key then returns the computed result
-func validate(encoded string, pubkey string) (*jwt.Token, error) {
-	return jwt.Parse(encoded, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("invalid token %v", token.Header["alg"])
-		}
-
-		return []byte(pubkey), nil
-	})
-}
 
 // Authorize will read the "Authorization" header from the request and
 // attempt to authorize the token and attach an account ID to the request
@@ -50,7 +38,7 @@ func Authorize() gin.HandlerFunc {
 			return
 		}
 
-		token, err := validate(tokenStr, conf.Auth.AccessTokenPubkey)
+		token, err := validate.Token(tokenStr, conf.Auth.AccessTokenPubkey)
 		if err != nil || !token.Valid {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "invalid token (validation)"})
 			return

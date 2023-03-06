@@ -8,6 +8,7 @@ import (
 	"server/config"
 	"server/database"
 	"server/model"
+	"server/validate"
 )
 
 // AuthWithCredentials attempts to authenticate an account using email/password
@@ -97,15 +98,103 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 // RefreshToken attempts to refresh an accounts auth token and updates the
 // token in our caching layer
 func (controller *DataController) RefreshToken() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
+	conf := config.Prepare()
+	accessTokenPubKey := conf.Auth.AccessTokenPubkey
+	accessTokenTTL := conf.Auth.AccessTokenTTL
+	refreshTokenPubKey := conf.Auth.RefreshTokenPubkey
+	rqp := database.RedisQueryParams{RedisClient: controller.Redis}
+	accmqp := database.MongoQueryParams{
+		MongoClient:    controller.Mongo,
+		DatabaseName:   controller.DatabaseName,
+		CollectionName: model.ACCOUNT_COLL_NAME,
+	}
 
+	return func(ctx *gin.Context) {
+		refreshToken, err := ctx.Cookie("refresh_token")
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to read refresh_token cookie"))
+			return
+		}
+
+		_, err = validate.Token(refreshToken, refreshTokenPubKey)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to validate refresh token"))
+			return
+		}
+
+		accountId, err := database.GetCacheValue(rqp, refreshToken)
+		if err != nil || accountId == "" {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, GenerateErrorResponse("account not found"))
+			return
+		}
+
+		_, err = database.FindDocumentById[model.Account](accmqp, accountId)
+		if err != nil {
+			if err == mongo.ErrNoDocuments {
+				ctx.AbortWithStatusJSON(http.StatusNotFound, GenerateErrorResponse("account not found"))
+				return
+			}
+
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to perform account query"))
+			panic("failed to perform account query during token refresh:\n" + err.Error())
+			return
+		}
+
+		newToken, err := auth.GenerateToken(accountId, accessTokenPubKey, int(accessTokenTTL))
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to generate new token"))
+			panic("failed to perform token generation while refreshing token:\n" + err.Error())
+			return
+		}
+
+		res := model.RefreshTokenResponse{AccessToken: newToken}
+		ctx.JSON(http.StatusOK, res)
 	}
 }
 
 // Invalidate will destroy all cached auth credentials for the provided
 // account connected to the request metadata
 func (controller *DataController) Invalidate() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
+	conf := config.Prepare()
+	refreshTokenPubKey := conf.Auth.RefreshTokenPubkey
+	isReleaseVersion := conf.Gin.Mode == "release"
+	rqp := database.RedisQueryParams{RedisClient: controller.Redis}
 
+	return func(ctx *gin.Context) {
+		refreshToken, err := ctx.Cookie("refresh_token")
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to read refresh token cookie"))
+			return
+		}
+
+		_, err = validate.Token(refreshToken, refreshTokenPubKey)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, GenerateErrorResponse("failed to validate refresh token"))
+			return
+		}
+
+		deleted, err := database.DeleteCacheValue(rqp, refreshToken)
+		if err != nil || deleted <= 0 {
+			ctx.AbortWithStatusJSON(http.StatusNotFound, GenerateErrorResponse("no tokens were deleted"))
+			return
+		}
+
+		var cookieDomain string
+		cookieDomain = ".localhost"
+		if isReleaseVersion {
+			cookieDomain = "*.sushikame.com"
+		}
+
+		ctx.SetCookie(
+			"refresh_token",
+			refreshToken,
+			-1,
+			"/",
+			cookieDomain,
+			true,
+			true,
+		)
+
+		ctx.Status(http.StatusOK)
 	}
 }
