@@ -95,6 +95,34 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 	}
 }
 
+// AuthWithToken attempts to authorize a user using a token provided
+// in their request params
+func (controller *DataController) AuthWithToken() gin.HandlerFunc {
+	mqp := database.MongoQueryParams{
+		MongoClient:    controller.Mongo,
+		DatabaseName:   controller.DatabaseName,
+		CollectionName: controller.CollectionName,
+	}
+
+	return func(ctx *gin.Context) {
+		id := ctx.GetString("accountId")
+		account, err := database.FindDocumentById[model.Account](mqp, id)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to query account"))
+			return
+		}
+
+		res := model.AuthWithTokenResponse{
+			ID:           account.ID,
+			EmailAddress: account.EmailAddress,
+			FirstName:    account.FirstName,
+			LastName:     account.LastName,
+		}
+
+		ctx.JSON(http.StatusOK, res)
+	}
+}
+
 // RefreshToken attempts to refresh an accounts auth token and updates the
 // token in our caching layer
 func (controller *DataController) RefreshToken() gin.HandlerFunc {
