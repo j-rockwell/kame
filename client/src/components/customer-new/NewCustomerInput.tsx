@@ -166,7 +166,8 @@ export const NewCustomerInput = ({
    */
   const handleDataUpdate = useCallback((field: InputField, value: string, clearErrors?: boolean) => {
     // quick fix for number only field with numbers
-    if (field.startsWith('phone_') && !Number.isInteger(value)) {
+    if (field.startsWith('phone_') && (Number.isNaN(value) || Number.isNaN(parseInt(value)))) {
+      console.debug('skipped');
       return;
     }
 
