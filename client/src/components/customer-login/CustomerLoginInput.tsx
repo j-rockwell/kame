@@ -1,17 +1,20 @@
 import {IScalable} from "@/hooks/Dimensions";
+import {LoginAccountData} from "@/models/Account";
+import {useCallback, useState} from "react";
+import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 import {
   Box, Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading, IconButton,
-  Input, InputGroup, InputRightElement,
+  Heading,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  VStack,
   useColorModeValue,
-  VStack
 } from "@chakra-ui/react";
-import {LoginAccountData} from "@/models/Account";
-import {useCallback, useState} from "react";
-import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 
 const INITIAL_DATA: InputData = {value: '', error: undefined};
 
@@ -39,6 +42,17 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
     borderRadius: 12,
   }
 
+  /**
+   * Handles marshalling fields in to a login attempt type and performs the request
+   */
+  const handleLoginAttempt = useCallback(() => {
+    // TODO: Validate input
+    onLoginAttempt({emailAddress: email.value, password: password.value});
+  }, [email.value, onLoginAttempt, password.value]);
+
+  /**
+   * Handles updating the fields for email or password with the option to wipe errors for the specified field
+   */
   const handleDataUpdate = useCallback((field: InputField, value: string, clearErrors?: boolean) => {
     switch (field) {
       case "email_address":
@@ -92,7 +106,7 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
         </FormControl>
 
         <VStack w={'100%'} pt={'2rem'} spacing={'1rem'}>
-          <Button size={'lg'} w={'100%'} color={'white'} bgColor={buttonBgColor}>
+          <Button size={'lg'} w={'100%'} color={'white'} bgColor={buttonBgColor} onClick={handleLoginAttempt}>
             Sign in
           </Button>
 

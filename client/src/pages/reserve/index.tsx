@@ -1,5 +1,6 @@
-import {useCallback, useMemo, useState} from "react";
 import Head from "next/head";
+import {redirect} from "next/navigation";
+import {useCallback, useMemo, useState} from "react";
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {useDimensions} from "@/hooks/Dimensions";
 import {createAccount} from "@/requests/Account";
@@ -7,9 +8,12 @@ import {CustomerDetails} from "@/components/customer-details-section/CustomerDet
 import {LoginAccountData, NewAccountData} from "@/models/Account";
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Footer} from "@/components/footer/Footer";
+import {useAuthContext} from "@/context/AuthContext";
+import {attemptLoginWithCredentials} from "@/requests/Auth";
 
 export default function Reserve() {
   const {width} = useDimensions();
+  const {setAccessToken, setLoadingAccountError} = useAuthContext();
   const [isLoading, setLoading] = useState(false);
 
   /**
@@ -39,20 +43,35 @@ export default function Reserve() {
       phone: d.phone,
       password: d.password,
     }).then(data => {
-      console.debug(data);
-      console.debug('success');
+      setAccessToken(data.access_token);
+      redirect('/card-details');
     }).catch(err => {
+      // TODO: Flash error
+      setLoadingAccountError(err);
       console.error(err);
     }).finally(() => {
       setLoading(false);
     });
-  }, []);
+  }, [setAccessToken, setLoadingAccountError]);
 
+  /**
+   * Handles making a request to the server to authorize an existing account
+   */
   const onLoginAttempt = useCallback((d: LoginAccountData) => {
     setLoading(true);
 
+    attemptLoginWithCredentials({email_address: d.emailAddress, password: d.password}).then(data => {
+      setAccessToken(data.access_token);
+      redirect('/card-details');
+    }).catch(err => {
+      setLoadingAccountError(err);
+      // TODO: Flash error
+    }).finally(() => {
+      setLoading(false);
+    });
+
     // TODO: impl login logic
-  }, []);
+  }, [setAccessToken, setLoadingAccountError]);
 
   return (
     <>
