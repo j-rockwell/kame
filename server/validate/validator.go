@@ -43,11 +43,11 @@ func Email(email string) error {
 	re := regexp.MustCompile(`!/(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))/`)
 
 	if len(email) <= 3 {
-		return fmt.Errorf("must be greater than 3 characters")
+		return fmt.Errorf("email must be greater than 3 characters")
 	}
 
 	if len(email) > 64 {
-		return fmt.Errorf("must be 64 characters or less")
+		return fmt.Errorf("email must be 64 characters or less")
 	}
 
 	if re.MatchString(email) {
@@ -64,11 +64,11 @@ func Email(email string) error {
 // a response
 func Name(name string) error {
 	if len(name) <= 0 {
-		return fmt.Errorf("must be at least 1 character")
+		return fmt.Errorf("name must be at least 1 character")
 	}
 
 	if len(name) > 32 {
-		return fmt.Errorf("must be 32 characters or less")
+		return fmt.Errorf("name must be 32 characters or less")
 	}
 
 	return nil
