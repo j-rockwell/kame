@@ -5,11 +5,11 @@ import {Navigator} from "@/components/navigation/MainNavigation";
 import {useDimensions} from "@/hooks/Dimensions";
 import {createAccount} from "@/requests/Account";
 import {CustomerDetails} from "@/components/customer-details-section/CustomerDetails";
-import {LoginAccountData, NewAccountData} from "@/models/Account";
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Footer} from "@/components/footer/Footer";
 import {useAuthContext} from "@/context/AuthContext";
 import {attemptLoginWithCredentials} from "@/requests/Auth";
+import {LoginAccountData, NewAccountData} from "@/models/Account";
+import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 
 export default function Reserve() {
   const {width} = useDimensions();
