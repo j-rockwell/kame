@@ -27,7 +27,10 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 		err := ctx.ShouldBindJSON(&params)
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to unmarshal json obj: "+err.Error()))
+			ctx.AbortWithStatusJSON(
+				http.StatusBadRequest,
+				GenerateErrorResponse("failed to unmarshal json obj: "+err.Error()),
+			)
 			return
 		}
 
