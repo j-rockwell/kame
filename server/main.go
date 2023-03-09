@@ -31,16 +31,10 @@ func main() {
 	}
 
 	corsConf := cors.DefaultConfig()
+	corsConf.AllowOrigins = conf.Gin.Origins
 	corsConf.AllowCredentials = true
-	corsConf.AddAllowHeaders("Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization")
+	corsConf.AddAllowHeaders("Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization", "Set-Cookie")
 	corsConf.AddAllowMethods("GET", "POST", "PUT", "DELETE")
-
-	// simplify debugging localhost
-	if conf.Gin.Mode == gin.DebugMode {
-		corsConf.AllowAllOrigins = true
-	} else {
-		corsConf.AllowOrigins = conf.Gin.Origins
-	}
 
 	router := gin.New()
 	router.Use(gin.Recovery())
