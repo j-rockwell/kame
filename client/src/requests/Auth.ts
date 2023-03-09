@@ -24,8 +24,13 @@ export async function attemptLoginWithCredentials(
     try {
       const res = await axios.post<AuthSuccessResponse>(
         `${API_URL}/auth/`,
-        {...req},
-        {withCredentials: true}
+        {
+          "email_address": req.email_address,
+          "password": req.password,
+        },
+        {
+          withCredentials: true
+        }
       );
 
       if (!res || !res.data) {
