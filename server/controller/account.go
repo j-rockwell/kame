@@ -27,37 +27,40 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 		err := ctx.ShouldBindJSON(&params)
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "failed to unmarshal json obj: " + err.Error()})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("failed to unmarshal json obj: "+err.Error()))
 			return
 		}
 
 		err = validate.Email(params.EmailAddress)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse(err.Error()))
 			return
 		}
 
 		err = validate.Name(params.FirstName)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error() + " (first name)"})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse(err.Error()))
 			return
 		}
 
 		err = validate.Name(params.LastName)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error() + " (last name)"})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse(err.Error()))
 			return
 		}
 
 		err = validate.Password(params.Password)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse(err.Error()))
 			return
 		}
 
 		pwd, err := auth.GetHash(params.Password)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "failed to generate hash"})
+			ctx.AbortWithStatusJSON(
+				http.StatusInternalServerError,
+				GenerateErrorResponse("failed to generate hash: "+err.Error()),
+			)
 			return
 		}
 
