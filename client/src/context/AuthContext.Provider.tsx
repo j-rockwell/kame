@@ -1,4 +1,5 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {attemptLoginWithToken, attemptRefreshToken} from "@/requests/Auth";
 import {Account} from "@/models/Account";
 import {AuthContext} from "@/context/AuthContext";
 
@@ -12,14 +13,45 @@ export function AuthContextProvider({children}: IAuthContextProviderProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
-  /*
-    TODO: Initial account auth queries here
-   */
+  useEffect(() => {
+    setLoading(true);
+
+    attemptRefreshToken().then(data => {
+      setAccessToken(data.access_token);
+    }).catch(err => {
+      setError(err);
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!accessToken) {
+      setAccount(undefined);
+      return;
+    }
+
+    setLoading(true);
+
+    attemptLoginWithToken({token: accessToken}).then(data => {
+      setAccount({
+        id: data.id,
+        email_address: data.email_address,
+        first_name: data.first_name,
+        last_name: data.last_name,
+      });
+    }).catch(err => {
+      setError(err);
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, [accessToken]);
 
   return (
     <AuthContext.Provider value={{
       account: account,
       accessToken: accessToken,
+      isAuthenticated: (account !== undefined),
       isAccountLoading: loading,
       loadingAccountError: error,
       setAccount: setAccount,

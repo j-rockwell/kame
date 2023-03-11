@@ -4,6 +4,7 @@ import {createContext, useContext} from "react";
 interface IAuthContext {
   account?: Account;
   accessToken?: string;
+  isAuthenticated: boolean;
   isAccountLoading: boolean;
   loadingAccountError?: string;
   setAccount: (acc: Account) => void;
@@ -18,6 +19,7 @@ interface IAuthContext {
 export const AuthContext = createContext<IAuthContext>({
   account: undefined,
   accessToken: undefined,
+  isAuthenticated: false,
   isAccountLoading: false,
   loadingAccountError: undefined,
   setAccount: () => {},

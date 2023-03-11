@@ -4,7 +4,8 @@ import {
   AuthSuccessResponse,
   AuthTokenSuccessResponse,
   AuthWithStandardCredentialsRequest,
-  AuthWithTokenRequest
+  AuthWithTokenRequest,
+  RefreshTokenResponse
 } from "@/requests/types/Auth";
 
 /**
@@ -60,7 +61,7 @@ export async function attemptLoginWithToken(req: AuthWithTokenRequest): Promise<
         }
       });
 
-      if (!res || res.data) {
+      if (!res || !res.data) {
         return reject(new Error('query response empty'));
       }
 
@@ -71,8 +72,29 @@ export async function attemptLoginWithToken(req: AuthWithTokenRequest): Promise<
   });
 }
 
+/**
+ * Performs a token refresh request to the server using a stored
+ * secure cookie set from a previously successful login.
+ */
 export async function attemptRefreshToken() {
+  return new Promise<RefreshTokenResponse>(async (resolve, reject) => {
+    try {
+      const res = await axios.get<RefreshTokenResponse>(
+        `${API_URL}/auth/refresh`,
+        {
+          withCredentials: true
+        }
+      );
 
+      if (!res || !res.data) {
+        return reject(new Error('query response empty'));
+      }
+
+      return resolve(res.data);
+    } catch (e) {
+      return reject(e);
+    }
+  });
 }
 
 export async function attemptInvalidateToken() {
