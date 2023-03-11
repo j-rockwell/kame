@@ -18,6 +18,7 @@ func (r *RouteController) ApplyAuth(router *gin.Engine) {
 
 	public := router.Group("/auth")
 	{
+		public.GET("/refresh", ctrl.RefreshToken())
 		public.POST("/", ctrl.AuthWithCredentials())
 	}
 
@@ -25,7 +26,6 @@ func (r *RouteController) ApplyAuth(router *gin.Engine) {
 	private.Use(middleware.Authorize())
 	{
 		private.GET("/token", ctrl.AuthWithToken())
-		private.POST("/refresh", ctrl.RefreshToken())
 		private.DELETE("/logout", ctrl.Invalidate())
 	}
 }
