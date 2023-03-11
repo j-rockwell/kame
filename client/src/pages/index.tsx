@@ -12,12 +12,21 @@ import {MenuSection} from "@/components/menu-picker-section/MenuSection";
 import {ReserveButton} from "@/components/reserve-button/ReserveButton";
 import {AiOutlineDown} from "react-icons/ai";
 import {Footer} from "@/components/footer/Footer";
+import {useAuthContext} from "@/context/AuthContext";
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
+
+/*
+  booking.sushikame.com/
+  booking.sushikame.com/reserve/customer-details
+  booking.sushikame.com/reserve/card-details
+  booking.sushikame.com/reserve/thank-you
+ */
 
 export default function Home() {
   const {colorMode} = useColorMode();
   const {width, height} = useDimensions();
+  const {isAuthenticated} = useAuthContext();
   const {
     groupSize,
     groupDate,
@@ -93,7 +102,9 @@ export default function Home() {
               isSmallDevice={isSmallDevice}
             />
 
-            <ReserveButton disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
+            <ReserveButton
+              authenticated={isAuthenticated}
+              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
               Next
             </ReserveButton>
 

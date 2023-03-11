@@ -1,5 +1,4 @@
 import Head from "next/head";
-import {redirect} from "next/navigation";
 import {useCallback, useMemo, useState} from "react";
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {useDimensions} from "@/hooks/Dimensions";
@@ -44,7 +43,7 @@ export default function Reserve() {
       password: d.password,
     }).then(data => {
       setAccessToken(data.access_token);
-      redirect('/card-details');
+      window.location.href = "/reserve/card-details";
     }).catch(err => {
       // TODO: Flash error
       setLoadingAccountError(err);
@@ -62,15 +61,13 @@ export default function Reserve() {
 
     attemptLoginWithCredentials({email_address: d.emailAddress, password: d.password}).then(data => {
       setAccessToken(data.access_token);
-      redirect('/card-details');
+      window.location.href = "/reserve/card-details";
     }).catch(err => {
       setLoadingAccountError(err);
       // TODO: Flash error
     }).finally(() => {
       setLoading(false);
     });
-
-    // TODO: impl login logic
   }, [setAccessToken, setLoadingAccountError]);
 
   return (
@@ -79,7 +76,7 @@ export default function Reserve() {
         <title>Sushi Kame | Finish Reservation</title>
         <meta name="description" content="Book a reservation at the best Omakase in Las Vegas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/public/favicon.ico" />
       </Head>
 
       <main>
