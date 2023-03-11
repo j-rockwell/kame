@@ -3,8 +3,8 @@ export type Account = {
   first_name: string;
   last_name: string;
   email_address: string;
-  email_confirmed: boolean;
-  phone: string;
+  email_confirmed?: boolean;
+  phone?: string;
   preferences?: AccountPreferences;
 }
 
