@@ -101,7 +101,7 @@ func (controller *DataController) AuthWithToken() gin.HandlerFunc {
 	mqp := database.MongoQueryParams{
 		MongoClient:    controller.Mongo,
 		DatabaseName:   controller.DatabaseName,
-		CollectionName: controller.CollectionName,
+		CollectionName: model.ACCOUNT_COLL_NAME,
 	}
 
 	return func(ctx *gin.Context) {
