@@ -8,7 +8,7 @@ interface IReservationContext {
   isLoadingReservations: boolean;
   loadingReservationError?: string;
   groupSize: number;
-  groupDate: TableTime;
+  groupDate?: TableTime;
   groupTime?: TableGroup;
   groupMenu?: MenuSanitized;
   timeAvailability: TableGroup[];
@@ -32,11 +32,7 @@ export const ReservationContext = createContext<IReservationContext>({
   groupSize: 1,
   groupTime: undefined,
   groupMenu: undefined,
-  groupDate: {
-    month: DATE.getMonth(),
-    day: DATE.getDate(),
-    year: DATE.getFullYear()
-  },
+  groupDate: undefined,
   timeAvailability: [],
   menuAvailability: [],
   setLoadingReservations: () => {},

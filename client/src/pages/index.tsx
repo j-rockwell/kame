@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import Head from 'next/head'
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {BookingContainer} from "@/components/booking-container/BookingContainer";
@@ -53,6 +53,20 @@ export default function Home() {
     return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
+  /**
+   * Returns true if the menu time picker should be in an active state
+   */
+  const isTimeActive = useCallback(() => {
+    return !!groupDate;
+  }, [groupDate]);
+
+  /**
+   * Returns true if the menu picker should be in an active state
+   */
+  const isMenuActive = useCallback(() => {
+    return !!(groupDate && groupTime);
+  }, [groupDate, groupTime]);
+
   return (
     <>
       <Head>
@@ -90,12 +104,14 @@ export default function Home() {
             />
 
             <GroupTimeSection
+              active={isTimeActive()}
               group={groupTime}
               setGroup={setGroupTime}
               isSmallDevice={isSmallDevice}
             />
 
             <MenuSection
+              active={isMenuActive()}
               availability={menuAvailability}
               menu={groupMenu}
               setMenu={setGroupMenu}

@@ -10,9 +10,6 @@ interface IReservationContextProviderProps {
 }
 
 export function ReservationContextProvider({children}: IReservationContextProviderProps) {
-  const DATE = new Date();
-  DATE.setDate(DATE.getDate() + 1); // roll date over one day so same-day reservations cant be made
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [groupSize, setGroupSize] = useState(1);
@@ -20,12 +17,7 @@ export function ReservationContextProvider({children}: IReservationContextProvid
   const [groupMenu, setGroupMenu] = useState<MenuSanitized | undefined>(undefined);
   const [timeAvailability, setTimeAvailability] = useState<TableGroup[]>([]);
   const [menuAvailability, setMenuAvailability] = useState<MenuSanitized[]>([]);
-
-  const [groupDate, setGroupDate] = useState<TableTime>({
-    month: DATE.getMonth(),
-    day: DATE.getDate(),
-    year: DATE.getFullYear()
-  });
+  const [groupDate, setGroupDate] = useState<TableTime | undefined>(undefined);
 
   /**
    * Handles group time query when this field is updated
@@ -33,6 +25,11 @@ export function ReservationContextProvider({children}: IReservationContextProvid
   useEffect(() => {
     setLoading(true);
     setError(undefined);
+
+    // skip if date is empty
+    if (!groupDate) {
+      return;
+    }
 
     getTableTimeAvailability({...groupDate}).then(data => {
       setTimeAvailability(data.availability);

@@ -1,16 +1,23 @@
 import {GroupTimePicker} from "@/components/group-time-picker/GroupTimePicker";
-import {Box, Heading} from "@chakra-ui/react";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup} from "@/models/Table";
+import {motion} from "framer-motion";
+import {Heading} from "@chakra-ui/react";
 
 interface IGroupTimeSectionProps extends IScalable {
+  active: boolean;
   group?: TableGroup;
   setGroup: (g: TableGroup) => void;
 }
 
-export const GroupTimeSection = ({group, setGroup, isSmallDevice}: IGroupTimeSectionProps) => {
+export const GroupTimeSection = ({active, group, setGroup, isSmallDevice}: IGroupTimeSectionProps) => {
   return (
-    <Box w={'100%'}>
+    <motion.div
+      animate={{opacity: active ? 1 : 0.25}}
+      style={{
+        width: '100%',
+      }}
+    >
       <Heading
         textAlign={isSmallDevice ? 'center' : 'left'}
         size={'lg'}
@@ -19,6 +26,6 @@ export const GroupTimeSection = ({group, setGroup, isSmallDevice}: IGroupTimeSec
       </Heading>
 
       <GroupTimePicker isSmallDevice={isSmallDevice} group={group} setGroup={setGroup} />
-    </Box>
+    </motion.div>
   )
 }

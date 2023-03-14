@@ -1,17 +1,30 @@
 import {IScalable} from "@/hooks/Dimensions";
 import {MenuSanitized} from "@/models/Menu";
-import {Box, Heading} from "@chakra-ui/react";
 import {MenuPicker} from "@/components/menu-picker/MenuPicker";
+import {motion} from "framer-motion";
+import {Heading} from "@chakra-ui/react";
 
 interface IMenuSectionProps extends IScalable {
+  active: boolean;
   availability?: MenuSanitized[];
   menu?: MenuSanitized;
   setMenu: (m: MenuSanitized) => void;
 }
 
-export const MenuSection = ({availability, menu, setMenu, isSmallDevice}: IMenuSectionProps) => {
+export const MenuSection = ({
+  active,
+  availability,
+  menu,
+  setMenu,
+  isSmallDevice
+}: IMenuSectionProps) => {
   return (
-    <Box w={'100%'}>
+    <motion.div
+      animate={{opacity: active ? 1 : 0.25}}
+      style={{
+        width: '100%',
+      }}
+    >
       <Heading
         size={'lg'}
         mb={8}
@@ -25,6 +38,6 @@ export const MenuSection = ({availability, menu, setMenu, isSmallDevice}: IMenuS
         setMenu={setMenu}
         isSmallDevice={isSmallDevice}
       />
-    </Box>
+    </motion.div>
   )
 }
