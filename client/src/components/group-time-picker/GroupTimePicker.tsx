@@ -49,9 +49,9 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
 
   if (isLoadingReservations) {
     return (
-      <Square size={'100%'}>
+      <Square size={'100%'} flexDir={'column'}>
         <Spinner />
-        <Text>Fetching available reservations...</Text>
+        <Text mt={'1rem'}>Fetching available reservations...</Text>
       </Square>
     );
   }
