@@ -73,7 +73,7 @@ export default function Reserve() {
   return (
     <>
       <Head>
-        <title>Sushi Kame | Finish Reservation</title>
+        <title>Sushi Kame | Customer Details</title>
         <meta name="description" content="Book a reservation at the best Omakase in Las Vegas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/public/favicon.ico" />
