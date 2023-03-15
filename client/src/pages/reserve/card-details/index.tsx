@@ -5,8 +5,9 @@ import {Navigator} from "@/components/navigation/MainNavigation";
 import {Footer} from "@/components/footer/Footer";
 
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import {CardDetails} from "@/components/card-details-section/CardDetails";
 
-export default function CardDetails() {
+export default function Card() {
   const {width} = useDimensions();
 
   /**
@@ -34,6 +35,7 @@ export default function CardDetails() {
 
       <main>
         <Navigator backButton={{text: 'Back', href: '/'}} />
+        <CardDetails isSmallDevice={isSmallDevice} onSubmit={() => {}} />
       </main>
 
       <footer>
