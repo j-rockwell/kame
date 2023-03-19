@@ -50,7 +50,7 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
   }, [isMediumDevice, isSmallDevice]);
 
   return (
-    <Box w={'100%'} mt={'4rem'} py={'4rem'} bgColor={bgColor}>
+    <Box w={'100%'} mt={'4rem'} py={'4rem'} bgColor={bgColor} borderTopWidth={1} borderColor={borderColor}>
       <Container maxW={'container.xl'}>
         <SimpleGrid columns={columns} spacingY={'2rem'} spacingX={'3rem'}>
           <VStack w={'100%'} alignItems={isSmallDevice ? 'center' : 'flex-start'} spacing={'1rem'}>

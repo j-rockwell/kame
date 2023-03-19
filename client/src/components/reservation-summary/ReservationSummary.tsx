@@ -24,12 +24,13 @@ export const ReservationSummary = ({
       w={'100%'}
       zIndex={1}
       // @ts-ignore - safari sticky fix
-      style={{position: '-webkit-sticky', position: 'sticky', top: 0}}>
+      style={{position: '-webkit-sticky', position: 'sticky', top: isSmallDevice ? 0 : '4rem'}}>
       <Image
         src={'/hero-1.webp'}
         w={'100%'}
         h={`32rem`}
         mb={'1rem'}
+        borderRadius={12}
         objectFit={'cover'}
         objectPosition={'left'}
       />
