@@ -1,7 +1,7 @@
 import {useCallback} from "react";
 import {GroupTimeEntry} from "@/components/group-time-picker/GroupTimeEntry";
 import {TableGroup} from "@/models/Table";
-import {Spinner, Square, Stack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import {Box, Skeleton, Spinner, Square, Stack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
 import {useReservationContext} from "@/context/ReservationContext";
 import {IScalable} from "@/hooks/Dimensions";
 
@@ -12,8 +12,12 @@ interface IGroupTimePicker extends IScalable {
 
 export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePicker) => {
   const {isLoadingReservations, loadingReservationError} = useReservationContext();
-
   const errorTextColor = useColorModeValue('danger.light', 'danger.dark');
+  const skeletonStyling = {
+    w: '100%',
+    h: '10rem',
+    borderRadius: 12,
+  };
 
   /**
    * Returns true if the provided group is actively selected
@@ -33,26 +37,18 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
     setGroup(g);
   }, [group, setGroup]);
 
-  if (loadingReservationError) {
+  if (isLoadingReservations || loadingReservationError) {
     return (
-      <VStack>
-        <Text color={errorTextColor} textAlign={isSmallDevice ? 'center' : 'left'}>
-          {loadingReservationError}
-        </Text>
+      <Box w={'100%'}>
+        <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
+          <Skeleton {...skeletonStyling} />
+          <Skeleton {...skeletonStyling} />
+        </Stack>
 
-        <Text color={errorTextColor} textAlign={isSmallDevice ? 'center' : 'left'}>
-          Please refresh the page or select a new date on the calendar to try again.
-        </Text>
-      </VStack>
-    );
-  }
-
-  if (isLoadingReservations) {
-    return (
-      <Square size={'100%'} flexDir={'column'}>
-        <Spinner />
-        <Text mt={'1rem'}>Fetching available reservations...</Text>
-      </Square>
+        {loadingReservationError && (
+          <Text color={errorTextColor} mt={2}>{loadingReservationError}</Text>
+        )}
+      </Box>
     );
   }
 

@@ -3,7 +3,7 @@ import {useReservationContext} from "@/context/ReservationContext";
 import {MenuEntry} from "@/components/menu-picker/MenuPickerEntry";
 import {IScalable} from "@/hooks/Dimensions";
 import {MenuSanitized} from "@/models/Menu";
-import {Stack, useColorModeValue} from "@chakra-ui/react";
+import {Box, Skeleton, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 
 interface IMenuPickerProps extends IScalable {
   availability?: MenuSanitized[];
@@ -13,9 +13,16 @@ interface IMenuPickerProps extends IScalable {
 
 export const MenuPicker = ({availability, menu, setMenu, isSmallDevice}: IMenuPickerProps) => {
   const {isLoadingReservations, loadingReservationError} = useReservationContext();
-
   const errorTextColor = useColorModeValue('danger.light', 'danger.dark');
+  const skeletonStyling = {
+    w: '100%',
+    h: '10rem',
+    borderRadius: 12,
+  };
 
+  /**
+   * Returns true if the provided menu is selected
+   */
   const isMenuSelected = useCallback((m: MenuSanitized) => {
     if (!menu) {
       return false;
@@ -24,6 +31,9 @@ export const MenuPicker = ({availability, menu, setMenu, isSmallDevice}: IMenuPi
     return menu.id === m.id;
   }, [menu]);
 
+  /**
+   * Handles menu selection change
+   */
   const handleMenuChange = useCallback((m: MenuSanitized) => {
     if (menu && menu.id === m.id) {
       return;
@@ -32,18 +42,20 @@ export const MenuPicker = ({availability, menu, setMenu, isSmallDevice}: IMenuPi
     setMenu(m);
   }, [menu, setMenu]);
 
-  // TODO: Remove when shifting over to using state
-  /* if (loadingReservationError) {
+  if (!availability || availability.length <= 0 || isLoadingReservations || loadingReservationError) {
     return (
-      <Box w={'100%'} />
+      <Box w={'100%'}>
+        <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
+          <Skeleton {...skeletonStyling} />
+          <Skeleton {...skeletonStyling} />
+        </Stack>
+
+        {loadingReservationError && (
+          <Text color={errorTextColor} mt={2}>{loadingReservationError}</Text>
+        )}
+      </Box>
     );
   }
-
-  if (isLoadingReservations) {
-    return (
-      <Box w={'100%'} />
-    );
-  } */
 
   return (
     <Stack w={'100%'} direction={isSmallDevice ? 'column' : 'row'}>
