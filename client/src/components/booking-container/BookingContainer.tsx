@@ -29,8 +29,8 @@ export const BookingContainer = ({
       <Box
         pos={'relative'}
         w={isSmallDevice ? '100%' : '50%'}
-        pl={isSmallDevice ? 4 : 36}
-        pr={isSmallDevice ? 4 : 0}
+        pl={(isSmallDevice || isMediumDevice) ? 4: 36}
+        pr={(isSmallDevice || isMediumDevice) ? 4 : 0}
         pt={isSmallDevice ? 0 : 16}>
         <ReservationSummary
           groupSize={groupSize}

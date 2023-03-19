@@ -18,9 +18,9 @@ export const CardDetails = ({onSubmit, isSmallDevice}: ICardDetailsProps) => {
         w={'100%'}
         direction={isSmallDevice ? 'column' : 'row'}
         spacing={isSmallDevice ? '2rem' : '8rem'}>
-        <VStack>
+        <VStack w={'100%'}>
           <Image
-            src={'./hero-3.webp'}
+            src={'/hero-3.webp'}
             w={'100%'}
             h={height * 0.75}
             mb={'1rem'}

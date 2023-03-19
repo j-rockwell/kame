@@ -11,7 +11,7 @@ export const INSTAGRAM = "https://www.instagram.com/kameomakase_lv/";
 export const FACEBOOK = "https://www.facebook.com/KameOmakase/";
 
 export const MOBILE_WIDTH_BREAKPOINT = 864;
-export const DESKTOP_WIDTH_BREAKPOINT = 1024;
+export const DESKTOP_WIDTH_BREAKPOINT = 1080;
 
 // TODO: update prod api url
 export const API_URL = __DEV__
