@@ -5,7 +5,7 @@ const theme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
       "html, body": {
-        background: mode('white', '#0E0E10')(props),
+        background: mode('white', 'black')(props),
         scrollBehavior: 'smooth',
       },
 
@@ -21,15 +21,15 @@ const theme = extendTheme({
     },
     background: {
       light: 'white',
-      dark: '#0E0E10',
+      dark: 'black',
     },
     backgroundAccent: {
       light: '#F9F9F9',
-      dark: '#151515',
+      dark: '#050505',
     },
     backgroundHighlight: {
       light: '#ffffff',
-      dark: '#0a0a0a',
+      dark: '#0d0d0d',
     },
     text: {
       light: '#1a1a1a',

@@ -24,7 +24,8 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
 
   const headerTextColor = useColorModeValue('brand.red', 'brand.red');
   const textColor = useColorModeValue('text.light', 'text.dark');
-  const bgColor = useColorModeValue('backgroundAccent.light', 'backgroundAccent.dark');
+  const bgColor = useColorModeValue('backgroundAccent.light', 'background.dark');
+  const borderColor = useColorModeValue('backgroundHighlight.light', 'backgroundHighlight.dark');
 
   /**
    * Returns color-responsive logo
