@@ -69,7 +69,7 @@ export const CustomerDetails = ({
         spacing={isSmallDevice ? '2rem' : '8rem'}>
         <VStack>
           <Image
-            src={'./hero-2.webp'}
+            src={'/hero-2.webp'}
             w={'100%'}
             h={height * 0.75}
             mb={'1rem'}

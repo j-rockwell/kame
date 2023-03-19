@@ -26,7 +26,7 @@ export const ReservationSummary = ({
       // @ts-ignore - safari sticky fix
       style={{position: '-webkit-sticky', position: 'sticky', top: 0}}>
       <Image
-        src={'./hero-1.webp'}
+        src={'/hero-1.webp'}
         w={'100%'}
         h={`32rem`}
         mb={'1rem'}

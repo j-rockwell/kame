@@ -31,7 +31,7 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
    * Returns color-responsive logo
    */
   const logoImageUrl = useMemo(() => {
-    return `./logo-sideways-${colorMode}.png`;
+    return `/logo-sideways-${colorMode}.png`;
   }, [colorMode]);
 
   /**

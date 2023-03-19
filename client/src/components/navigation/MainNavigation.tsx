@@ -15,7 +15,7 @@ export const Navigator = ({backButton}: INavigatorProps) => {
   const {colorMode, setColorMode} = useColorMode();
 
   const logoImageUrl = useMemo(() => {
-    return `./logo-sideways-${colorMode}.png`;
+    return `/logo-sideways-${colorMode}.png`;
   }, [colorMode]);
 
   const toggleColorMode = useCallback(() => {
