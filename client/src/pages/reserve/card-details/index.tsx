@@ -1,14 +1,16 @@
 import Head from "next/head";
-import {useMemo} from "react";
+import {useEffect, useMemo} from "react";
 import {useDimensions} from "@/hooks/Dimensions";
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {Footer} from "@/components/footer/Footer";
 
 import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {CardDetails} from "@/components/card-details-section/CardDetails";
+import {useAuthContext} from "@/context/AuthContext";
 
 export default function Card() {
   const {width} = useDimensions();
+  const {account} = useAuthContext();
 
   /**
    * Returns true if this page is being rendered on a mobile device
@@ -23,6 +25,15 @@ export default function Card() {
   const isMediumDevice = useMemo(() => {
     return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
+
+  /**
+   * Redirects if user hit this page without being authenticated
+   */
+  useEffect(() => {
+    if (!account) {
+      window.location.href = '/reserve/customer-details';
+    }
+  }, [account]);
 
   return (
     <>

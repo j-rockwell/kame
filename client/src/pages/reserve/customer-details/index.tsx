@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {Navigator} from "@/components/navigation/MainNavigation";
 import {useDimensions} from "@/hooks/Dimensions";
 import {createAccount} from "@/requests/Account";
@@ -12,7 +12,7 @@ import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constant
 
 export default function Reserve() {
   const {width} = useDimensions();
-  const {setAccessToken, setLoadingAccountError} = useAuthContext();
+  const {account, setAccessToken, setLoadingAccountError} = useAuthContext();
   const [isLoading, setLoading] = useState(false);
 
   /**
@@ -70,6 +70,15 @@ export default function Reserve() {
     });
   }, [setAccessToken, setLoadingAccountError]);
 
+  /**
+   * Redirects if user hit this page while already authenticated
+   */
+  useEffect(() => {
+    if (account) {
+      window.location.href = '/reserve/card-details';
+    }
+  }, [account]);
+
   return (
     <>
       <Head>
@@ -85,6 +94,7 @@ export default function Reserve() {
           isLoading={isLoading}
           onLoginAttempt={onLoginAttempt}
           onCreateNewAccount={onCreateNewAccount}
+          isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
         />
       </main>
