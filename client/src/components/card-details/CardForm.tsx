@@ -79,15 +79,15 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
         </FormControl>
 
         <FormControl w={'20%'}>
-          <FormLabel>Postal Code</FormLabel>
+          <FormLabel>Zip Code</FormLabel>
           <Input />
         </FormControl>
 
         <FormControl w={'20%'}>
           <FormLabel>State</FormLabel>
-          <Select>
+          <Select defaultValue={'Nevada'}>
             {getStates().map(state => (
-              <option key={state.name}>{state.abbreviation}</option>
+              <option key={state.name} value={state.name}>{state.abbreviation}</option>
             ))}
           </Select>
         </FormControl>
