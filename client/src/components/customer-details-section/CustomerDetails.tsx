@@ -17,7 +17,8 @@ export const CustomerDetails = ({
   isLoading,
   onCreateNewAccount,
   onLoginAttempt,
-  isSmallDevice
+  isSmallDevice,
+  isMediumDevice,
 }: ICustomerDetailsProps) => {
   const {groupSize, groupDate, groupTime, groupMenu} = useReservationContext();
   const {width, height} = useDimensions();
@@ -66,8 +67,8 @@ export const CustomerDetails = ({
       <Stack
         w={'100%'}
         direction={isSmallDevice ? 'column' : 'row'}
-        spacing={isSmallDevice ? '2rem' : '8rem'}>
-        <VStack>
+        spacing={(isSmallDevice || isMediumDevice) ? '2rem' : '8rem'}>
+        <VStack w={'100%'}>
           <Image
             src={'/hero-2.webp'}
             w={'100%'}
