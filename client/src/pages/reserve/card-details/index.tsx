@@ -35,7 +35,7 @@ export default function Card() {
 
       <main>
         <Navigator backButton={{text: 'Back', href: '/'}} />
-        <CardDetails isSmallDevice={isSmallDevice} onSubmit={() => {}} />
+        <CardDetails isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} onSubmit={() => {}} />
       </main>
 
       <footer>

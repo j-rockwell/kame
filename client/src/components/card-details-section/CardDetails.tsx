@@ -8,7 +8,7 @@ interface ICardDetailsProps extends IScalable {
   onSubmit: () => void;
 }
 
-export const CardDetails = ({onSubmit, isSmallDevice}: ICardDetailsProps) => {
+export const CardDetails = ({onSubmit, isMediumDevice, isSmallDevice}: ICardDetailsProps) => {
   const {height} = useDimensions();
   const {groupSize, groupDate, groupTime, groupMenu} = useReservationContext();
 
@@ -17,7 +17,7 @@ export const CardDetails = ({onSubmit, isSmallDevice}: ICardDetailsProps) => {
       <Stack
         w={'100%'}
         direction={isSmallDevice ? 'column' : 'row'}
-        spacing={isSmallDevice ? '2rem' : '8rem'}>
+        spacing={(isSmallDevice || isMediumDevice) ? '2rem' : '8rem'}>
         <VStack w={'100%'}>
           <Image
             src={'/hero-3.webp'}
