@@ -1,16 +1,13 @@
 import Head from "next/head";
-import {useEffect, useMemo} from "react";
+import {useMemo} from "react";
 import {useDimensions} from "@/hooks/Dimensions";
-import {Navigator} from "@/components/navigation/MainNavigation";
 import {Footer} from "@/components/footer/Footer";
-
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {CardDetails} from "@/components/card-details-section/CardDetails";
-import {useAuthContext} from "@/context/AuthContext";
+import {Navigator} from "@/components/navigation/Navigator";
+import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 
 export default function Card() {
   const {width} = useDimensions();
-  const {account} = useAuthContext();
 
   /**
    * Returns true if this page is being rendered on a mobile device
@@ -26,15 +23,6 @@ export default function Card() {
     return width <= DESKTOP_WIDTH_BREAKPOINT && width > MOBILE_WIDTH_BREAKPOINT;
   }, [width]);
 
-  /**
-   * Redirects if user hit this page without being authenticated
-   */
-  useEffect(() => {
-    if (!account) {
-      window.location.href = '/reserve/customer-details';
-    }
-  }, [account]);
-
   return (
     <>
       <Head>
@@ -45,7 +33,7 @@ export default function Card() {
       </Head>
 
       <main>
-        <Navigator backButton={{text: 'Back', href: '/'}} />
+        <Navigator viewWidth={width} isSmallDevice={isSmallDevice} />
         <CardDetails isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} onSubmit={() => {}} />
       </main>
 

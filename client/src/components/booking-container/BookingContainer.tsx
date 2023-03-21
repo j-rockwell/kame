@@ -30,8 +30,7 @@ export const BookingContainer = ({
         pos={'relative'}
         w={isSmallDevice ? '100%' : '50%'}
         pl={(isSmallDevice || isMediumDevice) ? 4: 36}
-        pr={(isSmallDevice || isMediumDevice) ? 4 : 0}
-        pt={isSmallDevice ? 0 : 16}>
+        pr={(isSmallDevice || isMediumDevice) ? 4 : 0}>
         <ReservationSummary
           groupSize={groupSize}
           groupDate={groupDate}
