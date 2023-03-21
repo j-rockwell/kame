@@ -13,6 +13,9 @@ export function AuthContextProvider({children}: IAuthContextProviderProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
+  /**
+   * Requests a new access token on each initial load
+   */
   useEffect(() => {
     setLoading(true);
 
@@ -25,6 +28,9 @@ export function AuthContextProvider({children}: IAuthContextProviderProps) {
     });
   }, []);
 
+  /**
+   * Attempts to authenticate with a stored token whenever the accessToken field is updated
+   */
   useEffect(() => {
     if (!accessToken) {
       setAccount(undefined);
