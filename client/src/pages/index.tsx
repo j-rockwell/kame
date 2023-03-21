@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from "react";
 import Head from 'next/head'
-import {Navigator} from "@/components/navigation/MainNavigation";
+import {Navigator} from "@/components/navigation/Navigator";
 import {BookingContainer} from "@/components/booking-container/BookingContainer";
 import {useReservationContext} from "@/context/ReservationContext";
 import {BookingContainerHeading} from "@/components/booking-container-heading/BookingContainerHeading";
@@ -77,7 +77,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Navigator backButton={{text: 'sushikame.com', href: 'sushikame.com'}} />
+        <Navigator viewWidth={width} isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
         <BookingContainer
           isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
