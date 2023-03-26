@@ -33,8 +33,8 @@ func main() {
 	corsConf := cors.DefaultConfig()
 	corsConf.AllowOrigins = conf.Gin.Origins
 	corsConf.AllowCredentials = true
-	corsConf.AddAllowHeaders("Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization", "Set-Cookie")
-	corsConf.AddAllowMethods("GET", "POST", "PUT", "DELETE")
+	corsConf.AddAllowHeaders("Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization", "Set-Cookie", "Access-Control-Allow-Origin")
+	corsConf.AddAllowMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 
 	router := gin.New()
 	router.Use(gin.Recovery())
