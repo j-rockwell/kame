@@ -86,7 +86,7 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
 
           <InputGroup>
             <Input
-              type={showPassword ? 'password' : 'text'}
+              type={showPassword ? 'text' : 'password'}
               onChange={e => handleDataUpdate('password', e.target.value, true)}
               {...inputStyling}
             />
