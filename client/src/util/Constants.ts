@@ -1,6 +1,10 @@
-import * as process from "process";
+import * as process from 'process';
 
 const __DEV__ = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+
+export const API_URL = __DEV__
+  ? process.env.NEXT_PUBLIC_DEV_API_ENDPOINT
+  : process.env.NEXT_PUBLIC_PROD_API_ENDPOINT;
 
 export const PHONE_NUMBER = "(702) 771-0122";
 export const PHONE_NUMBER_RAW = "7027710122";
@@ -12,8 +16,3 @@ export const FACEBOOK = "https://www.facebook.com/KameOmakase/";
 
 export const MOBILE_WIDTH_BREAKPOINT = 864;
 export const DESKTOP_WIDTH_BREAKPOINT = 1080;
-
-// TODO: update prod api url
-export const API_URL = __DEV__
-  ? `http://localhost:8080`
-  : `http://localhost:8080`;
