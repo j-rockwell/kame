@@ -3,6 +3,8 @@ version: '3.4'
 services:
   client:
     container_name: client
+    env_file:
+      - client/.env.local
     build:
       dockerfile: Dockerfile
       context: ./client
