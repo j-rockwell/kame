@@ -22,15 +22,43 @@ func (r *RouteController) ApplyAccounts(router *gin.Engine) {
 		DatabaseName: r.DatabaseName,
 	}
 
+	createThrottle := middleware.ThrottleHandler{
+		RedisClient: r.Redis,
+		Key:         "account/create",
+		LimitCount:  1,
+		TTL:         5,
+	}
+
+	updateThrottle := middleware.ThrottleHandler{
+		RedisClient: r.Redis,
+		Key:         "account/update",
+		LimitCount:  3,
+		TTL:         30,
+	}
+
+	queryThrottle := middleware.ThrottleHandler{
+		RedisClient: r.Redis,
+		Key:         "account/query",
+		LimitCount:  10,
+		TTL:         15,
+	}
+
 	public := router.Group("/account")
+	public.Use(queryThrottle.Limit())
 	{
 		public.GET("/availability/email/:email", ctrl.GetEmailAvailability())
-		public.POST("/", ctrl.CreateAccount())
+	}
+
+	publicThrottled := router.Group("/account")
+	publicThrottled.Use(createThrottle.Limit())
+	{
+		publicThrottled.POST("/", ctrl.CreateAccount())
 	}
 
 	private := router.Group("/account")
 	private.Use(middleware.Authorize())
 	private.Use(permHandler.AttachPermissions())
+	private.Use(updateThrottle.Limit())
 	{
 		private.PUT("/", ctrl.UpdateAccount())
 	}

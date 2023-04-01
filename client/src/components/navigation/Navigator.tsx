@@ -50,6 +50,10 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
                 opacity: 0,
                 x: viewWidth,
               }}
+              transition={{
+                type: "spring",
+                bounce: 0,
+              }}
               animate={{
                 display: 'flex',
                 opacity: 1,
