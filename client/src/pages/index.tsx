@@ -93,7 +93,7 @@ export default function Home() {
           <VStack spacing={32}>
             <GroupSizeSection
               isSmallDevice={isSmallDevice}
-              size={groupSize}
+              size={groupSize ?? 0}
               setSize={setGroupSize}
             />
 
