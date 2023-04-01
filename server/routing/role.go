@@ -21,7 +21,16 @@ func (r *RouteController) ApplyRoles(router *gin.Engine) {
 		DatabaseName: r.DatabaseName,
 	}
 
+	throttleHandler := middleware.ThrottleHandler{
+		RedisClient: r.Redis,
+		Key:         "role",
+		LimitCount:  10,
+		TTL:         30,
+		Debug:       false,
+	}
+
 	private := router.Group("/role")
+	private.Use(throttleHandler.Limit())
 	private.Use(middleware.Authorize())
 	private.Use(permHandler.AttachPermissions())
 	{
