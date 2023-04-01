@@ -79,7 +79,7 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
         </FormControl>
 
         <FormControl w={'20%'}>
-          <FormLabel>Zip Code</FormLabel>
+          <FormLabel>Postal</FormLabel>
           <Input />
         </FormControl>
 
