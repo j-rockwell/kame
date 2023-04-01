@@ -21,12 +21,21 @@ func (r *RouteController) ApplyMenu(router *gin.Engine) {
 		DatabaseName: r.DatabaseName,
 	}
 
+	throttleHandler := middleware.ThrottleHandler{
+		RedisClient: r.Redis,
+		Key:         "menu",
+		LimitCount:  10,
+		TTL:         20,
+	}
+
 	public := router.Group("/menu")
+	public.Use(throttleHandler.Limit())
 	{
 		public.GET("/availability", ctrl.GetAvailableMenus())
 	}
 
 	private := router.Group("/menu")
+	private.Use(throttleHandler.Limit())
 	private.Use(middleware.Authorize())
 	private.Use(permHandler.AttachPermissions())
 	{
