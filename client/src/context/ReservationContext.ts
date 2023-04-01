@@ -2,12 +2,10 @@ import {createContext, useContext} from "react";
 import {TableGroup, TableTime} from "@/models/Table";
 import {MenuSanitized} from "@/models/Menu";
 
-const DATE = new Date();
-
 interface IReservationContext {
   isLoadingReservations: boolean;
   loadingReservationError?: string;
-  groupSize: number;
+  groupSize?: number;
   groupDate?: TableTime;
   groupTime?: TableGroup;
   groupMenu?: MenuSanitized;
@@ -29,7 +27,7 @@ interface IReservationContext {
 export const ReservationContext = createContext<IReservationContext>({
   isLoadingReservations: false,
   loadingReservationError: undefined,
-  groupSize: 1,
+  groupSize: undefined,
   groupTime: undefined,
   groupMenu: undefined,
   groupDate: undefined,
