@@ -7,7 +7,6 @@ const theme = extendTheme({
       "html, body": {
         background: mode('white', 'black')(props),
         scrollBehavior: 'smooth',
-        overflowX: 'hidden',
       },
 
       "h1, h2, h3, h4, h5, h6, p, a": {

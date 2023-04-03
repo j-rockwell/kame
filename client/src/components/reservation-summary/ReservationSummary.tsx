@@ -24,7 +24,7 @@ export const ReservationSummary = ({
       w={'100%'}
       zIndex={1}
       // @ts-ignore - safari sticky fix
-      style={{position: '-webkit-sticky', position: 'sticky', top: isSmallDevice ? 0 : '4rem'}}>
+      sx={{position: '-webkit-sticky', position: 'sticky', top: isSmallDevice ? 0 : '4rem'}}>
       <Image
         src={'/hero-1.webp'}
         w={'100%'}
