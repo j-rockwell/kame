@@ -98,6 +98,7 @@ export default function Home() {
             />
 
             <TableDateSection
+              time={groupDate}
               setTime={setGroupDate}
               isMediumDevice={isMediumDevice}
               isSmallDevice={isSmallDevice}
