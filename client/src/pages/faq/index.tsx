@@ -2,10 +2,10 @@ import Head from "next/head";
 import {Navigator} from "@/components/navigation/Navigator";
 import {useDimensions} from "@/hooks/Dimensions";
 import {useMemo} from "react";
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 import {Footer} from "@/components/footer/Footer";
 import {FaqSection} from "@/components/faq-section/FaqSection";
 import {Container} from "@chakra-ui/react";
+import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
 
 export default function FAQ() {
   const {width} = useDimensions();
