@@ -29,10 +29,10 @@ export const FaqSection = ({
   return (
     <Box w={'100%'} mt={'0.5rem'}>
       <Image
-        src={'/hero-1.webp'}
+        src={'/hero-4.webp'}
         alt={'kame background'}
         w={'100%'}
-        h={'16rem'}
+        h={'32rem'}
         objectFit={'cover'}
         objectPosition={'center'}
       />
