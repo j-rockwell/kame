@@ -1,10 +1,10 @@
+import {useCallback} from "react";
+import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
 import {MenuSanitized} from "@/models/Menu";
-import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
 import {AnimatePresence, motion} from "framer-motion";
 import {Box, Image} from "@chakra-ui/react";
-import {useCallback} from "react";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
