@@ -1,3 +1,5 @@
+import {FAQ_URL, LEGAL_URL} from "@/util/Constants";
+
 type NavigationItem = {
   name: string;
   href: string;
@@ -26,11 +28,11 @@ export function getNavigatorData(auth?: boolean): NavigationItem[] {
     },
     {
       name: 'FAQ',
-      href: '/about/faq',
+      href: FAQ_URL,
     },
     {
       name: 'Legal',
-      href: '/legal',
+      href: LEGAL_URL,
     },
   ];
 

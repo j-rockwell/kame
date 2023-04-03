@@ -2,7 +2,16 @@ import {AiFillFacebook, AiFillInstagram} from "react-icons/ai";
 import {IconType} from "react-icons";
 import {ReactElement} from "react";
 import {ColorMode, Link, Text} from "@chakra-ui/react";
-import {ADDRESS, ADDRESS_GOOGLE, FACEBOOK, INSTAGRAM, PHONE_NUMBER, PHONE_NUMBER_RAW} from "@/util/Constants";
+import {
+  ADDRESS,
+  ADDRESS_GOOGLE,
+  FACEBOOK,
+  FAQ_URL,
+  INSTAGRAM,
+  LEGAL_URL,
+  PHONE_NUMBER,
+  PHONE_NUMBER_RAW
+} from "@/util/Constants";
 
 type FooterEntry = {
   title: string;
@@ -63,7 +72,7 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
       items: [
         {
           name: 'FAQ',
-          href: '#',
+          href: FAQ_URL,
         },
         {
           name: 'Menu',
@@ -80,15 +89,15 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
       items: [
         {
           name: 'Reservation Policy',
-          href: '#',
+          href: LEGAL_URL + '#reservations',
         },
         {
           name: 'Privacy Policy',
-          href: '#',
+          href: LEGAL_URL + '#privacy',
         },
         {
           name: 'Terms of Service',
-          href: '#',
+          href: LEGAL_URL + '#tos',
         },
       ]
     },
