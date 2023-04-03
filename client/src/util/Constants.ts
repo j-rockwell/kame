@@ -14,5 +14,8 @@ export const ADDRESS_GOOGLE = "https://www.google.com/maps/place/Kame+Omakase/@3
 export const INSTAGRAM = "https://www.instagram.com/kameomakase_lv/";
 export const FACEBOOK = "https://www.facebook.com/KameOmakase/";
 
+export const FAQ_URL = "/faq";
+export const LEGAL_URL = "/legal";
+
 export const MOBILE_WIDTH_BREAKPOINT = 864;
 export const DESKTOP_WIDTH_BREAKPOINT = 1080;
