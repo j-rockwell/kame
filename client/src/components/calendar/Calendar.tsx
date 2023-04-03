@@ -20,21 +20,17 @@ import {
 } from "@chakra-ui/react";
 
 interface ICalendarProps extends IScalable {
+  time?: TableTime;
   setTime: (t: TableTime) => void;
 }
 
-export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProps) => {
+export const Calendar = ({time, setTime, isMediumDevice, isSmallDevice}: ICalendarProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const CURRENT_DATE = new Date();
-  const START_MONTH: number = CURRENT_DATE.getMonth();
-  const START_DAY: number = CURRENT_DATE.getDate();
-  const START_YEAR: number = CURRENT_DATE.getFullYear();
   const [calendarData, setCalendarData] = useState<MonthEntry[]>([]);
-  const [selectedDay, setSelectedDay] = useState(START_DAY);
-  const [selectedMonth, setSelectedMonth] = useState(START_MONTH);
-  const [selectedYear, setSelectedYear] = useState(START_YEAR);
+  const [selectedDay, setSelectedDay] = useState<number | undefined>(undefined);
+  const [selectedMonth, setSelectedMonth] = useState<number | undefined>(undefined);
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined);
   const [squareSize, setSquareSize] = useState('2rem');
-
   const selectedDateColor = useColorModeValue('info.light', 'info.dark');
   const selectedDateTextColor = 'white';
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
@@ -101,13 +97,15 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
    * Returns calendar data for the given time values
    */
   const getData = useCallback(() => {
+    const current = new Date();
+
     return getCalendarData(
-      START_DAY,
-      START_MONTH,
-      START_YEAR,
+      current.getDate(),
+      current.getMonth(),
+      current.getFullYear(),
       30
     );
-  }, [START_DAY, START_MONTH, START_YEAR]);
+  }, []);
 
   /**
    * Handles updating months when selected from the dropdown
@@ -177,6 +175,27 @@ export const Calendar = ({setTime, isMediumDevice, isSmallDevice}: ICalendarProp
   useEffect(() => {
     setCalendarData(getData());
   }, [getData]);
+
+  /**
+   * Sets calendar fields whenever time field is changed
+   */
+  useEffect(() => {
+    if (!time) {
+      return;
+    }
+
+    if (!selectedDay) {
+      setSelectedDay(time.day);
+    }
+
+    if (!selectedMonth) {
+      setSelectedMonth(time.month);
+    }
+
+    if (!selectedYear) {
+      setSelectedYear(time.year);
+    }
+  }, [selectedDay, selectedMonth, selectedYear, time]);
 
   /**
    * Handles the initial setting of square size

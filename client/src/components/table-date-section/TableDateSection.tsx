@@ -4,10 +4,11 @@ import {TableTime} from "@/models/Table";
 import {Box, Heading, useColorModeValue} from "@chakra-ui/react";
 
 interface ITableDateSection extends IScalable {
+  time?: TableTime;
   setTime: (t: TableTime) => void;
 }
 
-export const TableDateSection = ({setTime, isMediumDevice, isSmallDevice}: ITableDateSection) => {
+export const TableDateSection = ({time, setTime, isMediumDevice, isSmallDevice}: ITableDateSection) => {
   return (
     <Box w={'100%'}>
       <Heading
@@ -17,7 +18,12 @@ export const TableDateSection = ({setTime, isMediumDevice, isSmallDevice}: ITabl
         When will you be joining us?
       </Heading>
 
-      <Calendar setTime={setTime} isMediumDevice={isMediumDevice} isSmallDevice={isSmallDevice} />
+      <Calendar
+        time={time}
+        setTime={setTime}
+        isMediumDevice={isMediumDevice}
+        isSmallDevice={isSmallDevice}
+      />
     </Box>
   );
 }
