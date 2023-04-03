@@ -20,6 +20,9 @@ export const ReservationSummary = ({
   groupMenu,
   isSmallDevice
 }: IReservationSummaryProps) => {
+  /**
+   * Returns true if any of the reservation data is not undefined
+   */
   const hasData = useCallback(() => {
     return groupSize || groupDate || groupTime || groupMenu;
   }, [groupDate, groupMenu, groupSize, groupTime]);
