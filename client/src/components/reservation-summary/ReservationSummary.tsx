@@ -1,8 +1,10 @@
 import {IScalable} from "@/hooks/Dimensions";
 import {TableGroup, TableTime} from "@/models/Table";
-import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
-import {Box, Image} from "@chakra-ui/react";
 import {MenuSanitized} from "@/models/Menu";
+import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
+import {AnimatePresence, motion} from "framer-motion";
+import {Box, Image} from "@chakra-ui/react";
+import {useCallback} from "react";
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
@@ -18,6 +20,10 @@ export const ReservationSummary = ({
   groupMenu,
   isSmallDevice
 }: IReservationSummaryProps) => {
+  const hasData = useCallback(() => {
+    return groupSize || groupDate || groupTime || groupMenu;
+  }, [groupDate, groupMenu, groupSize, groupTime]);
+
   return (
     <Box
       id={'summary'}
@@ -35,13 +41,22 @@ export const ReservationSummary = ({
         objectPosition={'left'}
       />
 
-      <ReservationSummaryDescription
-        isSmallDevice={isSmallDevice}
-        groupDate={groupDate}
-        groupTime={groupTime}
-        groupSize={groupSize}
-        groupMenu={groupMenu}
-      />
+      <AnimatePresence>
+        {hasData() && (
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}>
+            <ReservationSummaryDescription
+              isSmallDevice={isSmallDevice}
+              groupDate={groupDate}
+              groupTime={groupTime}
+              groupSize={groupSize}
+              groupMenu={groupMenu}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Box>
   );
 }
