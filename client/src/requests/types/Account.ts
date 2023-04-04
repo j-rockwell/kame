@@ -1,4 +1,4 @@
-import {AccountPreferences} from "@/models/Account";
+import {AccountPreferences} from '@/models/Account';
 
 export type CreateAccountRequest = {
   first_name: string;
@@ -7,10 +7,10 @@ export type CreateAccountRequest = {
   phone: string;
   password: string;
   preferences?: AccountPreferences;
-}
+};
 
 export type CreateAccountResponse = {
   id: string;
   access_token: string;
   refresh_token: string;
-}
+};

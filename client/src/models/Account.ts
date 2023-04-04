@@ -6,12 +6,12 @@ export type Account = {
   email_confirmed?: boolean;
   phone?: string;
   preferences?: AccountPreferences;
-}
+};
 
 export type AccountPreferences = {
   email_opt_in: boolean;
   text_opt_in: boolean;
-}
+};
 
 export type NewAccountData = {
   firstName: string;
@@ -19,9 +19,9 @@ export type NewAccountData = {
   emailAddress: string;
   phone: string;
   password: string;
-}
+};
 
 export type LoginAccountData = {
   emailAddress: string;
   password: string;
-}
+};

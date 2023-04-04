@@ -1,6 +1,6 @@
-import {BsFillMoonFill, BsFillSunFill} from "react-icons/bs";
-import {useCallback} from "react";
-import {HStack, Icon, Switch, useColorMode} from "@chakra-ui/react";
+import {useCallback} from 'react';
+import {BsFillMoonFill, BsFillSunFill} from 'react-icons/bs';
+import {HStack, Icon, Switch, useColorMode} from '@chakra-ui/react';
 
 export const ColorModeToggle = () => {
   const {colorMode, setColorMode} = useColorMode();
@@ -24,5 +24,5 @@ export const ColorModeToggle = () => {
       />
       <Icon as={BsFillMoonFill} color={`text.${colorMode}`} />
     </HStack>
-  )
-}
+  );
+};

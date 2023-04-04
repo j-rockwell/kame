@@ -1,6 +1,6 @@
-import {useCallback, useMemo} from "react";
-import {GroupSizePicker} from "@/components/group-size-picker/GroupSizePicker";
-import {Box, Heading, useColorModeValue} from "@chakra-ui/react";
+import {useCallback, useMemo} from 'react';
+import {GroupSizePicker} from '@/components/group-size-picker/GroupSizePicker';
+import {Box, Heading, useColorModeValue} from '@chakra-ui/react';
 
 interface IGroupSizeSectionProps {
   size: number;
@@ -8,7 +8,11 @@ interface IGroupSizeSectionProps {
   isSmallDevice: boolean;
 }
 
-export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSectionProps) => {
+export const GroupSizeSection = ({
+  size,
+  setSize,
+  isSmallDevice,
+}: IGroupSizeSectionProps) => {
   const infoColor = useColorModeValue('info.light', 'info.dark');
   const warningColor = useColorModeValue('warning.light', 'warning.dark');
   const textColor = useColorModeValue('text.light', 'text.dark');
@@ -30,7 +34,7 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
       return;
     }
 
-    setSize(size + 1)
+    setSize(size + 1);
     console.debug('setSize (incr.)');
   }, [size, setSize]);
 
@@ -57,7 +61,11 @@ export const GroupSizeSection = ({size, setSize, isSmallDevice}: IGroupSizeSecti
         How many guests will be attending?
       </Heading>
 
-      <GroupSizePicker value={size} onIncrement={onIncrement} onDecrement={onDecrement} />
+      <GroupSizePicker
+        value={size}
+        onIncrement={onIncrement}
+        onDecrement={onDecrement}
+      />
     </Box>
   );
-}
+};

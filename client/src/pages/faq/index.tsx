@@ -1,11 +1,14 @@
-import Head from "next/head";
-import {Navigator} from "@/components/navigation/Navigator";
-import {useDimensions} from "@/hooks/Dimensions";
-import {useMemo} from "react";
-import {Footer} from "@/components/footer/Footer";
-import {FaqSection} from "@/components/faq-section/FaqSection";
-import {Container} from "@chakra-ui/react";
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import Head from 'next/head';
+import {Navigator} from '@/components/navigation/Navigator';
+import {useDimensions} from '@/hooks/Dimensions';
+import {useMemo} from 'react';
+import {Footer} from '@/components/footer/Footer';
+import {FaqSection} from '@/components/faq-section/FaqSection';
+import {Container} from '@chakra-ui/react';
+import {
+  DESKTOP_WIDTH_BREAKPOINT,
+  MOBILE_WIDTH_BREAKPOINT,
+} from '@/util/Constants';
 
 export default function FAQ() {
   const {width} = useDimensions();
@@ -28,7 +31,10 @@ export default function FAQ() {
     <>
       <Head>
         <title>Sushi Kame | FAQ</title>
-        <meta name="description" content="Book a reservation at the best Omakase in Las Vegas" />
+        <meta
+          name="description"
+          content="Book a reservation at the best Omakase in Las Vegas"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -37,7 +43,10 @@ export default function FAQ() {
         <Navigator viewWidth={width} isSmallDevice={isSmallDevice} />
 
         <Container maxW={'container.xl'}>
-          <FaqSection isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
+          <FaqSection
+            isSmallDevice={isSmallDevice}
+            isMediumDevice={isMediumDevice}
+          />
         </Container>
       </main>
 

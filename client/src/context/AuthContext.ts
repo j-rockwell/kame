@@ -1,5 +1,5 @@
-import {Account} from "@/models/Account";
-import {createContext, useContext} from "react";
+import {Account} from '@/models/Account';
+import {createContext, useContext} from 'react';
 
 interface IAuthContext {
   account?: Account;

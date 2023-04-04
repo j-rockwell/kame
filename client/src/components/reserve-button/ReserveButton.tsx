@@ -1,5 +1,5 @@
 import {default as NextLink} from 'next/link';
-import {Box, Link, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Link, Text, useColorModeValue} from '@chakra-ui/react';
 
 interface IReserveButtonProps {
   authenticated: boolean;
@@ -7,13 +7,19 @@ interface IReserveButtonProps {
   children: string;
 }
 
-export const ReserveButton = ({authenticated, disclaimer, children}: IReserveButtonProps) => {
+export const ReserveButton = ({
+  authenticated,
+  disclaimer,
+  children,
+}: IReserveButtonProps) => {
   const bgColor = useColorModeValue('info.light', 'info.dark');
   const mutedTextColor = useColorModeValue('textMuted.light', 'textMuted.dark');
 
   return (
     <Box w={'100%'}>
-      <NextLink href={`/reserve/${authenticated ? 'card' : 'customer'}-details`} passHref>
+      <NextLink
+        href={`/reserve/${authenticated ? 'card' : 'customer'}-details`}
+        passHref>
         <Link
           as={'button'}
           w={'100%'}
@@ -39,4 +45,4 @@ export const ReserveButton = ({authenticated, disclaimer, children}: IReserveBut
       )}
     </Box>
   );
-}
+};

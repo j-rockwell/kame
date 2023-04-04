@@ -1,12 +1,12 @@
-import {IScalable} from "@/hooks/Dimensions";
-import {useMemo, useState} from "react";
-import {AiOutlineClose, AiOutlineMenu} from "react-icons/ai";
-import {MobileNavigator} from "@/components/navigation/MobileNavigator";
-import {getNavigatorData} from "@/data/Navigation";
-import {useAuthContext} from "@/context/AuthContext";
-import {ColorModeToggle} from "@/components/color-mode-toggle/ColorModeToggle";
-import Link from "next/link";
-import {AnimatePresence, motion} from "framer-motion";
+import {IScalable} from '@/hooks/Dimensions';
+import {useMemo, useState} from 'react';
+import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
+import {MobileNavigator} from '@/components/navigation/MobileNavigator';
+import {getNavigatorData} from '@/data/Navigation';
+import {useAuthContext} from '@/context/AuthContext';
+import {ColorModeToggle} from '@/components/color-mode-toggle/ColorModeToggle';
+import Link from 'next/link';
+import {AnimatePresence, motion} from 'framer-motion';
 import {
   Center,
   Image,
@@ -17,7 +17,7 @@ import {
   Button,
   useColorMode,
   useColorModeValue,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface INavigationProps extends IScalable {
   viewWidth: number;
@@ -51,7 +51,7 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
                 x: viewWidth,
               }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 bounce: 0,
               }}
               animate={{
@@ -64,7 +64,7 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
                 position: 'relative',
                 zIndex: 1,
               }}>
-              <MobileNavigator isAuthenticated={isAuthenticated}/>
+              <MobileNavigator isAuthenticated={isAuthenticated} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -84,12 +84,18 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
             zIndex={2}
             size={'lg'}
             bgColor={'none'}
-            icon={isExpanded ? <AiOutlineClose color={'white'} size={'1.25rem'} /> : <AiOutlineMenu size={'1.25rem'} color={'white'} />}
+            icon={
+              isExpanded ? (
+                <AiOutlineClose color={'white'} size={'1.25rem'} />
+              ) : (
+                <AiOutlineMenu size={'1.25rem'} color={'white'} />
+              )
+            }
             onClick={() => setExpanded(!isExpanded)}
           />
         </Center>
       </>
-    )
+    );
   }
 
   return (
@@ -99,18 +105,22 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
       </Link>
 
       <HStack spacing={'2rem'} pl={'2rem'}>
-        {/* don't render with auth here, we set it by hand */ getNavigatorData().map(item => (
-          <Link key={item.name} href={item.href} passHref={true}>
-            <Text
-              color={textColor}
-              fontWeight={'bold'}
-              opacity={0.8}
-              _hover={{opacity: 1}}
-              transition={'all ease-in-out 0.2s'}>
-              {item.name}
-            </Text>
-          </Link>
-        ))}
+        {
+          /* don't render with auth here, we set it by hand */ getNavigatorData().map(
+            item => (
+              <Link key={item.name} href={item.href} passHref={true}>
+                <Text
+                  color={textColor}
+                  fontWeight={'bold'}
+                  opacity={0.8}
+                  _hover={{opacity: 1}}
+                  transition={'all ease-in-out 0.2s'}>
+                  {item.name}
+                </Text>
+              </Link>
+            ),
+          )
+        }
       </HStack>
 
       <HStack position={'absolute'} top={4} right={4} spacing={'1rem'}>
@@ -136,4 +146,4 @@ export const Navigator = ({viewWidth, isSmallDevice}: INavigationProps) => {
       </HStack>
     </Flex>
   );
-}
+};

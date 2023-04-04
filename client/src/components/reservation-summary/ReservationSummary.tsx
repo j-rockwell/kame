@@ -1,10 +1,10 @@
-import {useCallback} from "react";
-import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
-import {IScalable} from "@/hooks/Dimensions";
-import {TableGroup, TableTime} from "@/models/Table";
-import {MenuSanitized} from "@/models/Menu";
-import {AnimatePresence, motion} from "framer-motion";
-import {Box, Image} from "@chakra-ui/react";
+import {useCallback} from 'react';
+import {ReservationSummaryDescription} from '@/components/reservation-summary/ReservationSummaryDescription';
+import {IScalable} from '@/hooks/Dimensions';
+import {TableGroup, TableTime} from '@/models/Table';
+import {MenuSanitized} from '@/models/Menu';
+import {AnimatePresence, motion} from 'framer-motion';
+import {Box, Image} from '@chakra-ui/react';
 
 interface IReservationSummaryProps extends IScalable {
   groupSize?: number;
@@ -18,7 +18,7 @@ export const ReservationSummary = ({
   groupDate,
   groupTime,
   groupMenu,
-  isSmallDevice
+  isSmallDevice,
 }: IReservationSummaryProps) => {
   /**
    * Returns true if any of the reservation data is not undefined
@@ -33,9 +33,14 @@ export const ReservationSummary = ({
       w={'100%'}
       zIndex={1}
       // @ts-ignore - safari sticky fix
-      sx={{position: '-webkit-sticky', position: 'sticky', top: isSmallDevice ? 0 : '4rem'}}>
+      sx={{
+        position: '-webkit-sticky',
+        position: 'sticky',
+        top: isSmallDevice ? 0 : '4rem',
+      }}>
       <Image
         src={'/hero-1.webp'}
+        alt={'kame backdrop'}
         w={'100%'}
         h={`32rem`}
         mb={'1rem'}
@@ -62,4 +67,4 @@ export const ReservationSummary = ({
       </AnimatePresence>
     </Box>
   );
-}
+};

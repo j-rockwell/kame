@@ -1,4 +1,4 @@
-import {getDaysUntilWeekStart} from "../data/Calendar";
+import {getDaysUntilWeekStart} from '../data/Calendar';
 
 describe('Calendar ->', () => {
   it('getDaysUntilWeekStart ->', () => {

@@ -1,4 +1,4 @@
-import {isEmailRegexp} from "../util/Validate";
+import {isEmailRegexp} from '../util/Validate';
 
 describe('Validate ->', () => {
   it('isEmailRegexp (valid) ->', () => {

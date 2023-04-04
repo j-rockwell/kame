@@ -1,4 +1,10 @@
-import {Heading, Square, Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import {
+  Heading,
+  Square,
+  Text,
+  useColorModeValue,
+  VStack,
+} from '@chakra-ui/react';
 
 interface IGroupTimeEntryProps {
   title: string;
@@ -8,7 +14,13 @@ interface IGroupTimeEntryProps {
   onClick: () => void;
 }
 
-export const GroupTimeEntry = ({title, subtitle, isSelected, isMobile, onClick}: IGroupTimeEntryProps) => {
+export const GroupTimeEntry = ({
+  title,
+  subtitle,
+  isSelected,
+  isMobile,
+  onClick,
+}: IGroupTimeEntryProps) => {
   const borderColor = useColorModeValue('textMuted.light', 'textMuted.dark');
   const selectedBgColor = useColorModeValue('info.light', 'info.dark');
   const textColor = useColorModeValue('text.light', 'text.dark');
@@ -25,12 +37,19 @@ export const GroupTimeEntry = ({title, subtitle, isSelected, isMobile, onClick}:
       borderWidth={isSelected ? 0 : 1}
       borderColor={borderColor}>
       <VStack spacing={-0.5}>
-        <Heading color={isSelected ? selectedTextColor : textColor} textAlign={'center'} size={'lg'}>
+        <Heading
+          color={isSelected ? selectedTextColor : textColor}
+          textAlign={'center'}
+          size={'lg'}>
           {title}
         </Heading>
 
-        <Text color={isSelected ? selectedTextColor : textColor} textAlign={'center'}>{subtitle}</Text>
+        <Text
+          color={isSelected ? selectedTextColor : textColor}
+          textAlign={'center'}>
+          {subtitle}
+        </Text>
       </VStack>
     </Square>
   );
-}
+};

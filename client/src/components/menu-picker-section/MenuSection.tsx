@@ -1,8 +1,8 @@
-import {IScalable} from "@/hooks/Dimensions";
-import {MenuSanitized} from "@/models/Menu";
-import {MenuPicker} from "@/components/menu-picker/MenuPicker";
-import {motion} from "framer-motion";
-import {Heading} from "@chakra-ui/react";
+import {IScalable} from '@/hooks/Dimensions';
+import {MenuSanitized} from '@/models/Menu';
+import {MenuPicker} from '@/components/menu-picker/MenuPicker';
+import {motion} from 'framer-motion';
+import {Heading} from '@chakra-ui/react';
 
 interface IMenuSectionProps extends IScalable {
   active: boolean;
@@ -16,19 +16,15 @@ export const MenuSection = ({
   availability,
   menu,
   setMenu,
-  isSmallDevice
+  isSmallDevice,
 }: IMenuSectionProps) => {
   return (
     <motion.div
       animate={{opacity: active ? 1 : 0.25}}
       style={{
         width: '100%',
-      }}
-    >
-      <Heading
-        size={'lg'}
-        mb={8}
-        textAlign={isSmallDevice ? 'center' : 'left'}>
+      }}>
+      <Heading size={'lg'} mb={8} textAlign={isSmallDevice ? 'center' : 'left'}>
         Which menu would you like to have prepared?
       </Heading>
 
@@ -39,5 +35,5 @@ export const MenuSection = ({
         isSmallDevice={isSmallDevice}
       />
     </motion.div>
-  )
-}
+  );
+};

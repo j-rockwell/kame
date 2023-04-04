@@ -1,17 +1,28 @@
-import {useCallback} from "react";
-import {GroupTimeEntry} from "@/components/group-time-picker/GroupTimeEntry";
-import {TableGroup} from "@/models/Table";
-import {Box, Skeleton, Spinner, Square, Stack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
-import {useReservationContext} from "@/context/ReservationContext";
-import {IScalable} from "@/hooks/Dimensions";
+import {useCallback} from 'react';
+import {GroupTimeEntry} from '@/components/group-time-picker/GroupTimeEntry';
+import {useReservationContext} from '@/context/ReservationContext';
+import {TableGroup} from '@/models/Table';
+import {IScalable} from '@/hooks/Dimensions';
+import {
+  Box,
+  Skeleton,
+  Stack,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 interface IGroupTimePicker extends IScalable {
   group?: TableGroup;
   setGroup: (g: TableGroup) => void;
 }
 
-export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePicker) => {
-  const {isLoadingReservations, loadingReservationError} = useReservationContext();
+export const GroupTimePicker = ({
+  group,
+  setGroup,
+  isSmallDevice,
+}: IGroupTimePicker) => {
+  const {isLoadingReservations, loadingReservationError} =
+    useReservationContext();
   const errorTextColor = useColorModeValue('danger.light', 'danger.dark');
   const skeletonStyling = {
     w: '100%',
@@ -22,20 +33,26 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
   /**
    * Returns true if the provided group is actively selected
    */
-  const isGroupSelected = useCallback((g: TableGroup) => {
-    return group === g;
-  }, [group]);
+  const isGroupSelected = useCallback(
+    (g: TableGroup) => {
+      return group === g;
+    },
+    [group],
+  );
 
   /**
    * Handles group change and state update
    */
-  const handleGroupChange = useCallback((g: TableGroup) => {
-    if (group === g) {
-      return;
-    }
+  const handleGroupChange = useCallback(
+    (g: TableGroup) => {
+      if (group === g) {
+        return;
+      }
 
-    setGroup(g);
-  }, [group, setGroup]);
+      setGroup(g);
+    },
+    [group, setGroup],
+  );
 
   if (isLoadingReservations || loadingReservationError) {
     return (
@@ -46,7 +63,9 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
         </Stack>
 
         {loadingReservationError && (
-          <Text color={errorTextColor} mt={2}>{loadingReservationError}</Text>
+          <Text color={errorTextColor} mt={2}>
+            {loadingReservationError}
+          </Text>
         )}
       </Box>
     );
@@ -70,5 +89,5 @@ export const GroupTimePicker = ({group, setGroup, isSmallDevice}: IGroupTimePick
         onClick={() => handleGroupChange('B')}
       />
     </Stack>
-  )
-}
+  );
+};

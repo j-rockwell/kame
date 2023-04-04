@@ -1,6 +1,6 @@
-import {useMemo} from "react";
-import {getFooterData, getFooterSocials} from "@/data/Footer";
-import {IScalable} from "@/hooks/Dimensions";
+import {useMemo} from 'react';
+import {getFooterData, getFooterSocials} from '@/data/Footer';
+import {IScalable} from '@/hooks/Dimensions';
 import {
   Box,
   Container,
@@ -13,8 +13,8 @@ import {
   IconButton,
   Link,
   useColorMode,
-  useColorModeValue
-} from "@chakra-ui/react";
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 interface IFooterProps extends IScalable {}
 
@@ -24,8 +24,14 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
 
   const headerTextColor = useColorModeValue('brand.red', 'brand.red');
   const textColor = useColorModeValue('text.light', 'text.dark');
-  const bgColor = useColorModeValue('backgroundAccent.light', 'background.dark');
-  const borderColor = useColorModeValue('backgroundHighlight.light', 'backgroundHighlight.dark');
+  const bgColor = useColorModeValue(
+    'backgroundAccent.light',
+    'background.dark',
+  );
+  const borderColor = useColorModeValue(
+    'backgroundHighlight.light',
+    'backgroundHighlight.dark',
+  );
 
   /**
    * Returns color-responsive logo
@@ -50,19 +56,31 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
   }, [isMediumDevice, isSmallDevice]);
 
   return (
-    <Box w={'100%'} mt={'4rem'} py={'4rem'} bgColor={bgColor} borderTopWidth={1} borderColor={borderColor}>
+    <Box
+      w={'100%'}
+      mt={'4rem'}
+      py={'4rem'}
+      bgColor={bgColor}
+      borderTopWidth={1}
+      borderColor={borderColor}>
       <Container maxW={'container.xl'}>
         <SimpleGrid columns={columns} spacingY={'2rem'} spacingX={'3rem'}>
-          <VStack w={'100%'} alignItems={isSmallDevice ? 'center' : 'flex-start'} spacing={'1rem'}>
+          <VStack
+            w={'100%'}
+            alignItems={isSmallDevice ? 'center' : 'flex-start'}
+            spacing={'1rem'}>
             <Image src={logoImageUrl} alt={'kame logo'} maxW={'16rem'} />
 
-            <Text as={'i'} textAlign={isSmallDevice ? 'center' : 'left'} color={textColor}>
-              “My omakase is about honoring the individual… Creating a personalized sushi experience is my true passion and the source of my inspiration.”
+            <Text
+              as={'i'}
+              textAlign={isSmallDevice ? 'center' : 'left'}
+              color={textColor}>
+              “My omakase is about honoring the individual… Creating a
+              personalized sushi experience is my true passion and the source of
+              my inspiration.”
             </Text>
 
-            <Text color={textColor}>
-              &copy; {YEAR} Sushi Kame
-            </Text>
+            <Text color={textColor}>&copy; {YEAR} Sushi Kame</Text>
 
             <HStack spacing={'1rem'}>
               {getFooterSocials().map(elem => (
@@ -82,7 +100,10 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
           </VStack>
 
           {getFooterData(colorMode).map(entry => (
-            <VStack key={entry.title} w={'100%'} alignItems={isSmallDevice ? 'center' : 'flex-start'}>
+            <VStack
+              key={entry.title}
+              w={'100%'}
+              alignItems={isSmallDevice ? 'center' : 'flex-start'}>
               <Heading
                 size={'sm'}
                 textAlign={isSmallDevice ? 'center' : 'left'}
@@ -92,16 +113,16 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
               </Heading>
 
               {entry.subtitle && (
-                <Box w={'100%'} pb={'1rem'} textAlign={isSmallDevice ? 'center' : 'left'}>
+                <Box
+                  w={'100%'}
+                  pb={'1rem'}
+                  textAlign={isSmallDevice ? 'center' : 'left'}>
                   {entry.subtitle}
                 </Box>
               )}
 
               {entry.items.map(item => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  color={textColor}>
+                <Link key={item.name} href={item.href} color={textColor}>
                   {item.name}
                 </Link>
               ))}
@@ -111,4 +132,4 @@ export const Footer = ({isSmallDevice, isMediumDevice}: IFooterProps) => {
       </Container>
     </Box>
   );
-}
+};

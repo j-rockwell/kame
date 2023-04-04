@@ -1,9 +1,17 @@
-import {VStack, FormControl, FormLabel, HStack, Input, Heading, Select} from "@chakra-ui/react";
-import {IScalable} from "@/hooks/Dimensions";
-import {getStates} from "@/models/State";
-import {getMonths, getYears} from "@/models/Expiration";
-import {useCallback} from "react";
-import {getCarrier} from "@/models/Card";
+import {useCallback} from 'react';
+import {getStates} from '@/models/State';
+import {getMonths, getYears} from '@/models/Expiration';
+import {getCarrier} from '@/models/Card';
+import {IScalable} from '@/hooks/Dimensions';
+import {
+  VStack,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Heading,
+  Select,
+} from '@chakra-ui/react';
 
 interface ICardFormProps extends IScalable {}
 
@@ -35,7 +43,9 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
           <FormLabel>Month</FormLabel>
           <Select>
             {getMonths().map(month => (
-              <option key={month.name} value={month.numeric}>{month.name} ({month.numeric})</option>
+              <option key={month.name} value={month.numeric}>
+                {month.name} ({month.numeric})
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -44,7 +54,9 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
           <FormLabel>Year</FormLabel>
           <Select>
             {getYears(10).map(year => (
-              <option key={year} value={year}>{year}</option>
+              <option key={year} value={year}>
+                {year}
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -55,7 +67,9 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
         </FormControl>
       </HStack>
 
-      <Heading size={'md'} pt={'2rem'}>Billing Information</Heading>
+      <Heading size={'md'} pt={'2rem'}>
+        Billing Information
+      </Heading>
 
       <FormControl>
         <FormLabel>First Name</FormLabel>
@@ -87,11 +101,13 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
           <FormLabel>State</FormLabel>
           <Select defaultValue={'Nevada'}>
             {getStates().map(state => (
-              <option key={state.name} value={state.name}>{state.abbreviation}</option>
+              <option key={state.name} value={state.name}>
+                {state.abbreviation}
+              </option>
             ))}
           </Select>
         </FormControl>
       </HStack>
     </VStack>
   );
-}
+};

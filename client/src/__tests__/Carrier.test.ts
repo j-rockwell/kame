@@ -1,4 +1,4 @@
-import {getCarrier} from "../models/Card";
+import {getCarrier} from '../models/Card';
 
 describe('Carrier ->', () => {
   // test card numbers:

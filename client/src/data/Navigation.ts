@@ -1,9 +1,9 @@
-import {FAQ_URL, LEGAL_URL} from "@/util/Constants";
+import {FAQ_URL, LEGAL_URL} from '@/util/Constants';
 
 type NavigationItem = {
   name: string;
   href: string;
-}
+};
 
 export function getNavigatorData(auth?: boolean): NavigationItem[] {
   let result: NavigationItem[] = [];
@@ -12,7 +12,7 @@ export function getNavigatorData(auth?: boolean): NavigationItem[] {
   if (auth) {
     result.push({
       name: 'My Account',
-      href: '#'
+      href: '#',
     });
   } // TODO: Do we want to maybe have a separate login page and apply it in an else statement here?
 

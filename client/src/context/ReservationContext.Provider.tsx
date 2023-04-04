@@ -1,20 +1,24 @@
-import {useCallback, useEffect, useState} from "react";
-import {getTableTimeAvailability} from "@/requests/Table";
-import {getMenuAvailability} from "@/requests/Menu";
-import {ReservationContext} from "@/context/ReservationContext";
-import {MenuSanitized} from "@/models/Menu";
-import {TableGroup, TableTime} from "@/models/Table";
+import {useCallback, useEffect, useState} from 'react';
+import {getTableTimeAvailability} from '@/requests/Table';
+import {getMenuAvailability} from '@/requests/Menu';
+import {ReservationContext} from '@/context/ReservationContext';
+import {MenuSanitized} from '@/models/Menu';
+import {TableGroup, TableTime} from '@/models/Table';
 
 interface IReservationContextProviderProps {
   children: any;
 }
 
-export function ReservationContextProvider({children}: IReservationContextProviderProps) {
+export function ReservationContextProvider({
+  children,
+}: IReservationContextProviderProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [groupSize, setGroupSize] = useState<number | undefined>(undefined);
   const [groupTime, setGroupTime] = useState<TableGroup | undefined>(undefined);
-  const [groupMenu, setGroupMenu] = useState<MenuSanitized | undefined>(undefined);
+  const [groupMenu, setGroupMenu] = useState<MenuSanitized | undefined>(
+    undefined,
+  );
   const [timeAvailability, setTimeAvailability] = useState<TableGroup[]>([]);
   const [menuAvailability, setMenuAvailability] = useState<MenuSanitized[]>([]);
   const [groupDate, setGroupDate] = useState<TableTime | undefined>(undefined);
@@ -25,13 +29,13 @@ export function ReservationContextProvider({children}: IReservationContextProvid
   const writeToStorage = useCallback(() => {
     const storage = window.sessionStorage;
     const toJson = {
-      "group_size": groupSize,
-      "group_time": groupTime,
-      "group_menu": groupMenu,
-      "group_date": groupDate,
-    }
+      group_size: groupSize,
+      group_time: groupTime,
+      group_menu: groupMenu,
+      group_date: groupDate,
+    };
 
-    storage.setItem("reservation_data", JSON.stringify(toJson));
+    storage.setItem('reservation_data', JSON.stringify(toJson));
   }, [groupDate, groupMenu, groupSize, groupTime]);
 
   /**
@@ -39,17 +43,17 @@ export function ReservationContextProvider({children}: IReservationContextProvid
    */
   const getFromStorage = useCallback(() => {
     const storage = window.sessionStorage;
-    const data = storage.getItem("reservation_data");
+    const data = storage.getItem('reservation_data');
 
     if (!data) {
       return;
     }
 
     const fromJson = JSON.parse(data);
-    setGroupSize(fromJson["group_size"]);
-    setGroupTime(fromJson["group_time"]);
-    setGroupMenu(fromJson["group_menu"]);
-    setGroupDate(fromJson["group_date"]);
+    setGroupSize(fromJson['group_size']);
+    setGroupTime(fromJson['group_time']);
+    setGroupMenu(fromJson['group_menu']);
+    setGroupDate(fromJson['group_date']);
   }, []);
 
   useEffect(() => {
@@ -79,14 +83,17 @@ export function ReservationContextProvider({children}: IReservationContextProvid
       return;
     }
 
-    getTableTimeAvailability({...groupDate}).then(data => {
-      setTimeAvailability(data.availability);
-    }).catch(err => {
-      setTimeAvailability([]);
-      setError(err.toString());
-    }).finally(() => {
-      setLoading(false);
-    })
+    getTableTimeAvailability({...groupDate})
+      .then(data => {
+        setTimeAvailability(data.availability);
+      })
+      .catch(err => {
+        setTimeAvailability([]);
+        setError(err.toString());
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [groupDate]);
 
   /**
@@ -100,36 +107,40 @@ export function ReservationContextProvider({children}: IReservationContextProvid
 
     setLoading(true);
 
-    getMenuAvailability(({group: groupTime, ...groupDate})).then(data => {
-      setMenuAvailability(data);
-    }).catch(err => {
-      setMenuAvailability([]);
-      setError(err.toString());
-    }).finally(() => {
-      setLoading(false);
-    });
+    getMenuAvailability({group: groupTime, ...groupDate})
+      .then(data => {
+        setMenuAvailability(data);
+      })
+      .catch(err => {
+        setMenuAvailability([]);
+        setError(err.toString());
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [groupDate, groupTime]);
 
   return (
-    <ReservationContext.Provider value={{
-      isLoadingReservations: loading,
-      loadingReservationError: error,
-      groupSize: groupSize,
-      groupTime: groupTime,
-      groupDate: groupDate,
-      groupMenu: groupMenu,
-      timeAvailability: timeAvailability,
-      menuAvailability: menuAvailability,
-      setLoadingReservations: setLoading,
-      setLoadingReservationError: setError,
-      setGroupSize: setGroupSize,
-      setGroupTime: setGroupTime,
-      setGroupDate: setGroupDate,
-      setGroupMenu: setGroupMenu,
-      setTimeAvailability: setTimeAvailability,
-      setMenuAvailability: setMenuAvailability,
-    }}>
+    <ReservationContext.Provider
+      value={{
+        isLoadingReservations: loading,
+        loadingReservationError: error,
+        groupSize: groupSize,
+        groupTime: groupTime,
+        groupDate: groupDate,
+        groupMenu: groupMenu,
+        timeAvailability: timeAvailability,
+        menuAvailability: menuAvailability,
+        setLoadingReservations: setLoading,
+        setLoadingReservationError: setError,
+        setGroupSize: setGroupSize,
+        setGroupTime: setGroupTime,
+        setGroupDate: setGroupDate,
+        setGroupMenu: setGroupMenu,
+        setTimeAvailability: setTimeAvailability,
+        setMenuAvailability: setMenuAvailability,
+      }}>
       {children}
     </ReservationContext.Provider>
-  )
+  );
 }

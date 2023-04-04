@@ -1,7 +1,7 @@
 export type Month = {
   name: string;
   numeric: string;
-}
+};
 
 /**
  * Returns the next n years as a string array
@@ -23,52 +23,52 @@ export function getYears(amount: number): string[] {
 export function getMonths(): Month[] {
   return [
     {
-      "name": "January",
-      "numeric": "01",
+      name: 'January',
+      numeric: '01',
     },
     {
-      "name": "February",
-      "numeric": "02",
+      name: 'February',
+      numeric: '02',
     },
     {
-      "name": "March",
-      "numeric": "03",
+      name: 'March',
+      numeric: '03',
     },
     {
-      "name": "April",
-      "numeric": "04",
+      name: 'April',
+      numeric: '04',
     },
     {
-      "name": "May",
-      "numeric": "05",
+      name: 'May',
+      numeric: '05',
     },
     {
-      "name": "June",
-      "numeric": "06",
+      name: 'June',
+      numeric: '06',
     },
     {
-      "name": "July",
-      "numeric": "07",
+      name: 'July',
+      numeric: '07',
     },
     {
-      "name": "August",
-      "numeric": "08",
+      name: 'August',
+      numeric: '08',
     },
     {
-      "name": "September",
-      "numeric": "09",
+      name: 'September',
+      numeric: '09',
     },
     {
-      "name": "October",
-      "numeric": "10",
+      name: 'October',
+      numeric: '10',
     },
     {
-      "name": "November",
-      "numeric": "11",
+      name: 'November',
+      numeric: '11',
     },
     {
-      "name": "December",
-      "numeric": "12",
+      name: 'December',
+      numeric: '12',
     },
-  ]
+  ];
 }

@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {attemptLoginWithToken, attemptRefreshToken} from "@/requests/Auth";
-import {Account} from "@/models/Account";
-import {AuthContext} from "@/context/AuthContext";
+import {useEffect, useState} from 'react';
+import {attemptLoginWithToken, attemptRefreshToken} from '@/requests/Auth';
+import {Account} from '@/models/Account';
+import {AuthContext} from '@/context/AuthContext';
 
 interface IAuthContextProviderProps {
   children: any;
@@ -19,13 +19,16 @@ export function AuthContextProvider({children}: IAuthContextProviderProps) {
   useEffect(() => {
     setLoading(true);
 
-    attemptRefreshToken().then(data => {
-      setAccessToken(data.access_token);
-    }).catch(err => {
-      setError(err);
-    }).finally(() => {
-      setLoading(false);
-    });
+    attemptRefreshToken()
+      .then(data => {
+        setAccessToken(data.access_token);
+      })
+      .catch(err => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   /**
@@ -39,32 +42,36 @@ export function AuthContextProvider({children}: IAuthContextProviderProps) {
 
     setLoading(true);
 
-    attemptLoginWithToken({token: accessToken}).then(data => {
-      setAccount({
-        id: data.id,
-        email_address: data.email_address,
-        first_name: data.first_name,
-        last_name: data.last_name,
+    attemptLoginWithToken({token: accessToken})
+      .then(data => {
+        setAccount({
+          id: data.id,
+          email_address: data.email_address,
+          first_name: data.first_name,
+          last_name: data.last_name,
+        });
+      })
+      .catch(err => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    }).catch(err => {
-      setError(err);
-    }).finally(() => {
-      setLoading(false);
-    });
   }, [accessToken]);
 
   return (
-    <AuthContext.Provider value={{
-      account: account,
-      accessToken: accessToken,
-      isAuthenticated: (account !== undefined),
-      isAccountLoading: loading,
-      loadingAccountError: error,
-      setAccount: setAccount,
-      setAccessToken: setAccessToken,
-      setAccountLoading: setLoading,
-      setLoadingAccountError: setError,
-    }}>
+    <AuthContext.Provider
+      value={{
+        account: account,
+        accessToken: accessToken,
+        isAuthenticated: account !== undefined,
+        isAccountLoading: loading,
+        loadingAccountError: error,
+        setAccount: setAccount,
+        setAccessToken: setAccessToken,
+        setAccountLoading: setLoading,
+        setLoadingAccountError: setError,
+      }}>
       {children}
     </AuthContext.Provider>
   );
