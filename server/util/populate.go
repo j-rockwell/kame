@@ -40,7 +40,7 @@ func PopulateData(client *mongo.Client, db string) {
 		}
 
 		fmt.Println("generating test data for accounts")
-		hash, err := auth.GetHash("admin")
+		hash, err := auth.GetHash("admin4000")
 		if err != nil {
 			panic("failed to insert test data: " + err.Error())
 		}
