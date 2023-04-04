@@ -1,5 +1,11 @@
-import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
-import {Center, HStack, IconButton, Square, Text, useColorModeValue} from "@chakra-ui/react";
+import {AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
+import {
+  Center,
+  HStack,
+  IconButton,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 interface IGroupSizePickerProps {
   value: number;
@@ -7,7 +13,11 @@ interface IGroupSizePickerProps {
   onDecrement: () => void;
 }
 
-export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePickerProps) => {
+export const GroupSizePicker = ({
+  value,
+  onIncrement,
+  onDecrement,
+}: IGroupSizePickerProps) => {
   const buttonBgColor = useColorModeValue('gray.50', 'gray.800');
   const buttonPressedBgColor = useColorModeValue('white', 'gray.900');
   const bgHighlightColor = useColorModeValue('gray.50', 'gray.800');
@@ -23,8 +33,8 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
     },
     _pressed: {
       bgColor: buttonPressedBgColor,
-    }
-  }
+    },
+  };
 
   return (
     <HStack spacing={0} w={'100%'}>
@@ -38,7 +48,9 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
       />
 
       <Center width={'33%'} h={'4rem'} bgColor={bgHighlightColor}>
-        <Text fontWeight={'semibold'} fontSize={'xl'}>{value}</Text>
+        <Text fontWeight={'semibold'} fontSize={'xl'}>
+          {value}
+        </Text>
       </Center>
 
       <IconButton
@@ -51,4 +63,4 @@ export const GroupSizePicker = ({value, onIncrement, onDecrement}: IGroupSizePic
       />
     </HStack>
   );
-}
+};

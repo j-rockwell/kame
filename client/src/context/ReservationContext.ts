@@ -1,6 +1,6 @@
-import {createContext, useContext} from "react";
-import {TableGroup, TableTime} from "@/models/Table";
-import {MenuSanitized} from "@/models/Menu";
+import {createContext, useContext} from 'react';
+import {TableGroup, TableTime} from '@/models/Table';
+import {MenuSanitized} from '@/models/Menu';
 
 interface IReservationContext {
   isLoadingReservations: boolean;
@@ -11,14 +11,14 @@ interface IReservationContext {
   groupMenu?: MenuSanitized;
   timeAvailability: TableGroup[];
   menuAvailability: MenuSanitized[];
-  setLoadingReservations: (b: boolean) => void;         // loading state bool
-  setLoadingReservationError: (err?: string) => void;   // loading error message
-  setGroupSize: (n: number) => void;                    // int
-  setGroupDate: (tt: TableTime) => void;                // Calendar date (month,day,year)
-  setGroupTime: (tg?: TableGroup) => void;              // A or B
-  setGroupMenu: (m?: MenuSanitized) => void;            // Menu Object
-  setTimeAvailability: (tga: TableGroup[]) => void;     // A or B
-  setMenuAvailability: (ms: MenuSanitized[]) => void;   // Menu Object
+  setLoadingReservations: (b: boolean) => void; // loading state bool
+  setLoadingReservationError: (err?: string) => void; // loading error message
+  setGroupSize: (n: number) => void; // int
+  setGroupDate: (tt: TableTime) => void; // Calendar date (month,day,year)
+  setGroupTime: (tg?: TableGroup) => void; // A or B
+  setGroupMenu: (m?: MenuSanitized) => void; // Menu Object
+  setTimeAvailability: (tga: TableGroup[]) => void; // A or B
+  setMenuAvailability: (ms: MenuSanitized[]) => void; // Menu Object
 }
 
 /**

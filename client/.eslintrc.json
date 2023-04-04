@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "eslint:recommended"],
+  "rules": {
+    // disable rules from base configurations
+    "no-undef": "off",
+    "no-async-promise-executor": "off",
+    "no-unused-vars": "off",
+    "no-dupe-keys": "warn"
+  }
 }

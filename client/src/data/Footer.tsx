@@ -1,7 +1,7 @@
-import {AiFillFacebook, AiFillInstagram} from "react-icons/ai";
-import {IconType} from "react-icons";
-import {ReactElement} from "react";
-import {ColorMode, Link, Text} from "@chakra-ui/react";
+import {AiFillFacebook, AiFillInstagram} from 'react-icons/ai';
+import {IconType} from 'react-icons';
+import {ReactElement} from 'react';
+import {ColorMode, Link, Text} from '@chakra-ui/react';
 import {
   ADDRESS,
   ADDRESS_GOOGLE,
@@ -10,25 +10,25 @@ import {
   INSTAGRAM,
   LEGAL_URL,
   PHONE_NUMBER,
-  PHONE_NUMBER_RAW
-} from "@/util/Constants";
+  PHONE_NUMBER_RAW,
+} from '@/util/Constants';
 
 type FooterEntry = {
   title: string;
   subtitle?: ReactElement[];
   items: FooterItem[];
-}
+};
 
 type FooterItem = {
   name: string;
   href: string;
-}
+};
 
 type FooterSocial = {
   icon?: IconType;
   alt: string;
   href: string;
-}
+};
 
 /**
  * Returns an array of socials to render under the logo within the footer
@@ -44,8 +44,8 @@ export function getFooterSocials(): FooterSocial[] {
       icon: AiFillFacebook,
       alt: 'facebook',
       href: FACEBOOK,
-    }
-  ]
+    },
+  ];
 }
 
 /**
@@ -63,7 +63,7 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
     <Text color={`text.${colorMode}`}>
       <b>Address</b>: <Link href={ADDRESS_GOOGLE}>{ADDRESS}</Link>
     </Text>
-  )
+  );
 
   return [
     {
@@ -82,7 +82,7 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
           name: 'People',
           href: 'http://www.sushikame.com/#people',
         },
-      ]
+      ],
     },
     {
       title: 'Legal',
@@ -99,7 +99,7 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
           name: 'Terms of Service',
           href: LEGAL_URL + '#tos',
         },
-      ]
+      ],
     },
     {
       title: 'More',
@@ -116,7 +116,7 @@ export function getFooterData(colorMode: ColorMode): FooterEntry[] {
           name: 'Special Occasions',
           href: '#',
         },
-      ]
+      ],
     },
-  ]
+  ];
 }

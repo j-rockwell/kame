@@ -1,14 +1,17 @@
-import Head from "next/head";
-import {useCallback, useEffect, useMemo, useState} from "react";
-import {Navigator} from "@/components/navigation/Navigator";
-import {useDimensions} from "@/hooks/Dimensions";
-import {createAccount} from "@/requests/Account";
-import {CustomerDetails} from "@/components/customer-details-section/CustomerDetails";
-import {Footer} from "@/components/footer/Footer";
-import {useAuthContext} from "@/context/AuthContext";
-import {attemptLoginWithCredentials} from "@/requests/Auth";
-import {LoginAccountData, NewAccountData} from "@/models/Account";
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
+import Head from 'next/head';
+import {useCallback, useMemo, useState} from 'react';
+import {Navigator} from '@/components/navigation/Navigator';
+import {useDimensions} from '@/hooks/Dimensions';
+import {createAccount} from '@/requests/Account';
+import {CustomerDetails} from '@/components/customer-details-section/CustomerDetails';
+import {Footer} from '@/components/footer/Footer';
+import {useAuthContext} from '@/context/AuthContext';
+import {attemptLoginWithCredentials} from '@/requests/Auth';
+import {LoginAccountData, NewAccountData} from '@/models/Account';
+import {
+  DESKTOP_WIDTH_BREAKPOINT,
+  MOBILE_WIDTH_BREAKPOINT,
+} from '@/util/Constants';
 
 export default function Reserve() {
   const {width} = useDimensions();
@@ -32,49 +35,67 @@ export default function Reserve() {
   /**
    * Handles making a request to the server to create a new account
    */
-  const onCreateNewAccount = useCallback((d: NewAccountData) => {
-    setLoading(true);
+  const onCreateNewAccount = useCallback(
+    (d: NewAccountData) => {
+      setLoading(true);
 
-    createAccount({
-      first_name: d.firstName,
-      last_name: d.lastName,
-      email_address: d.emailAddress,
-      phone: d.phone,
-      password: d.password,
-    }).then(data => {
-      setAccessToken(data.access_token);
-      window.location.href = "/reserve/card-details";
-    }).catch(err => {
-      // TODO: Flash error
-      setLoadingAccountError(err);
-      console.error(err);
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, [setAccessToken, setLoadingAccountError]);
+      createAccount({
+        first_name: d.firstName,
+        last_name: d.lastName,
+        email_address: d.emailAddress,
+        phone: d.phone,
+        password: d.password,
+      })
+        .then(data => {
+          setAccessToken(data.access_token);
+          window.location.href = '/reserve/card-details';
+        })
+        .catch(err => {
+          // TODO: Flash error
+          setLoadingAccountError(err);
+          console.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [setAccessToken, setLoadingAccountError],
+  );
 
   /**
    * Handles making a request to the server to authorize an existing account
    */
-  const onLoginAttempt = useCallback((d: LoginAccountData) => {
-    setLoading(true);
+  const onLoginAttempt = useCallback(
+    (d: LoginAccountData) => {
+      setLoading(true);
 
-    attemptLoginWithCredentials({email_address: d.emailAddress, password: d.password}).then(data => {
-      setAccessToken(data.access_token);
-      window.location.href = "/reserve/card-details";
-    }).catch(err => {
-      setLoadingAccountError(err);
-      // TODO: Flash error
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, [setAccessToken, setLoadingAccountError]);
+      attemptLoginWithCredentials({
+        email_address: d.emailAddress,
+        password: d.password,
+      })
+        .then(data => {
+          setAccessToken(data.access_token);
+          window.location.href = '/reserve/card-details';
+        })
+        .catch(err => {
+          setLoadingAccountError(err);
+          // TODO: Flash error
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [setAccessToken, setLoadingAccountError],
+  );
 
   return (
     <>
       <Head>
         <title>Sushi Kame | Customer Details</title>
-        <meta name="description" content="Book a reservation at the best Omakase in Las Vegas" />
+        <meta
+          name="description"
+          content="Book a reservation at the best Omakase in Las Vegas"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/public/favicon.ico" />
       </Head>
@@ -94,5 +115,5 @@ export default function Reserve() {
         <Footer isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
       </footer>
     </>
-  )
+  );
 }

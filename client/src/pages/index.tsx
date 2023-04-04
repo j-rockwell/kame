@@ -1,20 +1,23 @@
-import {useCallback, useMemo} from "react";
-import Head from 'next/head'
-import {Navigator} from "@/components/navigation/Navigator";
-import {BookingContainer} from "@/components/booking-container/BookingContainer";
-import {useReservationContext} from "@/context/ReservationContext";
-import {BookingContainerHeading} from "@/components/booking-container-heading/BookingContainerHeading";
-import {useDimensions} from "@/hooks/Dimensions";
-import {GroupSizeSection} from "@/components/group-size-section/GroupSizeSection";
-import {TableDateSection} from "@/components/table-date-section/TableDateSection";
-import {GroupTimeSection} from "@/components/group-time-section/GroupTimeSection";
-import {MenuSection} from "@/components/menu-picker-section/MenuSection";
-import {ReserveButton} from "@/components/reserve-button/ReserveButton";
-import {AiOutlineDown} from "react-icons/ai";
-import {Footer} from "@/components/footer/Footer";
-import {useAuthContext} from "@/context/AuthContext";
-import {DESKTOP_WIDTH_BREAKPOINT, MOBILE_WIDTH_BREAKPOINT} from "@/util/Constants";
-import {Link, VStack, Text, Icon, useColorMode} from "@chakra-ui/react";
+import {useCallback, useMemo} from 'react';
+import Head from 'next/head';
+import {Navigator} from '@/components/navigation/Navigator';
+import {BookingContainer} from '@/components/booking-container/BookingContainer';
+import {useReservationContext} from '@/context/ReservationContext';
+import {BookingContainerHeading} from '@/components/booking-container-heading/BookingContainerHeading';
+import {useDimensions} from '@/hooks/Dimensions';
+import {GroupSizeSection} from '@/components/group-size-section/GroupSizeSection';
+import {TableDateSection} from '@/components/table-date-section/TableDateSection';
+import {GroupTimeSection} from '@/components/group-time-section/GroupTimeSection';
+import {MenuSection} from '@/components/menu-picker-section/MenuSection';
+import {ReserveButton} from '@/components/reserve-button/ReserveButton';
+import {AiOutlineDown} from 'react-icons/ai';
+import {Footer} from '@/components/footer/Footer';
+import {useAuthContext} from '@/context/AuthContext';
+import {
+  DESKTOP_WIDTH_BREAKPOINT,
+  MOBILE_WIDTH_BREAKPOINT,
+} from '@/util/Constants';
+import {Link, VStack, Text, Icon, useColorMode} from '@chakra-ui/react';
 
 /*
   booking.sushikame.com/
@@ -71,13 +74,20 @@ export default function Home() {
     <>
       <Head>
         <title>Sushi Kame | Book Reservation</title>
-        <meta name="description" content="Book a reservation at the best Omakase in Las Vegas" />
+        <meta
+          name="description"
+          content="Book a reservation at the best Omakase in Las Vegas"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Navigator viewWidth={width} isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
+        <Navigator
+          viewWidth={width}
+          isSmallDevice={isSmallDevice}
+          isMediumDevice={isMediumDevice}
+        />
         <BookingContainer
           isMediumDevice={isMediumDevice}
           isSmallDevice={isSmallDevice}
@@ -121,12 +131,17 @@ export default function Home() {
 
             <ReserveButton
               authenticated={isAuthenticated}
-              disclaimer={'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'}>
+              disclaimer={
+                'By clicking next, you are temporarily reserving this timeslot for 5 minutes.'
+              }>
               Next
             </ReserveButton>
 
             {isSmallDevice && (
-              <Link href={'#summary'} fontWeight={'bold'} _hover={{textDecoration: 'none'}}>
+              <Link
+                href={'#summary'}
+                fontWeight={'bold'}
+                _hover={{textDecoration: 'none'}}>
                 <VStack>
                   <Text color={`text.${colorMode}`}>Reservation Summary</Text>
                   <Icon as={AiOutlineDown} color={`text.${colorMode}`} />
@@ -141,5 +156,5 @@ export default function Home() {
         <Footer isSmallDevice={isSmallDevice} isMediumDevice={isMediumDevice} />
       </footer>
     </>
-  )
+  );
 }

@@ -1,4 +1,8 @@
-export type CardCarrier = 'American Express' | 'Discover' | 'Mastercard' | 'Visa';
+export type CardCarrier =
+  | 'American Express'
+  | 'Discover'
+  | 'Mastercard'
+  | 'Visa';
 
 /**
  * Accepts a string and returns a credit card carrier matching the
@@ -14,22 +18,22 @@ export function getCarrier(prefix: string): CardCarrier | undefined {
   }
 
   if (
-    prefix.length >= 2
-    && (prefix.substring(0, 2) === '34' || prefix.substring(0, 2) === '37')
+    prefix.length >= 2 &&
+    (prefix.substring(0, 2) === '34' || prefix.substring(0, 2) === '37')
   ) {
-    return "American Express";
+    return 'American Express';
   }
 
   if (prefix.charAt(0) === '4') {
-    return "Visa";
+    return 'Visa';
   }
 
   if (prefix.charAt(0) === '5') {
-    return "Mastercard";
+    return 'Mastercard';
   }
 
   if (prefix.charAt(0) === '6') {
-    return "Discover";
+    return 'Discover';
   }
 
   return undefined;

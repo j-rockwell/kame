@@ -1,5 +1,11 @@
-import {IScalable} from "@/hooks/Dimensions";
-import {Heading, Square, Text, VStack, useColorModeValue} from "@chakra-ui/react";
+import {IScalable} from '@/hooks/Dimensions';
+import {
+  Heading,
+  Square,
+  Text,
+  VStack,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 interface IMenuEntryProps extends IScalable {
   title: string;
@@ -8,7 +14,13 @@ interface IMenuEntryProps extends IScalable {
   onClick: () => void;
 }
 
-export const MenuEntry = ({title, subtitle, isSelected, onClick, isSmallDevice}: IMenuEntryProps) => {
+export const MenuEntry = ({
+  title,
+  subtitle,
+  isSelected,
+  onClick,
+  isSmallDevice,
+}: IMenuEntryProps) => {
   const selectedBgColor = useColorModeValue('info.light', 'info.dark');
   const borderColor = useColorModeValue('textMuted.light', 'textMuted.dark');
   const textColor = useColorModeValue('text.light', 'text.dark');
@@ -42,4 +54,4 @@ export const MenuEntry = ({title, subtitle, isSelected, onClick, isSmallDevice}:
       </VStack>
     </Square>
   );
-}
+};

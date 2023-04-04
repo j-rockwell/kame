@@ -1,14 +1,23 @@
-import {useCallback, useMemo} from "react";
-import {AiOutlineLeft} from "react-icons/ai";
-import {BsFillSunFill, BsFillMoonFill} from "react-icons/bs";
+import {useCallback, useMemo} from 'react';
+import {AiOutlineLeft} from 'react-icons/ai';
+import {BsFillSunFill, BsFillMoonFill} from 'react-icons/bs';
 import {default as NextLink} from 'next/link';
-import {Center, HStack, Icon, Image, Link, Switch, Text, useColorMode} from '@chakra-ui/react';
+import {
+  Center,
+  HStack,
+  Icon,
+  Image,
+  Link,
+  Switch,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 
 interface INavigatorProps {
   backButton?: {
     text: string;
     href: string;
-  }
+  };
 }
 
 export const Navigator = ({backButton}: INavigatorProps) => {
@@ -56,5 +65,5 @@ export const Navigator = ({backButton}: INavigatorProps) => {
         <Icon as={BsFillMoonFill} color={`text.${colorMode}`} />
       </HStack>
     </Center>
-  )
-}
+  );
+};

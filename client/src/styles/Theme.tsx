@@ -1,17 +1,17 @@
-import {extendTheme, StyleFunctionProps} from "@chakra-ui/react";
-import {mode} from "@chakra-ui/theme-tools";
+import {extendTheme, StyleFunctionProps} from '@chakra-ui/react';
+import {mode} from '@chakra-ui/theme-tools';
 
 const theme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
-      "html, body": {
+      'html, body': {
         background: mode('white', 'black')(props),
         scrollBehavior: 'smooth',
       },
 
-      "h1, h2, h3, h4, h5, h6, p, a": {
+      'h1, h2, h3, h4, h5, h6, p, a': {
         color: mode('#1a1a1a', '#f2f2f2')(props),
-      }
+      },
     }),
   },
 
@@ -67,7 +67,7 @@ const theme = extendTheme({
       800: 'rgb(44, 44, 46)',
       900: 'rgb(28, 28, 30)',
     },
-  }
+  },
 });
 
 export default theme;

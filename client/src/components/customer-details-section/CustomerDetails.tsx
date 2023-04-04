@@ -1,11 +1,11 @@
-import {NewCustomerInput} from "@/components/customer-new/NewCustomerInput";
-import {CustomerLoginInput} from "@/components/customer-login/CustomerLoginInput";
-import {useCallback, useEffect, useState} from "react";
-import {ReservationSummaryDescription} from "@/components/reservation-summary/ReservationSummaryDescription";
-import {useReservationContext} from "@/context/ReservationContext";
-import {IScalable, useDimensions} from "@/hooks/Dimensions";
-import {LoginAccountData, NewAccountData} from "@/models/Account";
-import {Container, Image, Stack, VStack} from "@chakra-ui/react";
+import {useCallback, useEffect, useState} from 'react';
+import {NewCustomerInput} from '@/components/customer-new/NewCustomerInput';
+import {CustomerLoginInput} from '@/components/customer-login/CustomerLoginInput';
+import {ReservationSummaryDescription} from '@/components/reservation-summary/ReservationSummaryDescription';
+import {useReservationContext} from '@/context/ReservationContext';
+import {IScalable, useDimensions} from '@/hooks/Dimensions';
+import {LoginAccountData, NewAccountData} from '@/models/Account';
+import {Container, Image, Stack, VStack} from '@chakra-ui/react';
 
 interface ICustomerDetailsProps extends IScalable {
   isLoading: boolean;
@@ -22,7 +22,8 @@ export const CustomerDetails = ({
 }: ICustomerDetailsProps) => {
   const {groupSize, groupDate, groupTime, groupMenu} = useReservationContext();
   const {width, height} = useDimensions();
-  const [isNewCustomerFieldsActive, setNewCustomerFieldsActive] = useState(false);
+  const [isNewCustomerFieldsActive, setNewCustomerFieldsActive] =
+    useState(false);
 
   /**
    * Override func to prevent opacity errors on vertical screens or
@@ -67,7 +68,7 @@ export const CustomerDetails = ({
       <Stack
         w={'100%'}
         direction={isSmallDevice ? 'column' : 'row'}
-        spacing={(isSmallDevice || isMediumDevice) ? '2rem' : '8rem'}>
+        spacing={isSmallDevice || isMediumDevice ? '2rem' : '8rem'}>
         <VStack w={'100%'}>
           <Image
             src={'/hero-2.webp'}
@@ -105,4 +106,4 @@ export const CustomerDetails = ({
       </Stack>
     </Container>
   );
-}
+};

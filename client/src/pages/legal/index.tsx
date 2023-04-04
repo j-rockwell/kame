@@ -1,3 +1,1 @@
-export default function Legal() {
-
-}
+export default function Legal() {}

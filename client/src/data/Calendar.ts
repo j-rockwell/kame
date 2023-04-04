@@ -9,7 +9,7 @@ export function getCalendarData(
   day: number,
   month: number,
   year: number,
-  amount: number
+  amount: number,
 ): MonthEntry[] {
   const date = new Date(year, month, day);
   const months = getMonthsAsArray();
@@ -19,7 +19,7 @@ export function getCalendarData(
   let result: MonthEntry[] = [];
 
   for (let i = 0; i < amount; i++) {
-    date.setTime(date.getTime() + (86400*1000));
+    date.setTime(date.getTime() + 86400 * 1000);
 
     // we've rolled over to the next month
     if (months[date.getMonth()] !== currentMonthName) {
@@ -61,7 +61,11 @@ export function getCalendarData(
  * @param month Month index (from js date obj)
  * @param year Full year
  */
-export function getDaysUntilWeekStart(day: number, month: number, year: number): number {
+export function getDaysUntilWeekStart(
+  day: number,
+  month: number,
+  year: number,
+): number {
   const date = new Date(year, month, day);
   if (date.getDay() === 0) {
     return 0;
@@ -81,7 +85,7 @@ export type MonthEntry = {
   index: number;
   dates: number[];
   year: number;
-}
+};
 
 /**
  * Builds an array of months to easily iterate over
@@ -100,7 +104,7 @@ export function getMonthsAsArray(): Month[] {
     Month.OCTOBER,
     Month.NOVEMBER,
     Month.DECEMBER,
-  )
+  );
 }
 
 /**
@@ -115,32 +119,32 @@ export function getDaysAsArray(): Day[] {
     Day.THURSDAY,
     Day.FRIDAY,
     Day.SATURDAY,
-  )
+  );
 }
 
 // not used externally (nor should we ever), used for iterative purposes
 export enum Month {
-  JANUARY = "january",
-  FEBRUARY = "february",
-  MARCH = "march",
-  APRIL = "april",
-  MAY = "may",
-  JUNE = "june",
-  JULY = "july",
-  AUGUST = "august",
-  SEPTEMBER = "september",
-  OCTOBER = "october",
-  NOVEMBER = "november",
-  DECEMBER = "december",
+  JANUARY = 'january',
+  FEBRUARY = 'february',
+  MARCH = 'march',
+  APRIL = 'april',
+  MAY = 'may',
+  JUNE = 'june',
+  JULY = 'july',
+  AUGUST = 'august',
+  SEPTEMBER = 'september',
+  OCTOBER = 'october',
+  NOVEMBER = 'november',
+  DECEMBER = 'december',
 }
 
 // not used externally (nor should we ever), used for iterative purposes
 export enum Day {
-  SUNDAY = "sunday",
-  MONDAY = "monday",
-  TUESDAY = "tuesday",
-  WEDNESDAY = "wednesday",
-  THURSDAY = "thursday",
-  FRIDAY = "friday",
-  SATURDAY = "saturday",
+  SUNDAY = 'sunday',
+  MONDAY = 'monday',
+  TUESDAY = 'tuesday',
+  WEDNESDAY = 'wednesday',
+  THURSDAY = 'thursday',
+  FRIDAY = 'friday',
+  SATURDAY = 'saturday',
 }

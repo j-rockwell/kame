@@ -6,6 +6,6 @@ export type Menu = {
   created_by: string;
   created_at: Date;
   last_updated: Date;
-}
+};
 
-export type MenuSanitized = Pick<Menu, 'id' | 'name' | 'price'>
+export type MenuSanitized = Pick<Menu, 'id' | 'name' | 'price'>;

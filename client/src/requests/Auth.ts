@@ -1,12 +1,12 @@
-import axios from "axios";
-import {API_URL} from "@/util/Constants";
+import axios from 'axios';
+import {API_URL} from '@/util/Constants';
 import {
   AuthSuccessResponse,
   AuthTokenSuccessResponse,
   AuthWithStandardCredentialsRequest,
   AuthWithTokenRequest,
-  RefreshTokenResponse
-} from "@/requests/types/Auth";
+  RefreshTokenResponse,
+} from '@/requests/types/Auth';
 
 /**
  * Performs a request and attempts to authenticate with
@@ -19,19 +19,19 @@ import {
  * @param {AuthWithStandardCredentialsRequest} req Request params
  */
 export async function attemptLoginWithCredentials(
-  req: AuthWithStandardCredentialsRequest
+  req: AuthWithStandardCredentialsRequest,
 ): Promise<AuthSuccessResponse> {
   return new Promise<AuthSuccessResponse>(async (resolve, reject) => {
     try {
       const res = await axios.post<AuthSuccessResponse>(
         `${API_URL}/auth/`,
         {
-          "email_address": req.email_address,
-          "password": req.password,
+          email_address: req.email_address,
+          password: req.password,
         },
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
 
       if (!res || !res.data) {
@@ -52,14 +52,19 @@ export async function attemptLoginWithCredentials(
  *
  * @param {AuthWithTokenRequest} req Request params
  */
-export async function attemptLoginWithToken(req: AuthWithTokenRequest): Promise<AuthTokenSuccessResponse> {
+export async function attemptLoginWithToken(
+  req: AuthWithTokenRequest,
+): Promise<AuthTokenSuccessResponse> {
   return new Promise<AuthTokenSuccessResponse>(async (resolve, reject) => {
     try {
-      const res = await axios.get<AuthTokenSuccessResponse>(`${API_URL}/auth/token`, {
-        headers: {
-          Authorization: `Bearer ${req.token}`
-        }
-      });
+      const res = await axios.get<AuthTokenSuccessResponse>(
+        `${API_URL}/auth/token`,
+        {
+          headers: {
+            Authorization: `Bearer ${req.token}`,
+          },
+        },
+      );
 
       if (!res || !res.data) {
         return reject(new Error('query response empty'));
@@ -82,8 +87,8 @@ export async function attemptRefreshToken() {
       const res = await axios.get<RefreshTokenResponse>(
         `${API_URL}/auth/refresh`,
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
 
       if (!res || !res.data) {
@@ -97,6 +102,4 @@ export async function attemptRefreshToken() {
   });
 }
 
-export async function attemptInvalidateToken() {
-
-}
+export async function attemptInvalidateToken() {}

@@ -1,10 +1,11 @@
-import {useCallback, useState} from "react";
-import {isEmailRegexp} from "@/util/Validate";
-import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
-import {IScalable} from "@/hooks/Dimensions";
-import {LoginAccountData} from "@/models/Account";
+import {useCallback, useState} from 'react';
+import {isEmailRegexp} from '@/util/Validate';
+import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai';
+import {IScalable} from '@/hooks/Dimensions';
+import {LoginAccountData} from '@/models/Account';
 import {
-  Box, Button,
+  Box,
+  Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -15,7 +16,7 @@ import {
   InputRightElement,
   VStack,
   useColorModeValue,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 const INITIAL_DATA: InputData = {value: '', error: undefined};
 
@@ -27,11 +28,14 @@ interface ICustomerLoginInputProps extends IScalable {
 type InputData = {
   value: string;
   error?: string;
-}
+};
 
 type InputField = 'email_address' | 'password';
 
-export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLoginInputProps) => {
+export const CustomerLoginInput = ({
+  onLoginAttempt,
+  isSmallDevice,
+}: ICustomerLoginInputProps) => {
   const [email, setEmail] = useState<InputData>(INITIAL_DATA);
   const [password, setPassword] = useState<InputData>(INITIAL_DATA);
   const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +45,7 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
 
   const inputStyling = {
     borderRadius: 12,
-  }
+  };
 
   /**
    * Validates input, setting error states if caught
@@ -54,13 +58,20 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
       valid = false;
     }
 
-    if ((email.value.length >= 3 && email.value.length <= 64) && !isEmailRegexp(email.value)) {
+    if (
+      email.value.length >= 3 &&
+      email.value.length <= 64 &&
+      !isEmailRegexp(email.value)
+    ) {
       setEmail({value: email.value, error: 'Invalid email address'});
       valid = false;
     }
 
     if (password.value.length < 8 || password.value.length > 32) {
-      setPassword({value: password.value, error: 'Password must be 8-32 characters'});
+      setPassword({
+        value: password.value,
+        error: 'Password must be 8-32 characters',
+      });
       valid = false;
     }
 
@@ -84,20 +95,31 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
   /**
    * Handles updating the fields for email or password with the option to wipe errors for the specified field
    */
-  const handleDataUpdate = useCallback((field: InputField, value: string, clearErrors?: boolean) => {
-    switch (field) {
-      case "email_address":
-        setEmail({value: value, error: clearErrors ? undefined : email.error});
-        break;
-      case "password":
-        setPassword({value: value, error: clearErrors ? undefined : password.error});
-        break;
-    }
-  }, [email.error, password.error]);
+  const handleDataUpdate = useCallback(
+    (field: InputField, value: string, clearErrors?: boolean) => {
+      switch (field) {
+        case 'email_address':
+          setEmail({
+            value: value,
+            error: clearErrors ? undefined : email.error,
+          });
+          break;
+        case 'password':
+          setPassword({
+            value: value,
+            error: clearErrors ? undefined : password.error,
+          });
+          break;
+      }
+    },
+    [email.error, password.error],
+  );
 
   return (
     <Box w={'100%'} maxW={'48rem'}>
-      <Heading size={'md'} color={textColor}>Returning Customer</Heading>
+      <Heading size={'md'} color={textColor}>
+        Returning Customer
+      </Heading>
 
       <VStack mt={'2rem'}>
         <FormControl isInvalid={email.error !== undefined}>
@@ -105,7 +127,9 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
 
           <Input
             type={'email'}
-            onChange={e => handleDataUpdate('email_address', e.target.value, true)}
+            onChange={e =>
+              handleDataUpdate('email_address', e.target.value, true)
+            }
             {...inputStyling}
           />
 
@@ -127,17 +151,30 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
                 aria-label={'show password'}
                 size={'sm'}
                 borderRadius={12}
-                icon={showPassword ? <AiFillEyeInvisible size={'1.25rem'} /> : <AiFillEye size={'1.25rem'} />}
+                icon={
+                  showPassword ? (
+                    <AiFillEyeInvisible size={'1.25rem'} />
+                  ) : (
+                    <AiFillEye size={'1.25rem'} />
+                  )
+                }
                 onClick={() => setShowPassword(!showPassword)}
               />
             </InputRightElement>
           </InputGroup>
 
-          {password.error && <FormErrorMessage>{password.error}</FormErrorMessage>}
+          {password.error && (
+            <FormErrorMessage>{password.error}</FormErrorMessage>
+          )}
         </FormControl>
 
         <VStack w={'100%'} pt={'2rem'} spacing={'1rem'}>
-          <Button size={'lg'} w={'100%'} color={'white'} bgColor={buttonBgColor} onClick={handleLoginAttempt}>
+          <Button
+            size={'lg'}
+            w={'100%'}
+            color={'white'}
+            bgColor={buttonBgColor}
+            onClick={handleLoginAttempt}>
             Sign in
           </Button>
 
@@ -148,4 +185,4 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
       </VStack>
     </Box>
   );
-}
+};
