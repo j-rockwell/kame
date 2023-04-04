@@ -7,13 +7,13 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Flex,
   Heading,
   Image,
   Text,
   VStack,
   Icon,
-  useColorModeValue, HStack,
+  HStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 interface IFaqSectionProps extends IScalable {}
