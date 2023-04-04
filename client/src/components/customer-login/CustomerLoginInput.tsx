@@ -79,7 +79,7 @@ export const CustomerLoginInput = ({onLoginAttempt, isSmallDevice}: ICustomerLog
     }
 
     onLoginAttempt({emailAddress: email.value, password: password.value});
-  }, [email.value, onLoginAttempt, password.value]);
+  }, [email.value, handleValidate, onLoginAttempt, password.value]);
 
   /**
    * Handles updating the fields for email or password with the option to wipe errors for the specified field

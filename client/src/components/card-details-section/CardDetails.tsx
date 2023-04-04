@@ -21,6 +21,7 @@ export const CardDetails = ({onSubmit, isMediumDevice, isSmallDevice}: ICardDeta
         <VStack w={'100%'}>
           <Image
             src={'/hero-3.webp'}
+            alt={'kame backdrop'}
             w={'100%'}
             h={height * 0.75}
             mb={'1rem'}

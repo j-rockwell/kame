@@ -71,6 +71,7 @@ export const CustomerDetails = ({
         <VStack w={'100%'}>
           <Image
             src={'/hero-2.webp'}
+            alt={'kame backdrop'}
             w={'100%'}
             h={height * 0.75}
             mb={'1rem'}

@@ -36,6 +36,7 @@ export const ReservationSummary = ({
       sx={{position: '-webkit-sticky', position: 'sticky', top: isSmallDevice ? 0 : '4rem'}}>
       <Image
         src={'/hero-1.webp'}
+        alt={'kame backdrop'}
         w={'100%'}
         h={`32rem`}
         mb={'1rem'}
