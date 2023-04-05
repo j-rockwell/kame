@@ -1,6 +1,7 @@
 [gin]
 port = "8080"
 mode = "debug"
+domain = "*.localhost"
 origins = [
     "http://sushikame.com",
     "https://sushikame.com",
