@@ -29,12 +29,11 @@ export const ReservationSummary = ({
 
   return (
     <Box
+      position={'-webkit-sticky'}
       id={'summary'}
       w={'100%'}
       zIndex={1}
-      // @ts-ignore - safari sticky fix
       sx={{
-        position: '-webkit-sticky',
         position: 'sticky',
         top: isSmallDevice ? 0 : '4rem',
       }}>
