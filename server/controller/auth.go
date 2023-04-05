@@ -19,7 +19,6 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 	accessTokenTTL := conf.Auth.AccessTokenTTL
 	refreshTokenPubkey := conf.Auth.RefreshTokenPubkey
 	refreshTokenTTL := conf.Auth.RefreshTokenTTL
-	isReleaseVersion := conf.Gin.Mode == "release"
 
 	// account mqp only
 	mqp := database.MongoQueryParams{
@@ -84,13 +83,8 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 			return
 		}
 
-		var cookieDomain = ".localhost"
-		if isReleaseVersion {
-			cookieDomain = "booking.sushikame.com"
-		}
-
 		ctx.SetSameSite(http.SameSiteStrictMode)
-		ctx.SetCookie("refresh_token", refreshToken, int(refreshTokenTTL), "/", cookieDomain, true, true)
+		ctx.SetCookie("refresh_token", refreshToken, int(refreshTokenTTL), "/", conf.Gin.Domain, true, true)
 		ctx.JSON(http.StatusOK, res)
 	}
 }

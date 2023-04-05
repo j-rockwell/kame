@@ -16,6 +16,7 @@ type Configuration struct {
 type Gin struct {
 	Port    string   `toml:"port"`
 	Mode    string   `toml:"mode"`
+	Domain  string   `toml:"domain"`
 	Origins []string `toml:"origins"`
 }
 

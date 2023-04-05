@@ -22,7 +22,6 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 	accessTokenTTL := conf.Auth.AccessTokenTTL
 	refreshTokenPubkey := conf.Auth.RefreshTokenPubkey
 	refreshTokenTTL := conf.Auth.RefreshTokenTTL
-	isReleaseVersion := conf.Gin.Mode == "release"
 
 	mqp := database.MongoQueryParams{
 		MongoClient:    controller.Mongo,
@@ -115,13 +114,8 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			RefreshToken: refreshToken,
 		}
 
-		var cookieDomain = ".localhost"
-		if isReleaseVersion {
-			cookieDomain = "booking.sushikame.com"
-		}
-
 		ctx.SetSameSite(http.SameSiteStrictMode)
-		ctx.SetCookie("refresh_token", refreshToken, int(refreshTokenTTL), "/", cookieDomain, true, true)
+		ctx.SetCookie("refresh_token", refreshToken, int(refreshTokenTTL), "/", conf.Gin.Domain, true, true)
 		ctx.JSON(http.StatusCreated, res)
 	}
 }
