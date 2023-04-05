@@ -46,7 +46,6 @@ export const ReservationSummary = ({
         borderRadius={12}
         objectFit={'cover'}
         objectPosition={'left'}
-        loading={'lazy'}
       />
 
       <AnimatePresence>
