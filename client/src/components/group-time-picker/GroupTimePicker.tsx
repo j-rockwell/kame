@@ -3,13 +3,7 @@ import {GroupTimeEntry} from '@/components/group-time-picker/GroupTimeEntry';
 import {useReservationContext} from '@/context/ReservationContext';
 import {TableGroup} from '@/models/Table';
 import {IScalable} from '@/hooks/Dimensions';
-import {
-  Box,
-  Skeleton,
-  Stack,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import {Box, Skeleton, Stack, Text, useColorModeValue} from '@chakra-ui/react';
 
 interface IGroupTimePicker extends IScalable {
   group?: TableGroup;

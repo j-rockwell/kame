@@ -8,8 +8,16 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
+    "pretty": "npx prettier --write src/",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "prepare": "cd .. && husky install client/.husky"
+  },
+  "lint-staged": {
+    "**/*{js,jsx,ts,tsx}": [
+      "npx prettier --write src/",
+      "npx eslint --fix"
+    ]
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
@@ -38,6 +46,7 @@
     "@types/jest": "^29.4.0",
     "@types/testing-library__jest-dom": "^5.14.5",
     "babel-jest": "^29.4.1",
+    "husky": "^8.0.3",
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "prettier": "2.8.7",
