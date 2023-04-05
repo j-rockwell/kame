@@ -47,6 +47,17 @@ export const CustomerLoginInput = ({
     borderRadius: 12,
   };
 
+  const buttonStyling = {
+    size: 'lg',
+    w: '100%',
+    fontSize: 'xl',
+    fontWeight: 'bold',
+    borderRadius: 12,
+    _hover: {
+      bgColor: buttonBgColor,
+    },
+  };
+
   /**
    * Validates input, setting error states if caught
    */
@@ -170,15 +181,18 @@ export const CustomerLoginInput = ({
 
         <VStack w={'100%'} pt={'2rem'} spacing={'1rem'}>
           <Button
-            size={'lg'}
-            w={'100%'}
+            {...buttonStyling}
             color={'white'}
             bgColor={buttonBgColor}
             onClick={handleLoginAttempt}>
             Sign in
           </Button>
 
-          <Button size={'lg'} colorScheme={'gray'} color={textColor} w={'100%'}>
+          <Button
+            {...buttonStyling}
+            size={'lg'}
+            colorScheme={'gray'}
+            color={textColor}>
             Forgot Password
           </Button>
         </VStack>

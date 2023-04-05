@@ -54,15 +54,26 @@ export const NewCustomerInput = ({
   const [phoneMiddle, setPhoneMiddle] = useState<InputData>(INITIAL_DATA);
   const [phoneRight, setPhoneRight] = useState<InputData>(INITIAL_DATA);
   const [password, setPassword] = useState<InputData>(INITIAL_DATA);
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] =
     useState<InputData>(INITIAL_DATA);
-  const [showPassword, setShowPassword] = useState(false);
 
   const textColor = useColorModeValue('text.light', 'text.dark');
   const buttonBgColor = useColorModeValue('info.light', 'info.dark');
 
   const inputStyling = {
     borderRadius: 12,
+  };
+
+  const buttonStyling = {
+    size: 'lg',
+    w: '100%',
+    fontSize: 'xl',
+    fontWeight: 'bold',
+    borderRadius: 12,
+    _hover: {
+      bgColor: buttonBgColor,
+    },
   };
 
   /**
@@ -450,13 +461,10 @@ export const NewCustomerInput = ({
         </FormControl>
 
         <Button
-          size={'lg'}
-          w={'100%'}
-          fontWeight={'bold'}
+          {...buttonStyling}
           textColor={'white'}
           alignSelf={'flex-start'}
           onClick={() => handleValidateAndSubmit()}
-          borderRadius={12}
           bgColor={buttonBgColor}
           isLoading={loading}>
           Create Account
