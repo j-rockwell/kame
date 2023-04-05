@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"server/auth"
+	"server/config"
 	"server/database"
 	"server/model"
 	"server/validate"
@@ -16,6 +17,13 @@ import (
 // credentials within the POST request. If successful an account will
 // be created and the account id will be returned in an OK 200 response
 func (controller *DataController) CreateAccount() gin.HandlerFunc {
+	conf := config.Prepare()
+	accessTokenPubkey := conf.Auth.AccessTokenPubkey
+	accessTokenTTL := conf.Auth.AccessTokenTTL
+	refreshTokenPubkey := conf.Auth.RefreshTokenPubkey
+	refreshTokenTTL := conf.Auth.RefreshTokenTTL
+	isReleaseVersion := conf.Gin.Mode == "release"
+
 	mqp := database.MongoQueryParams{
 		MongoClient:    controller.Mongo,
 		DatabaseName:   controller.DatabaseName,
@@ -89,23 +97,17 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			return
 		}
 
-		accessToken, err := auth.GenerateToken(id, "test", 10) // TODO: Add pubkey from config file
+		accessToken, err := auth.GenerateToken(id, accessTokenPubkey, int(accessTokenTTL))
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "unable to sign token"})
 			return
 		}
 
-		refreshToken, err := auth.GenerateToken(id, "test", 10) // TODO: Add pubkey from config file
+		refreshToken, err := auth.GenerateToken(id, refreshTokenPubkey, int(refreshTokenTTL))
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "unable to sign refresh token"})
 			return
 		}
-
-		// TODO: Set this to sushikame.com and/or booking.sushikame.com depending on release version
-		domain := "*.localhost"
-		ctx.SetSameSite(http.SameSiteStrictMode)
-		// TODO: Set max age from config file
-		ctx.SetCookie("refresh_token", refreshToken, 10, "/", domain, true, true)
 
 		res := model.CreateAccountResponse{
 			ID:           idHex,
@@ -113,6 +115,13 @@ func (controller *DataController) CreateAccount() gin.HandlerFunc {
 			RefreshToken: refreshToken,
 		}
 
+		var cookieDomain = ".localhost"
+		if isReleaseVersion {
+			cookieDomain = "booking.sushikame.com"
+		}
+
+		ctx.SetSameSite(http.SameSiteStrictMode)
+		ctx.SetCookie("refresh_token", refreshToken, int(refreshTokenTTL), "/", cookieDomain, true, true)
 		ctx.JSON(http.StatusCreated, res)
 	}
 }
