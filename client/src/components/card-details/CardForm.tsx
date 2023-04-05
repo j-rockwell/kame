@@ -11,11 +11,27 @@ import {
   Input,
   Heading,
   Select,
+  Button,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 interface ICardFormProps extends IScalable {}
 
 export const CardForm = ({isSmallDevice}: ICardFormProps) => {
+  const buttonBgColor = useColorModeValue('info.light', 'info.dark');
+
+  const buttonStyling = {
+    size: 'lg',
+    w: '100%',
+    fontSize: 'xl',
+    fontWeight: 'bold',
+    borderRadius: 12,
+    bgColor: buttonBgColor,
+    _hover: {
+      bgColor: buttonBgColor,
+    },
+  };
+
   const getCardCarrier = useCallback((s: string) => {
     if (!s || s.length < 1) {
       return undefined;
@@ -108,6 +124,10 @@ export const CardForm = ({isSmallDevice}: ICardFormProps) => {
           </Select>
         </FormControl>
       </HStack>
+
+      <Button color={'white'} {...buttonStyling}>
+        Create Reservation
+      </Button>
     </VStack>
   );
 };
