@@ -31,15 +31,17 @@ export const Calendar = ({
   isSmallDevice,
 }: ICalendarProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [squareSize, setSquareSize] = useState('2rem');
   const [calendarData, setCalendarData] = useState<MonthEntry[]>([]);
   const [selectedDay, setSelectedDay] = useState<number | undefined>(undefined);
   const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
     undefined,
   );
+
   const [selectedYear, setSelectedYear] = useState<number | undefined>(
     undefined,
   );
-  const [squareSize, setSquareSize] = useState('2rem');
+
   const selectedDateColor = useColorModeValue('info.light', 'info.dark');
   const selectedDateTextColor = 'white';
   const selectedTextColor = useColorModeValue('text.light', 'text.dark');
@@ -210,7 +212,12 @@ export const Calendar = ({
    * Initial data loading
    */
   useEffect(() => {
-    setCalendarData(getData());
+    const data = getData();
+    setCalendarData(data);
+
+    if (data && data.length > 0) {
+      setSelectedMonth(data[0].index);
+    }
   }, [getData]);
 
   /**
