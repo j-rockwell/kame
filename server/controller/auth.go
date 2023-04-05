@@ -86,7 +86,7 @@ func (controller *DataController) AuthWithCredentials() gin.HandlerFunc {
 
 		var cookieDomain = ".localhost"
 		if isReleaseVersion {
-			cookieDomain = "*.sushikame.com"
+			cookieDomain = "booking.sushikame.com"
 		}
 
 		ctx.SetSameSite(http.SameSiteStrictMode)
