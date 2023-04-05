@@ -13,6 +13,12 @@
     "test:watch": "jest --watch",
     "prepare": "cd .. && husky install client/.husky"
   },
+  "lint-staged": {
+    "**/*{js,jsx,ts,tsx}": [
+      "npx prettier --write src/",
+      "npx eslint --fix"
+    ]
+  },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
