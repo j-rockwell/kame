@@ -53,6 +53,6 @@ func (r *RouteController) ApplyTable(router *gin.Engine) {
 	admin.Use(middleware.Authorize())
 	admin.Use(permHandler.AttachPermissions())
 	{
-		// ...
+		admin.GET("/", ctrl.GetTables())
 	}
 }

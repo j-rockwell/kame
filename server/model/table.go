@@ -22,6 +22,14 @@ type Table struct {
 	Blackout    bool               `json:"blackout" bson:"blackout"`
 }
 
+type TableCompact struct {
+	ID        primitive.ObjectID `json:"id,omitempty"`
+	CreatedBy primitive.ObjectID `json:"created_by"`
+	Attendee  primitive.ObjectID `json:"attendee"`
+	Menu      primitive.ObjectID `json:"menu"`
+	CreatedAt time.Time          `json:"created_at"`
+}
+
 type TableGroup string
 
 const (

@@ -10,6 +10,7 @@ const (
 	GRANT_ROLES       Permission = "grant_roles"       // Able to grant entire roles to other accounts
 	GRANT_PERMISSIONS Permission = "grant_permissions" // Able to grant specific permissions to other accounts
 	VIEW_ROLES        Permission = "view_roles"        // Able to see all permissions and users who have them assigned
+	VIEW_TABLES       Permission = "view_tables"       // Able to see tables for other users
 )
 
 func GetAllPermissions() []Permission {
@@ -21,5 +22,6 @@ func GetAllPermissions() []Permission {
 		GRANT_PERMISSIONS,
 		GRANT_ROLES,
 		VIEW_ROLES,
+		VIEW_TABLES,
 	}
 }
