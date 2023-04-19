@@ -1,0 +1,47 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.loginContainer .logo {
+  width: 16rem;
+  padding-bottom: 2rem;
+}
+.loginContainer .errorBanner {
+  background-color: var(--error);
+  margin-bottom: 2rem;
+}
+.loginContainer .errorBanner .errorBannerText {
+  color: white;
+}
+.loginContainer .loginForm {
+  width: 100%;
+  max-width: 24rem;
+}
+.loginContainer .loginForm .formSubmitBtn {
+  margin-top: 3rem;
+}
+.loginContainer .loginForm .formContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.loginContainer .loginForm .formContent .formEntry {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+}
+.loginContainer .loginForm .formContent .formEntry .formInput {
+  height: 2rem;
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: var(--text-color);
+}
+
+/*# sourceMappingURL=LoginForm.module.css.map */

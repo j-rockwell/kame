@@ -1,11 +1,12 @@
 import styles from './Summary.module.scss';
+import Title from "@/components/title/Title";
 
 export type SummaryProps = {}
 
 export default function Summary({}: SummaryProps) {
   return (
     <div className={styles.summary}>
-      <h1 className={styles.header}>Summary</h1>
+      <Title>Summary</Title>
     </div>
   );
 }

@@ -1,0 +1,54 @@
+.error, .warning, .success, .muted, .primary {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Inter", serif;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.primary {
+  background-color: var(--info);
+}
+
+.primary:hover {
+  background-color: var(--info-hover);
+}
+
+.muted {
+  background-color: gray;
+}
+
+.muted:hover {
+  background-color: darkgray;
+}
+
+.success {
+  background-color: var(--success);
+}
+
+.success:hover {
+  background-color: var(--success-hover);
+}
+
+.warning {
+  color: black;
+  background-color: var(--warning);
+}
+
+.warning:hover {
+  background-color: var(--warning-hover);
+}
+
+.error {
+  background-color: var(--error);
+}
+
+.error:hover {
+  background-color: var(--error-hover);
+}
+
+/*# sourceMappingURL=Button.module.css.map */

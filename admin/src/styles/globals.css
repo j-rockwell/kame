@@ -14,6 +14,8 @@ h1, h2, h3, h4, h5 {
     --background-layer-2: #0d0d0d;
     --background-layer-3: #1a1a1a;
 
+    --brand-color: rgb(255, 87, 104);
+
     --heading-color: #ffffff;
     --text-color: #bfbfbf;
 
@@ -28,4 +30,14 @@ h1, h2, h3, h4, h5 {
     --text-lg: 1.5rem;
     --text-md: 1rem;
     --text-sm: 0.75rem;
+
+    --error: #ef476f;
+    --error-hover: #d9234e;
+    --warning: #ffd166;
+    --warning-hover: #ecb634;
+    --success: #06d6a0;
+    --success-hover: #00a87d;
+    --info: #118ab2;
+    --info-hover: #087396;
+    --muted: #5b5b5b;
 }
