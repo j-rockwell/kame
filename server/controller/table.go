@@ -26,7 +26,7 @@ func (controller *DataController) GetTables() gin.HandlerFunc {
 
 	return func(ctx *gin.Context) {
 		perms := ctx.Keys["permissions"].([]model.Permission)
-		if !util.ContainsPermission(perms, model.VIEW_TABLES) {
+		if !util.ContainsPermission(perms, model.ViewTables) {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, GenerateErrorResponse("insufficient permissions"))
 			return
 		}
