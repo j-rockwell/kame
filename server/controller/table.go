@@ -176,7 +176,14 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 			return
 		}
 
-		existingByAttendee, err := database.FindDocumentByKeyValue[primitive.ObjectID, model.Table](mqp, "attendee", params.Attendee)
+		attendeeId := ctx.GetString("accountId")
+		attendeeIdHex, err := primitive.ObjectIDFromHex(attendeeId)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("invalid account id hex"))
+			return
+		}
+
+		existingByAttendee, err := database.FindDocumentByKeyValue[primitive.ObjectID, model.Table](mqp, "attendee", attendeeIdHex)
 		if err != nil && err != mongo.ErrNoDocuments {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to query existing table requests (attendee)"))
 			panic("failed to query existing table requests:\n" + err.Error())
@@ -215,14 +222,14 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 		*/
 
 		table := model.Table{
-			CreatedBy:   params.CreatedBy,
-			Attendee:    params.Attendee,
+			CreatedBy:   attendeeIdHex,
+			Attendee:    attendeeIdHex,
 			CreatedAt:   time.Now(),
 			Group:       params.Group,
 			GroupSize:   params.GroupSize,
 			Time:        params.Time,
 			Transaction: params.Transaction,
-			Blackout:    params.Blackout,
+			Blackout:    false,
 		}
 
 		result, err := database.InsertDocument[model.Table](mqp, table)
@@ -233,6 +240,15 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusCreated, gin.H{"message": result})
+	}
+}
+
+// CreateTableInternal processes a Table Create request with
+// more details and customization that is only needed from
+// internal staff requests
+func (controller *DataController) CreateTableInternal() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
 	}
 }
 

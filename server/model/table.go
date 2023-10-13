@@ -42,6 +42,14 @@ type GetTablesOnDateResponse struct {
 }
 
 type CreateTableRequest struct {
+	Menu        primitive.ObjectID `json:"menu"`
+	Group       TableGroup         `json:"group"`
+	GroupSize   uint8              `json:"group_size"`
+	Time        TableTime          `json:"table_time"`
+	Transaction Transaction        `json:"transaction"`
+}
+
+type CreateTableInternalRequest struct {
 	CreatedBy   primitive.ObjectID `json:"created_by" bson:"created_by"`
 	Attendee    primitive.ObjectID `json:"attendee" bson:"attendee"`
 	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
