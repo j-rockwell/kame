@@ -22,6 +22,14 @@ type Table struct {
 	Blackout    bool               `json:"blackout" bson:"blackout"`
 }
 
+type TableCompact struct {
+	ID        primitive.ObjectID `json:"id,omitempty"`
+	CreatedBy primitive.ObjectID `json:"created_by"`
+	Attendee  primitive.ObjectID `json:"attendee"`
+	Menu      primitive.ObjectID `json:"menu"`
+	CreatedAt time.Time          `json:"created_at"`
+}
+
 type TableGroup string
 
 const (
@@ -34,6 +42,14 @@ type GetTablesOnDateResponse struct {
 }
 
 type CreateTableRequest struct {
+	Menu        primitive.ObjectID `json:"menu"`
+	Group       TableGroup         `json:"group"`
+	GroupSize   uint8              `json:"group_size"`
+	Time        TableTime          `json:"table_time"`
+	Transaction Transaction        `json:"transaction"`
+}
+
+type CreateTableInternalRequest struct {
 	CreatedBy   primitive.ObjectID `json:"created_by" bson:"created_by"`
 	Attendee    primitive.ObjectID `json:"attendee" bson:"attendee"`
 	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`

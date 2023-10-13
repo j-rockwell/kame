@@ -1,0 +1,73 @@
+.adminLayout {
+  display: flex;
+  flex-direction: row;
+
+  .closeBtn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .closeBtn:hover {
+    color: var(--heading-color);
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .navigationContainer {
+    background-color: var(--background-layer-2);
+    width: 10rem;
+    min-height: 100vh;
+    min-width: 6rem;
+    padding: 3rem;
+
+    .logo {
+      width: 100%;
+    }
+
+    .navEntryContainer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navEntry {
+      padding-top: 1rem;
+      background-color: var(--background-layer-2);
+
+      .navEntryLabel {
+        color: var(--heading-color);
+        font-size: 0.9rem;
+        cursor: default;
+        margin-top: 1rem;
+        background-color: var(--background-layer-2);
+      }
+
+      .navEntryItem {
+        color: var(--text-color);
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        transition: all 0.1s ease-in-out;
+        background-color: var(--background-layer-2);
+      }
+
+      .navEntryItem:hover {
+        color: var(--heading-color);
+      }
+    }
+  }
+
+  .navigationMinimized {
+    background-color: var(--background-layer-2);
+    width: 4rem;
+    height: 100vh;
+  }
+}

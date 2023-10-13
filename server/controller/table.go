@@ -5,19 +5,64 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 	"reflect"
 	"server/database"
 	"server/model"
+	"server/util"
 	"strconv"
 	"time"
 )
 
-// GetTables will query and return all tables reserved
-// within the next 30 days.
+// GetTables queries against all tables open in the database
+// with optional query parameters
 func (controller *DataController) GetTables() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
+	mqp := database.MongoQueryParams{
+		MongoClient:    controller.Mongo,
+		DatabaseName:   controller.DatabaseName,
+		CollectionName: controller.CollectionName,
+	}
 
+	return func(ctx *gin.Context) {
+		perms := ctx.Keys["permissions"].([]model.Permission)
+		if !util.ContainsPermission(perms, model.ViewTables) {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, GenerateErrorResponse("insufficient permissions"))
+			return
+		}
+
+		var page = 0
+		var err error
+		pageStr, pagePresent := ctx.GetQuery("page")
+
+		if pagePresent {
+			page, err = strconv.Atoi(pageStr)
+			if err != nil {
+				ctx.AbortWithStatusJSON(http.StatusBadRequest, GenerateErrorResponse("invalid page number"))
+				return
+			}
+		}
+
+		result, err := database.FindManyDocumentsByFilterWithOpts[model.Table](mqp, bson.M{}, options.Find().SetSkip(int64(page)).SetSort(bson.D{{Key: "created_at", Value: -1}}))
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to perform table query: "+err.Error()))
+			return
+		}
+
+		var tables []model.TableCompact
+		for _, t := range result {
+			compact := model.TableCompact{
+				ID:        t.ID,
+				CreatedBy: t.CreatedBy,
+				Attendee:  t.Attendee,
+				Menu:      t.Menu,
+				CreatedAt: t.CreatedAt,
+			}
+
+			tables = append(tables, compact)
+		}
+
+		ctx.JSON(http.StatusOK, gin.H{"result": tables})
 	}
 }
 
@@ -131,7 +176,14 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 			return
 		}
 
-		existingByAttendee, err := database.FindDocumentByKeyValue[primitive.ObjectID, model.Table](mqp, "attendee", params.Attendee)
+		attendeeId := ctx.GetString("accountId")
+		attendeeIdHex, err := primitive.ObjectIDFromHex(attendeeId)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("invalid account id hex"))
+			return
+		}
+
+		existingByAttendee, err := database.FindDocumentByKeyValue[primitive.ObjectID, model.Table](mqp, "attendee", attendeeIdHex)
 		if err != nil && err != mongo.ErrNoDocuments {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, GenerateErrorResponse("failed to query existing table requests (attendee)"))
 			panic("failed to query existing table requests:\n" + err.Error())
@@ -170,14 +222,14 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 		*/
 
 		table := model.Table{
-			CreatedBy:   params.CreatedBy,
-			Attendee:    params.Attendee,
+			CreatedBy:   attendeeIdHex,
+			Attendee:    attendeeIdHex,
 			CreatedAt:   time.Now(),
 			Group:       params.Group,
 			GroupSize:   params.GroupSize,
 			Time:        params.Time,
 			Transaction: params.Transaction,
-			Blackout:    params.Blackout,
+			Blackout:    false,
 		}
 
 		result, err := database.InsertDocument[model.Table](mqp, table)
@@ -188,6 +240,15 @@ func (controller *DataController) CreateTable() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusCreated, gin.H{"message": result})
+	}
+}
+
+// CreateTableInternal processes a Table Create request with
+// more details and customization that is only needed from
+// internal staff requests
+func (controller *DataController) CreateTableInternal() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
 	}
 }
 
